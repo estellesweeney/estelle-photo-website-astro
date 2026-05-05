@@ -68,8 +68,8 @@ export default function PortfolioHome() {
         </div>
         <div className="w-full overflow-hidden rounded-2xl border border-border bg-card">
           <img
-            src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&q=80"
-            alt="Featured portrait session"
+            src="/hero.jpg"
+            alt="Billionaire Boys Club"
             className="h-96 w-full object-cover"
             loading="lazy"
           />
