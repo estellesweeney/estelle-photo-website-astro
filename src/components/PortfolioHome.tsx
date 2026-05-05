@@ -70,7 +70,7 @@ export default function PortfolioHome() {
           <img
             src="/hero.jpg"
             alt="Billionaire Boys Club"
-            className="h-96 w-full object-cover"
+            className="w-full object-contain"
             loading="lazy"
           />
         </div>
