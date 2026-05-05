@@ -53,26 +53,24 @@ const services = [
 export default function PortfolioHome() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 py-10 md:gap-20 md:py-16">
-      <section className="grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
-        <div className="space-y-5">
-          <Badge variant="secondary">Estelle Sweeney Photography</Badge>
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+      <section className="flex flex-col items-center text-center gap-8">
+        <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+          Estelle Sweeney Photography
+        </h1>
+        <div className="space-y-5 max-w-2xl">
+          <p className="text-base text-muted-foreground sm:text-lg">
             Capturing natural light, real emotion, and timeless stories.
-          </h1>
-          <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
-            I create portrait and editorial photography for people and brands who want
-            imagery that feels both cinematic and honest.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             <Button>View Portfolio</Button>
             <Button variant="outline">Book a Session</Button>
           </div>
         </div>
-        <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="w-full overflow-hidden rounded-2xl border border-border bg-card">
           <img
             src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&q=80"
             alt="Featured portrait session"
-            className="h-full w-full object-cover"
+            className="h-96 w-full object-cover"
             loading="lazy"
           />
         </div>
