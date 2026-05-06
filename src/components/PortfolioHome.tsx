@@ -54,7 +54,7 @@ export default function PortfolioHome() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 py-10 md:gap-20 md:py-16">
       <section className="flex flex-col items-center text-center gap-8">
-        <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
           Estelle Sweeney Photography
         </h1>
         <div className="space-y-5 max-w-2xl">
