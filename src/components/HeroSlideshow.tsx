@@ -78,6 +78,24 @@ export default function HeroSlideshow() {
       {/* Gradient overlay at bottom */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
 
+      {/* Left arrow */}
+      <button
+        onClick={(e) => { e.preventDefault(); setShowLabel(false); setTimeout(() => { setCurrent((prev) => (prev - 1 + slides.length) % slides.length); setShowLabel(true); }, 300); }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
+        aria-label="Previous"
+      >
+        &#8592;
+      </button>
+
+      {/* Right arrow */}
+      <button
+        onClick={(e) => { e.preventDefault(); setShowLabel(false); setTimeout(() => { setCurrent((prev) => (prev + 1) % slides.length); setShowLabel(true); }, 300); }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
+        aria-label="Next"
+      >
+        &#8594;
+      </button>
+
       {/* Label */}
       <div
         className="absolute inset-x-0 bottom-0 px-6 pb-7 transition-all duration-500"
