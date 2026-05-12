@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const slides = [
   {
     image: "/slides/bbc-spring2.jpg",
-    label: "Billionaire Boys Club Spring 2",
+    label: "Billionaire Boys Club",
     link: "/gallery/billionaire-boys-club",
   },
   {
@@ -30,10 +30,6 @@ export default function HeroSlideshow() {
     }, 400);
   }, []);
 
-  const handleImageClick = () => {
-    window.location.href = slides[current].link;
-  };
-
   return (
     <div className="relative w-full overflow-hidden rounded-2xl select-none" style={{ height: "480px" }}>
 
@@ -43,24 +39,33 @@ export default function HeroSlideshow() {
           key={s.image}
           src={s.image}
           alt={s.label}
-          onClick={i === current ? handleImageClick : undefined}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-          style={{
-            opacity: i === current ? 1 : 0,
-            cursor: i === current ? "pointer" : "default",
-            zIndex: 0,
-          }}
+          style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
         />
       ))}
 
-      {/* Gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" style={{ zIndex: 1 }} />
+      {/* Center click zone — navigates to gallery */}
+      <div
+        className="absolute top-0 h-full cursor-pointer"
+        style={{ left: "25%", width: "50%", zIndex: 2 }}
+        onClick={() => { window.location.href = slides[current].link; }}
+      />
+
+      {/* Label — centered middle */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-500"
+        style={{ zIndex: 3, opacity: showLabel ? 1 : 0 }}
+      >
+        <p className="text-white text-xs tracking-[0.25em] uppercase font-medium drop-shadow-md">
+          {slides[current].label}
+        </p>
+      </div>
 
       {/* Left arrow — full height tap zone */}
       <button
         onClick={() => go(-1)}
-        style={{ zIndex: 2 }}
         className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-4 text-white/60 hover:text-white transition-colors text-sm"
+        style={{ zIndex: 4 }}
         aria-label="Previous"
       >
         &#8592;
@@ -69,22 +74,12 @@ export default function HeroSlideshow() {
       {/* Right arrow — full height tap zone */}
       <button
         onClick={() => go(1)}
-        style={{ zIndex: 2 }}
         className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-4 text-white/60 hover:text-white transition-colors text-sm"
+        style={{ zIndex: 4 }}
         aria-label="Next"
       >
         &#8594;
       </button>
-
-      {/* Label */}
-      <div
-        className="absolute inset-x-0 bottom-0 px-6 pb-7 transition-all duration-500"
-        style={{ zIndex: 1, opacity: showLabel ? 1 : 0, transform: showLabel ? "translateY(0)" : "translateY(8px)" }}
-      >
-        <p className="text-white text-xl font-semibold tracking-wide drop-shadow-md">
-          {slides[current].label}
-        </p>
-      </div>
 
     </div>
   );
