@@ -56,7 +56,7 @@ export default function HeroSlideshow() {
         className="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-500"
         style={{ zIndex: 3, opacity: showLabel ? 1 : 0 }}
       >
-        <p className="text-white text-xs tracking-[0.25em] uppercase font-display font-medium px-4 py-2 rounded" style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}>
+        <p className="text-white text-[10px] tracking-[0.25em] uppercase font-display font-medium px-3 py-1.5 rounded" style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}>
           {slides[current].label}
         </p>
       </div>
