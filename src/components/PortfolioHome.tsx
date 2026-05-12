@@ -55,9 +55,7 @@ export default function PortfolioHome() {
                   draggable={false}
                 />
               </div>
-              <span className="text-[9px] sm:text-[10px] tracking-[0.12em] uppercase text-center leading-tight whitespace-pre-line font-medium">
-                {label}
-              </span>
+
             </a>
           ))}
         </section>
