@@ -12,26 +12,18 @@ const featuredWork = [
   {
     title: "City Portraits",
     category: "Editorial Portrait",
-    image:
-      "https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Morning Light",
     category: "Lifestyle",
-    image:
-      "https://images.unsplash.com/photo-1513279922550-250c2129b13a?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Coastal Story",
     category: "Travel",
-    image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Studio Notes",
     category: "Fashion",
-    image:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b1fb?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -87,13 +79,8 @@ export default function PortfolioHome() {
             <Button variant="outline">Book a Session</Button>
           </div>
         </div>
-        <div className="w-full overflow-hidden rounded-2xl border border-border bg-card">
-          <img
-            src="/hero.jpg"
-            alt="Billionaire Boys Club"
-            className="w-full object-contain"
-            loading="lazy"
-          />
+        <div className="w-full overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center" style={{ height: '480px' }}>
+          <span className="text-muted-foreground text-sm tracking-wide uppercase">Photo coming soon</span>
         </div>
       </section>
 
@@ -128,12 +115,9 @@ export default function PortfolioHome() {
         <div className="grid gap-5 sm:grid-cols-2">
           {featuredWork.map((project) => (
             <Card key={project.title} className="p-0">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="h-64 w-full object-cover"
-                loading="lazy"
-              />
+              <div className="h-64 w-full bg-muted flex items-center justify-center rounded-t-xl">
+                <span className="text-muted-foreground text-sm tracking-wide uppercase">Photo coming soon</span>
+              </div>
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
                 <CardDescription>{project.category}</CardDescription>
