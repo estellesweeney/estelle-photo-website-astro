@@ -12,22 +12,22 @@ const shows = [
 ---
 
 <Layout title="KidSuper — Estelle Sweeney">
-  <div class="min-h-screen bg-white text-black font-sans">
+  <div class="min-h-screen bg-black text-cream font-sans">
 
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-black/10">
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
       <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity">Estelle Sweeney</a>
       <a href="mailto:hello@estellesweeney.com" class="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
     <main class="px-6 py-10 max-w-6xl mx-auto">
-      <div class="flex items-baseline justify-between mb-8 border-b border-black/10 pb-4">
+      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
         <h1 class="text-xs tracking-[0.25em] uppercase font-semibold">KidSuper</h1>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {shows.map((show) => (
           <a href={show.href} class="group flex flex-col gap-2">
-            <div class="overflow-hidden aspect-[4/3] bg-gray-100">
+            <div class="overflow-hidden aspect-[4/3] bg-white/5">
               <img
                 src={show.cover}
                 alt={show.title}
@@ -36,7 +36,7 @@ const shows = [
             </div>
             <div class="flex items-baseline justify-between">
               <span class="text-xs tracking-[0.15em] uppercase font-semibold">{show.title}</span>
-              <span class="text-xs tracking-wider text-black/40 uppercase">{show.subtitle}</span>
+              <span class="text-xs tracking-wider text-white/40 uppercase">{show.subtitle}</span>
             </div>
           </a>
         ))}
