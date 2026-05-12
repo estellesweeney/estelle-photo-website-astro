@@ -6,7 +6,7 @@ const shows = [
     title: '"Outside the Box"',
     subtitle: "F/W 26",
     href: "/gallery/kidsuper/outside-the-box-fw26",
-    cover: "/slides/kidsuper/otb-01.jpg",
+    cover: "/slides/kidsuper/otb-cover.jpg",
   },
 ];
 ---
@@ -31,7 +31,7 @@ const shows = [
               <img
                 src={show.cover}
                 alt={show.title}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div class="flex items-baseline justify-between">
