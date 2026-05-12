@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const clients = [
+  { name: "Walter Van Bierendonck", year: "2026" },
+  { name: "KidSuper AW26/27", year: "2026" },
+  { name: "Science Project", year: "2026" },
+  { name: "Campillo AW26/27", year: "2026" },
+  { name: "Yuima Nakazato", year: "2026" },
+  { name: "Grace Ling AW26", year: "2026" },
+  { name: "KidSuper AW25", year: "2024" },
+  { name: "Mugler AW25", year: "2024" },
+  { name: "Rick Owens SS24", year: "2024" },
+  { name: "Mugler SS24", year: "2024" },
+  { name: "Louis De Javier AW25", year: "2024" },
+  { name: "Tombogo AW25", year: "2025" },
+  { name: "Ruibuilt AW25", year: "2024" },
+  { name: "Paula Casanova Del Vas AW25", year: "2024" },
+  { name: "Hold NYC AW25", year: "2024" },
+  { name: "Franck Sorbier — Couture", year: "2024" },
+  { name: "Namesak3 SS26", year: "2025" },
+  { name: "3.Paradis SS25", year: "2025" },
+  { name: "Vivienne Westwood AW25", year: "2024" },
+  { name: "Rhude AW24", year: "2025" },
+];
+---
+
+<Layout title="Runway — Estelle Sweeney">
+  <div class="min-h-screen bg-black text-cream" style="font-family: Arial, sans-serif;">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity" style="font-family: Arial, sans-serif;">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity" style="font-family: Arial, sans-serif;">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-2xl">
+      <h1 class="text-xs tracking-[0.25em] uppercase pb-6 border-b border-white/10 mb-0" style="font-family: Arial, sans-serif;">Runway</h1>
+
+      <ul class="divide-y divide-white/10">
+        {clients.map((c) => (
+          <li class="flex items-baseline justify-between py-3">
+            <span class="text-sm">{c.name}</span>
+            <span class="text-xs text-white/40 ml-6 shrink-0">{c.year}</span>
+          </li>
+        ))}
+      </ul>
+    </main>
+
+  </div>
+</Layout>
