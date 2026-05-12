@@ -1,3 +1,4 @@
+import HeroSlideshow from "@/components/HeroSlideshow";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -102,10 +103,8 @@ export default function PortfolioHome() {
           </div>
         </div>
 
-        {/* Slideshow / photo area */}
-        <div className="w-full overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center" style={{ height: '480px' }}>
-          <span className="text-muted-foreground text-sm tracking-wide uppercase">Slideshow coming soon</span>
-        </div>
+        {/* Slideshow */}
+        <HeroSlideshow />
       </section>
 
       <section className="space-y-6">
