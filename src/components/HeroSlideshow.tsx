@@ -56,21 +56,21 @@ export default function HeroSlideshow() {
       {/* Gradient */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" style={{ zIndex: 1 }} />
 
-      {/* Left arrow */}
+      {/* Left arrow — full height tap zone */}
       <button
         onClick={() => go(-1)}
         style={{ zIndex: 2 }}
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+        className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-4 text-white/60 hover:text-white transition-colors text-sm"
         aria-label="Previous"
       >
         &#8592;
       </button>
 
-      {/* Right arrow */}
+      {/* Right arrow — full height tap zone */}
       <button
         onClick={() => go(1)}
         style={{ zIndex: 2 }}
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+        className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-4 text-white/60 hover:text-white transition-colors text-sm"
         aria-label="Next"
       >
         &#8594;
