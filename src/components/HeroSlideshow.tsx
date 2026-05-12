@@ -1,42 +1,35 @@
 import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 
+const BBC = "/gallery/bbc-spring-2";
+const WVB = "/gallery/walter-van-bierendonck";
+
 const slides = [
-  {
-    image: "/slides/bbc-spring2.jpg",
-    label: "Billionaire Boys Club Spring 2",
-    link: "/gallery/bbc-spring-2",
-  },
-  {
-    image: "/slides/bbc-spring2-b.jpg",
-    label: "Billionaire Boys Club Spring 2",
-    link: "/gallery/bbc-spring-2",
-  },
-  {
-    image: "/slides/bbc-spring2-c.jpg",
-    label: "Billionaire Boys Club Spring 2",
-    link: "/gallery/bbc-spring-2",
-  },
-  {
-    image: "/slides/walter-van-beirendonck.jpg",
-    label: "Walter Van Bierendonck",
-    link: "/gallery/walter-van-bierendonck",
-  },
-  {
-    image: "/slides/wvb-1.jpg",
-    label: "Walter Van Bierendonck",
-    link: "/gallery/walter-van-bierendonck",
-  },
-  {
-    image: "/slides/wvb-2.jpg",
-    label: "",
-    link: "/gallery/walter-van-bierendonck",
-  },
-  {
-    image: "/slides/wvb-3.jpg",
-    label: "",
-    link: "/gallery/walter-van-bierendonck",
-  },
+  // Billionaire Boys Club
+  { image: "/slides/bbc-01.jpg",    label: "Billionaire Boys Club Spring 2", link: BBC },
+  { image: "/slides/bbc-02.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-03.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-04.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-05.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-06.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-07.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-08.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-09.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-10.jpg",    label: "", link: BBC },
+  { image: "/slides/bbc-11.jpg",    label: "", link: BBC },
+  { image: "/slides/wvb-g-01.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-02.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-03.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-04.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-05.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-06.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-07.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-08.jpg",  label: "", link: BBC },
+  { image: "/slides/wvb-g-09.jpg",  label: "", link: BBC },
+  // Walter Van Bierendonck
+  { image: "/slides/walter-van-beirendonck.jpg", label: "Walter Van Bierendonck", link: WVB },
+  { image: "/slides/wvb-1.jpg",     label: "", link: WVB },
+  { image: "/slides/wvb-3.jpg",     label: "", link: WVB },
 ];
 
 export default function HeroSlideshow() {
