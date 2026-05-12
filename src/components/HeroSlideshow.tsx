@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const slides = [
   {
@@ -17,49 +17,50 @@ export default function HeroSlideshow() {
   const [current, setCurrent] = useState(0);
   const [showLabel, setShowLabel] = useState(true);
 
-  useEffect(() => {
-    const interval = setInterval(() => advance(1), 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const advance = (dir: number) => {
+  const go = useCallback((dir: number) => {
     setShowLabel(false);
     setTimeout(() => {
       setCurrent((prev) => (prev + dir + slides.length) % slides.length);
       setShowLabel(true);
     }, 400);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => go(1), 4000);
+    return () => clearInterval(t);
+  }, [go]);
+
+  const handleImageClick = () => {
+    window.location.href = slides[current].link;
   };
 
-  const slide = slides[current];
-
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>
+    <div className="relative w-full overflow-hidden rounded-2xl select-none" style={{ height: "480px" }}>
 
-      {/* Clickable image area */}
+      {/* Images */}
       {slides.map((s, i) => (
-        <a
+        <img
           key={s.image}
-          href={s.link}
-          className="absolute inset-0 w-full h-full"
-          style={{ opacity: i === current ? 1 : 0, transition: "opacity 0.7s", pointerEvents: i === current ? "auto" : "none" }}
-          tabIndex={i === current ? 0 : -1}
-          aria-label={s.label}
-        >
-          <img
-            src={s.image}
-            alt={s.label}
-            className="w-full h-full object-cover"
-          />
-        </a>
+          src={s.image}
+          alt={s.label}
+          onClick={i === current ? handleImageClick : undefined}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{
+            opacity: i === current ? 1 : 0,
+            cursor: i === current ? "pointer" : "default",
+            zIndex: 0,
+          }}
+        />
       ))}
 
       {/* Gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" style={{ zIndex: 1 }} />
 
       {/* Left arrow */}
       <button
-        onClick={(e) => { e.stopPropagation(); advance(-1); }}
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
+        onClick={() => go(-1)}
+        style={{ zIndex: 2 }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
         aria-label="Previous"
       >
         &#8592;
@@ -67,8 +68,9 @@ export default function HeroSlideshow() {
 
       {/* Right arrow */}
       <button
-        onClick={(e) => { e.stopPropagation(); advance(1); }}
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
+        onClick={() => go(1)}
+        style={{ zIndex: 2 }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
         aria-label="Next"
       >
         &#8594;
@@ -76,11 +78,11 @@ export default function HeroSlideshow() {
 
       {/* Label */}
       <div
-        className="absolute inset-x-0 bottom-0 px-6 pb-7 pointer-events-none transition-all duration-500"
-        style={{ opacity: showLabel ? 1 : 0, transform: showLabel ? "translateY(0)" : "translateY(8px)" }}
+        className="absolute inset-x-0 bottom-0 px-6 pb-7 transition-all duration-500"
+        style={{ zIndex: 1, opacity: showLabel ? 1 : 0, transform: showLabel ? "translateY(0)" : "translateY(8px)" }}
       >
         <p className="text-white text-xl font-semibold tracking-wide drop-shadow-md">
-          {slide.label}
+          {slides[current].label}
         </p>
       </div>
 
