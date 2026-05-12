@@ -31,7 +31,7 @@ export default function HeroSlideshow() {
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => go(1), 4000);
+    const t = setInterval(() => go(1), 6000);
     return () => clearInterval(t);
   }, [go]);
 
