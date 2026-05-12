@@ -1,33 +1,41 @@
 import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 
 const slides = [
   {
     image: "/slides/bbc-spring2.jpg",
     label: "Billionaire Boys Club Spring 2",
+    link: "/gallery/bbc-spring-2",
   },
   {
     image: "/slides/bbc-spring2-b.jpg",
     label: "Billionaire Boys Club Spring 2",
+    link: "/gallery/bbc-spring-2",
   },
   {
     image: "/slides/bbc-spring2-c.jpg",
     label: "Billionaire Boys Club Spring 2",
+    link: "/gallery/bbc-spring-2",
   },
   {
     image: "/slides/walter-van-beirendonck.jpg",
     label: "Walter Van Beirendonck",
+    link: "",
   },
   {
     image: "/slides/wvb-1.jpg",
     label: "Walter Van Bierendonck",
+    link: "",
   },
   {
     image: "/slides/wvb-2.jpg",
     label: "",
+    link: "",
   },
   {
     image: "/slides/wvb-3.jpg",
     label: "",
+    link: "",
   },
 ];
 
@@ -46,8 +54,17 @@ export default function HeroSlideshow() {
     return () => clearInterval(interval);
   }, []);
 
+  const currentSlide = slides[current];
+  const Wrapper = currentSlide.link
+    ? ({ children }: { children: ReactNode }) => (
+        <a href={currentSlide.link} className="block relative w-full overflow-hidden rounded-2xl cursor-pointer" style={{ height: "480px" }}>{children}</a>
+      )
+    : ({ children }: { children: ReactNode }) => (
+        <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>{children}</div>
+      );
+
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>
+    <Wrapper>
       {slides.map((slide, i) => (
         <img
           key={slide.image}
@@ -70,6 +87,6 @@ export default function HeroSlideshow() {
           {slides[current].label}
         </p>
       </div>
-    </div>
+    </Wrapper>
   );
 }
