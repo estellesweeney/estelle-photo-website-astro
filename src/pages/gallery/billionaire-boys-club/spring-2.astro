@@ -1,0 +1,51 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import GalleryLightbox from "@/components/GalleryLightbox";
+
+const images = [
+  "/slides/bbc-01.jpg",
+  "/slides/bbc-02.jpg",
+  "/slides/bbc-03.jpg",
+  "/slides/bbc-04.jpg",
+  "/slides/bbc-05.jpg",
+  "/slides/bbc-06.jpg",
+  "/slides/bbc-07.jpg",
+  "/slides/bbc-08.jpg",
+  "/slides/bbc-09.jpg",
+  "/slides/bbc-10.jpg",
+  "/slides/bbc-11.jpg",
+  "/slides/wvb-g-01.jpg",
+  "/slides/wvb-g-02.jpg",
+  "/slides/wvb-g-03.jpg",
+  "/slides/wvb-g-04.jpg",
+  "/slides/wvb-g-05.jpg",
+  "/slides/wvb-g-06.jpg",
+  "/slides/wvb-g-07.jpg",
+  "/slides/wvb-g-08.jpg",
+  "/slides/wvb-g-09.jpg",
+];
+---
+
+<Layout title="Spring 2 — Billionaire Boys Club — Estelle Sweeney">
+  <div class="min-h-screen bg-black text-cream font-sans">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-6xl mx-auto">
+      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
+        <div class="flex items-baseline gap-3">
+          <a href="/gallery/billionaire-boys-club" class="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-cream transition-colors">Billionaire Boys Club</a>
+          <span class="text-white/20">—</span>
+          <h1 class="text-xs tracking-[0.25em] uppercase font-semibold">Spring 2</h1>
+        </div>
+        <span class="text-xs tracking-[0.15em] uppercase text-white/40">Campaign</span>
+      </div>
+
+      <GalleryLightbox images={images} alt="Billionaire Boys Club Spring 2" client:load />
+    </main>
+
+  </div>
+</Layout>

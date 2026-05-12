@@ -1,7 +1,7 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
 
 const iconNav = [
-  { id: "16", label: "BILLIONAIRE\nBOYS CLUB",   link: "/gallery/bbc-spring-2" },
+  { id: "16", label: "BILLIONAIRE\nBOYS CLUB",   link: "/gallery/billionaire-boys-club" },
   { id: "31", label: "WALTER VAN\nBIERENDONCK",  link: "/gallery/walter-van-bierendonck" },
   { id: "17", label: "EDITORIAL",                link: "#" },
   { id: "22", label: "RUNWAY",                   link: "#" },
@@ -70,7 +70,7 @@ export default function PortfolioHome() {
           <h2 className="text-xs tracking-[0.25em] uppercase border-b border-white/10 pb-3">Recent Work</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-            <a href="/gallery/bbc-spring-2" className="group flex flex-col gap-2">
+            <a href="/gallery/billionaire-boys-club" className="group flex flex-col gap-2">
               <div className="overflow-hidden aspect-[4/3] bg-white/5">
                 <img
                   src="/slides/bbc-hero.jpg"

@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const shows = [
+  {
+    title: "Spring 2",
+    subtitle: "Campaign",
+    href: "/gallery/billionaire-boys-club/spring-2",
+    cover: "/slides/bbc-01.jpg",
+  },
+  {
+    title: "Summer",
+    subtitle: "Campaign",
+    href: "/gallery/billionaire-boys-club/summer",
+    cover: "/slides/bbc-hero.jpg",
+  },
+];
+---
+
+<Layout title="Billionaire Boys Club — Estelle Sweeney">
+  <div class="min-h-screen bg-black text-cream font-sans">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-6xl mx-auto">
+      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
+        <h1 class="text-xs tracking-[0.25em] uppercase font-semibold">Billionaire Boys Club</h1>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {shows.map((show) => (
+          <a href={show.href} class="group flex flex-col gap-2">
+            <div class="overflow-hidden aspect-[4/3] bg-white/5">
+              <img
+                src={show.cover}
+                alt={show.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-xs tracking-[0.15em] uppercase font-semibold">{show.title}</span>
+              <span class="text-xs tracking-wider text-white/40 uppercase">{show.subtitle}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+
+  </div>
+</Layout>
