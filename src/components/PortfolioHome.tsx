@@ -71,11 +71,11 @@ export default function PortfolioHome() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             <a href="/gallery/billionaire-boys-club" className="group flex flex-col gap-2">
-              <div className="overflow-hidden aspect-[4/3] bg-white/5">
+              <div className="overflow-hidden bg-white/5">
                 <img
                   src="/slides/bbc-hero.jpg"
                   alt="Billionaire Boys Club Spring 2"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full object-contain transition-opacity duration-700 group-hover:opacity-80"
                 />
               </div>
               <div className="flex items-baseline justify-between">
