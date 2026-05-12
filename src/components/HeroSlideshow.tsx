@@ -11,6 +11,11 @@ const slides = [
     label: "Walter Van Bierendonck",
     link: "/gallery/walter-van-bierendonck",
   },
+  {
+    image: "/slides/kidsuper-hero.jpg",
+    label: "KidSuper",
+    link: "/gallery/kidsuper",
+  },
 ];
 
 export default function HeroSlideshow() {
