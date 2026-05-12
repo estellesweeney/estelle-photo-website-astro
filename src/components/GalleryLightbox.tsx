@@ -75,7 +75,7 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
           {/* Prev */}
           <button
             onClick={(e) => { e.stopPropagation(); go(-1); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white rounded-full w-11 h-11 flex items-center justify-center transition-colors text-lg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors text-sm"
             aria-label="Previous"
           >
             &#8592;
@@ -84,7 +84,7 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
           {/* Next */}
           <button
             onClick={(e) => { e.stopPropagation(); go(1); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white rounded-full w-11 h-11 flex items-center justify-center transition-colors text-lg"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors text-sm"
             aria-label="Next"
           >
             &#8594;
