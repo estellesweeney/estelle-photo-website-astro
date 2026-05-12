@@ -6,6 +6,14 @@ const slides = [
     label: "Billionaire Boys Club Spring 2",
   },
   {
+    image: "/slides/bbc-spring2-b.jpg",
+    label: "Billionaire Boys Club Spring 2",
+  },
+  {
+    image: "/slides/bbc-spring2-c.jpg",
+    label: "Billionaire Boys Club Spring 2",
+  },
+  {
     image: "/slides/walter-van-beirendonck.jpg",
     label: "Walter Van Beirendonck",
   },
