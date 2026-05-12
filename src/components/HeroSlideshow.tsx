@@ -22,21 +22,6 @@ const slides = [
     label: "Walter Van Bierendonck",
     link: "/gallery/walter-van-bierendonck",
   },
-  {
-    image: "/slides/wvb-1.jpg",
-    label: "Walter Van Bierendonck",
-    link: "/gallery/walter-van-bierendonck",
-  },
-  {
-    image: "/slides/wvb-2.jpg",
-    label: "",
-    link: "/gallery/walter-van-bierendonck",
-  },
-  {
-    image: "/slides/wvb-3.jpg",
-    label: "",
-    link: "/gallery/walter-van-bierendonck",
-  },
 ];
 
 export default function HeroSlideshow() {
@@ -49,19 +34,26 @@ export default function HeroSlideshow() {
       setTimeout(() => {
         setCurrent((prev) => (prev + 1) % slides.length);
         setShowLabel(true);
-      }, 600); // fade out, then switch
+      }, 600);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
 
+  const go = (dir: number) => {
+    setShowLabel(false);
+    setTimeout(() => {
+      setCurrent((prev) => (prev + dir + slides.length) % slides.length);
+      setShowLabel(true);
+    }, 300);
+  };
+
   const currentSlide = slides[current];
-  const Wrapper = currentSlide.link
-    ? ({ children }: { children: ReactNode }) => (
-        <a href={currentSlide.link} className="block relative w-full overflow-hidden rounded-2xl cursor-pointer" style={{ height: "480px" }}>{children}</a>
-      )
-    : ({ children }: { children: ReactNode }) => (
-        <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>{children}</div>
-      );
+  const Wrapper = ({ children }: { children: ReactNode }) =>
+    currentSlide.link ? (
+      <a href={currentSlide.link} className="block relative w-full overflow-hidden rounded-2xl cursor-pointer" style={{ height: "480px" }}>{children}</a>
+    ) : (
+      <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>{children}</div>
+    );
 
   return (
     <Wrapper>
@@ -75,12 +67,12 @@ export default function HeroSlideshow() {
         />
       ))}
 
-      {/* Gradient overlay at bottom */}
+      {/* Gradient */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
 
       {/* Left arrow */}
       <button
-        onClick={(e) => { e.preventDefault(); setShowLabel(false); setTimeout(() => { setCurrent((prev) => (prev - 1 + slides.length) % slides.length); setShowLabel(true); }, 300); }}
+        onClick={(e) => { e.preventDefault(); go(-1); }}
         className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
         aria-label="Previous"
       >
@@ -89,7 +81,7 @@ export default function HeroSlideshow() {
 
       {/* Right arrow */}
       <button
-        onClick={(e) => { e.preventDefault(); setShowLabel(false); setTimeout(() => { setCurrent((prev) => (prev + 1) % slides.length); setShowLabel(true); }, 300); }}
+        onClick={(e) => { e.preventDefault(); go(1); }}
         className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors z-10"
         aria-label="Next"
       >
@@ -102,7 +94,7 @@ export default function HeroSlideshow() {
         style={{ opacity: showLabel ? 1 : 0, transform: showLabel ? "translateY(0)" : "translateY(8px)" }}
       >
         <p className="text-white text-xl font-semibold tracking-wide drop-shadow-md">
-          {slides[current].label}
+          {currentSlide.label}
         </p>
       </div>
     </Wrapper>
