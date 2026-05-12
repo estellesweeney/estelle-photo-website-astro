@@ -1,22 +1,18 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
 
 const iconNav = [
-  { id: "16", label: "BILLIONAIRE\nBOYS CLUB",   link: "/gallery/billionaire-boys-club" },
-  { id: "31", label: "WALTER VAN\nBIERENDONCK",  link: "/gallery/walter-van-bierendonck" },
-  { id: "17", label: "EDITORIAL",                link: "#" },
-  { id: "22", label: "RUNWAY",                   link: "#" },
-  { id: "08", label: "BACKSTAGE",                link: "#" },
-  { id: "06", label: "CAMPAIGN",                 link: "#" },
-  { id: "12", label: "ARCHIVE",                  link: "#" },
+  { id: "12", label: "RUNWAY",         link: "#" },
+  { id: "08", label: "CAMPAIGNS",      link: "#" },
+  { id: "17", label: "BACKSTAGE",      link: "#" },
+  { id: "31", label: "GRAPHIC DESIGN", link: "#" },
+  { id: "16", label: "ABOUT",          link: "#" },
 ];
 
 const COLORS = [
   "#E63946",
   "#F5A623",
   "#1D4ED8",
-  "#E63946",
   "#F5A623",
-  "#1D4ED8",
   "#E63946",
 ];
 
@@ -27,16 +23,12 @@ export default function PortfolioHome() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-5 border-b border-white/10">
         <span className="text-sm font-semibold tracking-[0.2em] uppercase font-display">Estelle Sweeney</span>
-        <div className="flex gap-8">
-          <a href="#work" className="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Work</a>
-          <a href="mailto:estellescreative@gmail.com" className="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
-        </div>
       </nav>
 
       <main className="flex flex-col gap-0">
 
         {/* Icon navigation */}
-        <section className="grid grid-cols-7 gap-0 px-6 pt-8 pb-6">
+        <section className="grid grid-cols-5 gap-0 pt-8 pb-4">
           {iconNav.map(({ id, label, link }, i) => (
             <a key={id} href={link} className="flex flex-col items-center group">
               <div
@@ -51,6 +43,7 @@ export default function PortfolioHome() {
                   draggable={false}
                 />
               </div>
+              <span className="text-[9px] tracking-[0.15em] uppercase font-display text-center pt-2 text-white/60">{label}</span>
             </a>
           ))}
         </section>
