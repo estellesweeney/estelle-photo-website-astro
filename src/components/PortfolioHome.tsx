@@ -29,7 +29,7 @@ export default function PortfolioHome() {
         <span className="text-sm font-semibold tracking-[0.2em] uppercase">Estelle Sweeney</span>
         <div className="flex gap-8">
           <a href="#work" className="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Work</a>
-          <a href="mailto:hello@estellesweeney.com" className="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
+          <a href="mailto:estellescreative@gmail.com" className="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
         </div>
       </nav>
 
@@ -108,10 +108,10 @@ export default function PortfolioHome() {
             <span className="text-sm tracking-wider uppercase">Runway · Backstage · Editorial · Campaign</span>
           </div>
           <a
-            href="mailto:hello@estellesweeney.com"
+            href="mailto:estellescreative@gmail.com"
             className="text-xs tracking-[0.2em] uppercase underline underline-offset-4 hover:opacity-50 transition-opacity"
           >
-            hello@estellesweeney.com
+            estellescreative@gmail.com
           </a>
         </section>
 
