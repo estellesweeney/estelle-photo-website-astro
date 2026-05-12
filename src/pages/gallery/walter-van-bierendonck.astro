@@ -9,22 +9,31 @@ const images = [
 ---
 
 <Layout title="Walter Van Bierendonck — Estelle Sweeney">
-  <main class="mx-auto w-full max-w-6xl px-6 py-10 md:py-16">
-    <div class="mb-8 flex items-center gap-4">
-      <a href="/" class="text-sm text-muted-foreground hover:text-foreground transition-colors">← Back</a>
-      <h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">Walter Van Bierendonck</h1>
-    </div>
-    <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 space-y-4">
-      {images.map((src) => (
-        <div class="break-inside-avoid overflow-hidden rounded-xl">
-          <img
-            src={src}
-            alt="Walter Van Bierendonck"
-            class="w-full object-cover transition-transform duration-500 hover:scale-105"
-            loading="lazy"
-          />
-        </div>
-      ))}
-    </div>
-  </main>
+  <div class="min-h-screen bg-white text-black font-sans">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-black/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:hello@estellesweeney.com" class="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-6xl mx-auto">
+      <div class="flex items-baseline justify-between mb-8 border-b border-black/10 pb-4">
+        <h1 class="text-xs tracking-[0.25em] uppercase font-semibold">Walter Van Bierendonck</h1>
+        <span class="text-xs tracking-[0.15em] uppercase text-black/40">Runway</span>
+      </div>
+      <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 space-y-4">
+        {images.map((src) => (
+          <div class="break-inside-avoid overflow-hidden">
+            <img
+              src={src}
+              alt="Walter Van Bierendonck"
+              class="w-full object-cover transition-opacity duration-300 hover:opacity-90"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </main>
+
+  </div>
 </Layout>

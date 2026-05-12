@@ -1,158 +1,123 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
-const featuredWork = [
-  {
-    title: "City Portraits",
-    category: "Editorial Portrait",
-  },
-  {
-    title: "Morning Light",
-    category: "Lifestyle",
-  },
-  {
-    title: "Coastal Story",
-    category: "Travel",
-  },
-  {
-    title: "Studio Notes",
-    category: "Fashion",
-  },
+const iconNav = [
+  { id: "16", label: "BILLIONAIRE\nBOYS CLUB",   link: "/gallery/bbc-spring-2" },
+  { id: "31", label: "WALTER VAN\nBIERENDONCK",  link: "/gallery/walter-van-bierendonck" },
+  { id: "17", label: "EDITORIAL",                link: "#" },
+  { id: "22", label: "RUNWAY",                   link: "#" },
+  { id: "08", label: "BACKSTAGE",                link: "#" },
+  { id: "06", label: "CAMPAIGN",                 link: "#" },
+  { id: "12", label: "ARCHIVE",                  link: "#" },
 ];
 
-// Primary color palette – cycles across the 7 icons
-const PRIMARY_COLORS = [
-  '#E63946', // red
-  '#F5A623', // orange-gold
-  '#1D4ED8', // blue
-  '#E63946',
-  '#F5A623',
-  '#1D4ED8',
-  '#E63946',
-];
-
-const iconStrip = [
-  { id: '16', label: 'icon 16' },
-  { id: '31', label: 'icon 31' },
-  { id: '17', label: 'icon 17' },
-  { id: '22', label: 'icon 22' },
-  { id: '08', label: 'icon 08' },
-  { id: '06', label: 'icon 06' },
-  { id: '12', label: 'icon 12' },
-];
-
-const services = [
-  {
-    title: "Portrait Sessions",
-    description: "Modern, personality-driven portrait sessions for creatives and founders.",
-  },
-  {
-    title: "Brand Storytelling",
-    description: "Visual campaigns and social-first content for lifestyle and personal brands.",
-  },
-  {
-    title: "Editorial Projects",
-    description: "Narrative photo stories for magazines, websites, and cultural publications.",
-  },
+const COLORS = [
+  "#E63946",
+  "#F5A623",
+  "#1D4ED8",
+  "#E63946",
+  "#F5A623",
+  "#1D4ED8",
+  "#E63946",
 ];
 
 export default function PortfolioHome() {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 py-10 md:gap-20 md:py-16">
-      <section className="flex flex-col items-center text-center gap-8">
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
-          Estelle Sweeney Photography
-        </h1>
-        <div className="space-y-5 max-w-2xl">
-          <p className="text-base text-muted-foreground sm:text-lg">
-            Capturing natural light, real emotion, and timeless stories.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button>View Portfolio</Button>
-            <Button variant="outline">Book a Session</Button>
-          </div>
+    <div className="min-h-screen bg-white text-black font-sans">
+
+      {/* Nav */}
+      <nav className="flex items-center justify-between px-6 py-5 border-b border-black/10">
+        <span className="text-sm font-semibold tracking-[0.2em] uppercase">Estelle Sweeney</span>
+        <div className="flex gap-8">
+          <a href="#work" className="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Work</a>
+          <a href="mailto:hello@estellesweeney.com" className="text-xs tracking-[0.15em] uppercase hover:opacity-50 transition-opacity">Contact</a>
         </div>
-        {/* Icon strip */}
-        <div className="w-full" aria-label="Icon navigation">
-          <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto pb-1">
-            {iconStrip.map(({ id, label }, i) => (
-              <a
-                key={id}
-                href="#"
-                aria-label={label}
-                className="flex-1 min-w-[60px] aspect-square rounded-2xl flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
-                style={{ backgroundColor: PRIMARY_COLORS[i] }}
+      </nav>
+
+      <main className="px-6 py-10 max-w-6xl mx-auto flex flex-col gap-12">
+
+        {/* Icon navigation */}
+        <section className="grid grid-cols-7 gap-3">
+          {iconNav.map(({ id, label, link }, i) => (
+            <a
+              key={id}
+              href={link}
+              className="flex flex-col items-center gap-2 group"
+            >
+              <div
+                className="w-full aspect-square rounded-xl overflow-hidden transition-opacity group-hover:opacity-80"
+                style={{ backgroundColor: COLORS[i] }}
               >
                 <img
                   src={`/icons/icon_${id}.svg`}
                   alt={label}
-                  className="w-full h-full rounded-2xl"
-                  style={{ mixBlendMode: 'multiply' }}
+                  className="w-full h-full"
+                  style={{ mixBlendMode: "multiply" }}
                   draggable={false}
                 />
-              </a>
-            ))}
-          </div>
-        </div>
+              </div>
+              <span className="text-[9px] sm:text-[10px] tracking-[0.12em] uppercase text-center leading-tight whitespace-pre-line font-medium">
+                {label}
+              </span>
+            </a>
+          ))}
+        </section>
 
         {/* Slideshow */}
-        <HeroSlideshow />
-      </section>
+        <section>
+          <HeroSlideshow />
+        </section>
 
-      <section className="space-y-6">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-2xl font-semibold sm:text-3xl">Featured Work</h2>
-          <Badge variant="outline">2026 Collection</Badge>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {featuredWork.map((project) => (
-            <Card key={project.title} className="p-0">
-              <div className="h-64 w-full bg-muted flex items-center justify-center rounded-t-xl">
-                <span className="text-muted-foreground text-sm tracking-wide uppercase">Photo coming soon</span>
+        {/* Featured galleries */}
+        <section id="work" className="flex flex-col gap-6">
+          <h2 className="text-xs tracking-[0.25em] uppercase border-b border-black/10 pb-3">Recent Work</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            <a href="/gallery/bbc-spring-2" className="group flex flex-col gap-2">
+              <div className="overflow-hidden aspect-[4/3] bg-gray-100">
+                <img
+                  src="/slides/bbc-01.jpg"
+                  alt="Billionaire Boys Club Spring 2"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-              <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.category}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </section>
+              <div className="flex items-baseline justify-between">
+                <span className="text-xs tracking-[0.15em] uppercase font-semibold">Billionaire Boys Club</span>
+                <span className="text-xs tracking-wider text-black/40 uppercase">Spring 2</span>
+              </div>
+            </a>
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold sm:text-3xl">Services</h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          {services.map((service) => (
-            <Card key={service.title}>
-              <CardHeader>
-                <CardTitle>{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+            <a href="/gallery/walter-van-bierendonck" className="group flex flex-col gap-2">
+              <div className="overflow-hidden aspect-[4/3] bg-gray-100">
+                <img
+                  src="/slides/wvb-1.jpg"
+                  alt="Walter Van Bierendonck"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-xs tracking-[0.15em] uppercase font-semibold">Walter Van Bierendonck</span>
+                <span className="text-xs tracking-wider text-black/40 uppercase">Runway</span>
+              </div>
+            </a>
 
-      <section className="rounded-2xl border border-border bg-card px-6 py-8 text-center">
-        <h2 className="text-2xl font-semibold">Let&apos;s create something memorable.</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          Available for portrait sessions, campaigns, and editorial work.
-          Reach out to discuss your creative direction and timeline.
-        </p>
-        <div className="mt-6">
-          <Button>Contact: hello@estellesweeney.com</Button>
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className="border-t border-black/10 pt-10 pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs tracking-[0.25em] uppercase text-black/40">Available for</span>
+            <span className="text-sm tracking-wider uppercase">Runway · Backstage · Editorial · Campaign</span>
+          </div>
+          <a
+            href="mailto:hello@estellesweeney.com"
+            className="text-xs tracking-[0.2em] uppercase underline underline-offset-4 hover:opacity-50 transition-opacity"
+          >
+            hello@estellesweeney.com
+          </a>
+        </section>
+
+      </main>
+    </div>
   );
 }
