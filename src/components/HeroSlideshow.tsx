@@ -17,6 +17,18 @@ const slides = [
     image: "/slides/walter-van-beirendonck.jpg",
     label: "Walter Van Beirendonck",
   },
+  {
+    image: "/slides/wvb-1.jpg",
+    label: "Walter Van Bierendonck",
+  },
+  {
+    image: "/slides/wvb-2.jpg",
+    label: "",
+  },
+  {
+    image: "/slides/wvb-3.jpg",
+    label: "",
+  },
 ];
 
 export default function HeroSlideshow() {
