@@ -72,19 +72,19 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
             ×
           </button>
 
-          {/* Prev */}
+          {/* Prev — full height left zone */}
           <button
             onClick={(e) => { e.stopPropagation(); go(-1); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors text-sm"
+            className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-5 text-white/60 hover:text-white transition-colors text-sm"
             aria-label="Previous"
           >
             &#8592;
           </button>
 
-          {/* Next */}
+          {/* Next — full height right zone */}
           <button
             onClick={(e) => { e.stopPropagation(); go(1); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors text-sm"
+            className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-5 text-white/60 hover:text-white transition-colors text-sm"
             aria-label="Next"
           >
             &#8594;
