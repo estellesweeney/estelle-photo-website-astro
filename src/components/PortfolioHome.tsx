@@ -35,6 +35,27 @@ const featuredWork = [
   },
 ];
 
+// Primary color palette – cycles across the 7 icons
+const PRIMARY_COLORS = [
+  '#E63946', // red
+  '#F5A623', // orange-gold
+  '#1D4ED8', // blue
+  '#E63946',
+  '#F5A623',
+  '#1D4ED8',
+  '#E63946',
+];
+
+const iconStrip = [
+  { id: '16', label: 'icon 16' },
+  { id: '31', label: 'icon 31' },
+  { id: '17', label: 'icon 17' },
+  { id: '22', label: 'icon 22' },
+  { id: '08', label: 'icon 08' },
+  { id: '06', label: 'icon 06' },
+  { id: '12', label: 'icon 12' },
+];
+
 const services = [
   {
     title: "Portrait Sessions",
@@ -73,6 +94,29 @@ export default function PortfolioHome() {
             className="w-full object-contain"
             loading="lazy"
           />
+        </div>
+      </section>
+
+      {/* Icon strip */}
+      <section aria-label="Icon navigation">
+        <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto pb-1">
+          {iconStrip.map(({ id, label }, i) => (
+            <a
+              key={id}
+              href="#"
+              aria-label={label}
+              className="flex-1 min-w-[80px] aspect-square rounded-2xl flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
+              style={{ backgroundColor: PRIMARY_COLORS[i] }}
+            >
+              <img
+                src={`/icons/icon_${id}.svg`}
+                alt={label}
+                className="w-full h-full rounded-2xl"
+                style={{ mixBlendMode: 'multiply' }}
+                draggable={false}
+              />
+            </a>
+          ))}
         </div>
       </section>
 
