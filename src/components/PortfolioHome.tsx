@@ -73,7 +73,7 @@ export default function PortfolioHome() {
             <a href="/gallery/bbc-spring-2" className="group flex flex-col gap-2">
               <div className="overflow-hidden aspect-[4/3] bg-white/5">
                 <img
-                  src="/slides/bbc-01.jpg"
+                  src="/slides/bbc-hero.jpg"
                   alt="Billionaire Boys Club Spring 2"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
