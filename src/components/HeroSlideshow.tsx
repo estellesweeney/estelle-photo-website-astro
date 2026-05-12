@@ -32,16 +32,6 @@ export default function HeroSlideshow() {
 
   return (
     <div className="flex flex-col select-none">
-      {/* Label above photo */}
-      <div
-        className="pb-2 transition-all duration-500"
-        style={{ opacity: showLabel ? 1 : 0 }}
-      >
-        <p className="text-[10px] tracking-[0.25em] uppercase font-display font-medium" style={{ color: '#F5F0E8' }}>
-          {slides[current].label}
-        </p>
-      </div>
-
       {/* Slideshow */}
       <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>
 
@@ -55,6 +45,16 @@ export default function HeroSlideshow() {
             style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
           />
         ))}
+
+        {/* Label — centered over photo */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-500"
+          style={{ zIndex: 3, opacity: showLabel ? 1 : 0 }}
+        >
+          <p className="text-[10px] tracking-[0.25em] uppercase font-display font-medium" style={{ color: '#F5F0E8' }}>
+            {slides[current].label}
+          </p>
+        </div>
 
         {/* Center click zone */}
         <div
