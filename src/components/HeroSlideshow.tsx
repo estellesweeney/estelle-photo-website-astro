@@ -19,23 +19,23 @@ const slides = [
   },
   {
     image: "/slides/walter-van-beirendonck.jpg",
-    label: "Walter Van Beirendonck",
-    link: "",
+    label: "Walter Van Bierendonck",
+    link: "/gallery/walter-van-bierendonck",
   },
   {
     image: "/slides/wvb-1.jpg",
     label: "Walter Van Bierendonck",
-    link: "",
+    link: "/gallery/walter-van-bierendonck",
   },
   {
     image: "/slides/wvb-2.jpg",
     label: "",
-    link: "",
+    link: "/gallery/walter-van-bierendonck",
   },
   {
     image: "/slides/wvb-3.jpg",
     label: "",
-    link: "",
+    link: "/gallery/walter-van-bierendonck",
   },
 ];
 
