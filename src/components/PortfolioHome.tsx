@@ -79,31 +79,32 @@ export default function PortfolioHome() {
             <Button variant="outline">Book a Session</Button>
           </div>
         </div>
-        <div className="w-full overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center" style={{ height: '480px' }}>
-          <span className="text-muted-foreground text-sm tracking-wide uppercase">Photo coming soon</span>
+        {/* Icon strip */}
+        <div className="w-full" aria-label="Icon navigation">
+          <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto pb-1">
+            {iconStrip.map(({ id, label }, i) => (
+              <a
+                key={id}
+                href="#"
+                aria-label={label}
+                className="flex-1 min-w-[60px] aspect-square rounded-2xl flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
+                style={{ backgroundColor: PRIMARY_COLORS[i] }}
+              >
+                <img
+                  src={`/icons/icon_${id}.svg`}
+                  alt={label}
+                  className="w-full h-full rounded-2xl"
+                  style={{ mixBlendMode: 'multiply' }}
+                  draggable={false}
+                />
+              </a>
+            ))}
+          </div>
         </div>
-      </section>
 
-      {/* Icon strip */}
-      <section aria-label="Icon navigation">
-        <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto pb-1">
-          {iconStrip.map(({ id, label }, i) => (
-            <a
-              key={id}
-              href="#"
-              aria-label={label}
-              className="flex-1 min-w-[80px] aspect-square rounded-2xl flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
-              style={{ backgroundColor: PRIMARY_COLORS[i] }}
-            >
-              <img
-                src={`/icons/icon_${id}.svg`}
-                alt={label}
-                className="w-full h-full rounded-2xl"
-                style={{ mixBlendMode: 'multiply' }}
-                draggable={false}
-              />
-            </a>
-          ))}
+        {/* Slideshow / photo area */}
+        <div className="w-full overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center" style={{ height: '480px' }}>
+          <span className="text-muted-foreground text-sm tracking-wide uppercase">Slideshow coming soon</span>
         </div>
       </section>
 
