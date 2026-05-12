@@ -1,0 +1,40 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import GalleryLightbox from "@/components/GalleryLightbox";
+
+const images = [
+  "/slides/kidsuper/moon-01.jpg",
+  "/slides/kidsuper/moon-02.jpg",
+  "/slides/kidsuper/moon-03.jpg",
+  "/slides/kidsuper/moon-04.jpg",
+  "/slides/kidsuper/moon-05.jpg",
+  "/slides/kidsuper/moon-06.jpg",
+  "/slides/kidsuper/moon-07.jpg",
+  "/slides/kidsuper/moon-08.jpg",
+  "/slides/kidsuper/moon-09.jpg",
+  "/slides/kidsuper/moon-10.jpg",
+];
+---
+
+<Layout title='"The Boy who Jumped the Moon" — KidSuper — Estelle Sweeney'>
+  <div class="min-h-screen bg-black text-cream font-sans">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-6xl mx-auto">
+      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
+        <div class="flex items-baseline gap-3">
+          <a href="/gallery/kidsuper" class="text-xs tracking-[0.15em] uppercase font-display text-white/40 hover:text-cream transition-colors">KidSuper</a>
+          <span class="text-white/20">—</span>
+          <h1 class="text-xs tracking-[0.25em] uppercase font-display font-semibold">"The Boy who Jumped the Moon"</h1>
+        </div>
+      </div>
+
+      <GalleryLightbox images={images} alt='KidSuper "The Boy who Jumped the Moon"' client:load />
+    </main>
+
+  </div>
+</Layout>
