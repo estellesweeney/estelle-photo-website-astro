@@ -58,7 +58,7 @@ export default function HeroSlideshow() {
 
         {/* Center click zone */}
         <div
-          className="absolute top-0 h-full cursor-pointer"
+          className="absolute top-0 h-full cursor-pointer transition-all duration-300 hover:bg-black/20"
           style={{ left: "25%", width: "50%", zIndex: 2 }}
           onClick={() => { window.location.href = slides[current].link; }}
         />
