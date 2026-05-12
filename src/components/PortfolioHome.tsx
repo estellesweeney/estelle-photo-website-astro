@@ -33,18 +33,14 @@ export default function PortfolioHome() {
         </div>
       </nav>
 
-      <main className="px-6 py-10 max-w-6xl mx-auto flex flex-col gap-12">
+      <main className="flex flex-col gap-0">
 
         {/* Icon navigation */}
-        <section className="grid grid-cols-7 gap-3">
+        <section className="grid grid-cols-7 gap-0 px-6 pt-8 pb-6">
           {iconNav.map(({ id, label, link }, i) => (
-            <a
-              key={id}
-              href={link}
-              className="flex flex-col items-center gap-2 group"
-            >
+            <a key={id} href={link} className="flex flex-col items-center group">
               <div
-                className="w-full aspect-square rounded-xl overflow-hidden transition-opacity group-hover:opacity-80"
+                className="w-full aspect-square overflow-hidden transition-opacity group-hover:opacity-80"
                 style={{ backgroundColor: COLORS[i] }}
               >
                 <img
@@ -55,44 +51,43 @@ export default function PortfolioHome() {
                   draggable={false}
                 />
               </div>
-
             </a>
           ))}
         </section>
 
-        {/* Slideshow */}
+        {/* Slideshow — full bleed */}
         <section>
           <HeroSlideshow />
         </section>
 
         {/* Featured galleries */}
-        <section id="work" className="flex flex-col gap-6">
-          <h2 className="text-xs tracking-[0.25em] uppercase font-display border-b border-white/10 pb-3">Recent Work</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <section id="work" className="flex flex-col gap-0 pt-8">
+          <h2 className="text-xs tracking-[0.25em] uppercase font-display border-b border-white/10 pb-3 px-6 mb-0">Recent Work</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2">
 
-            <a href="/gallery/billionaire-boys-club" className="group flex flex-col gap-2">
-              <div className="overflow-hidden bg-white/5">
+            <a href="/gallery/billionaire-boys-club" className="group flex flex-col">
+              <div className="overflow-hidden w-full">
                 <img
                   src="/slides/bbc-hero.jpg"
-                  alt="Billionaire Boys Club Spring 2"
-                  className="w-full object-contain transition-opacity duration-700 group-hover:opacity-80"
+                  alt="Billionaire Boys Club"
+                  className="w-full object-cover transition-opacity duration-700 group-hover:opacity-80"
                 />
               </div>
-              <div className="flex items-baseline justify-between">
+              <div className="flex items-baseline justify-between px-6 py-3 border-b border-white/10">
                 <span className="text-xs tracking-[0.15em] uppercase font-display font-semibold">Billionaire Boys Club</span>
                 <span className="text-xs tracking-wider text-white/40 uppercase">Spring 2</span>
               </div>
             </a>
 
-            <a href="/gallery/walter-van-bierendonck" className="group flex flex-col gap-2">
-              <div className="overflow-hidden aspect-[4/3] bg-white/5">
+            <a href="/gallery/walter-van-bierendonck" className="group flex flex-col">
+              <div className="overflow-hidden w-full">
                 <img
                   src="/slides/wvb-1.jpg"
                   alt="Walter Van Bierendonck"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full object-cover transition-opacity duration-700 group-hover:opacity-80"
                 />
               </div>
-              <div className="flex items-baseline justify-between">
+              <div className="flex items-baseline justify-between px-6 py-3 border-b border-white/10">
                 <span className="text-xs tracking-[0.15em] uppercase font-display font-semibold">Walter Van Bierendonck</span>
                 <span className="text-xs tracking-wider text-white/40 uppercase">Runway</span>
               </div>
@@ -102,7 +97,7 @@ export default function PortfolioHome() {
         </section>
 
         {/* Contact */}
-        <section className="border-t border-white/10 pt-10 pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <section className="border-t border-white/10 px-6 pt-10 pb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div className="flex flex-col gap-1">
             <span className="text-xs tracking-[0.25em] uppercase font-display text-white/40">Available for</span>
             <span className="text-sm tracking-wider uppercase">Runway · Backstage · Editorial · Campaign</span>

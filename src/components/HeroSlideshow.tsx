@@ -43,7 +43,7 @@ export default function HeroSlideshow() {
       </div>
 
       {/* Slideshow */}
-      <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>
+      <div className="relative w-full overflow-hidden" style={{ height: "480px" }}>
 
         {/* Images */}
         {slides.map((s, i) => (
