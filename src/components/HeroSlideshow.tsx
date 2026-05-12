@@ -31,56 +31,58 @@ export default function HeroSlideshow() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl select-none" style={{ height: "480px" }}>
+    <div className="flex flex-col select-none">
+      {/* Slideshow */}
+      <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: "480px" }}>
 
-      {/* Images */}
-      {slides.map((s, i) => (
-        <img
-          key={s.image}
-          src={s.image}
-          alt={s.label}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-          style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
+        {/* Images */}
+        {slides.map((s, i) => (
+          <img
+            key={s.image}
+            src={s.image}
+            alt={s.label}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+            style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
+          />
+        ))}
+
+        {/* Center click zone */}
+        <div
+          className="absolute top-0 h-full cursor-pointer"
+          style={{ left: "25%", width: "50%", zIndex: 2 }}
+          onClick={() => { window.location.href = slides[current].link; }}
         />
-      ))}
 
-      {/* Center click zone — navigates to gallery */}
-      <div
-        className="absolute top-0 h-full cursor-pointer"
-        style={{ left: "25%", width: "50%", zIndex: 2 }}
-        onClick={() => { window.location.href = slides[current].link; }}
-      />
+        {/* Left arrow */}
+        <button
+          onClick={() => go(-1)}
+          className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-4 text-white/60 hover:text-white transition-colors text-sm"
+          style={{ zIndex: 4 }}
+          aria-label="Previous"
+        >
+          &#8592;
+        </button>
 
-      {/* Label — centered middle */}
+        {/* Right arrow */}
+        <button
+          onClick={() => go(1)}
+          className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-4 text-white/60 hover:text-white transition-colors text-sm"
+          style={{ zIndex: 4 }}
+          aria-label="Next"
+        >
+          &#8594;
+        </button>
+      </div>
+
+      {/* Label below photo */}
       <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-500"
-        style={{ zIndex: 3, opacity: showLabel ? 1 : 0 }}
+        className="pt-2 transition-all duration-500"
+        style={{ opacity: showLabel ? 1 : 0 }}
       >
-        <p className="text-black text-[10px] tracking-[0.25em] uppercase font-display font-medium px-2 py-0.5" style={{ backgroundColor: 'rgba(255,255,255,0.18)', lineHeight: '1', display: 'inline-block' }}>
+        <p className="text-[10px] tracking-[0.25em] uppercase font-display font-medium" style={{ color: '#F5F0E8' }}>
           {slides[current].label}
         </p>
       </div>
-
-      {/* Left arrow — full height tap zone */}
-      <button
-        onClick={() => go(-1)}
-        className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-4 text-white/60 hover:text-white transition-colors text-sm"
-        style={{ zIndex: 4 }}
-        aria-label="Previous"
-      >
-        &#8592;
-      </button>
-
-      {/* Right arrow — full height tap zone */}
-      <button
-        onClick={() => go(1)}
-        className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-4 text-white/60 hover:text-white transition-colors text-sm"
-        style={{ zIndex: 4 }}
-        aria-label="Next"
-      >
-        &#8594;
-      </button>
-
     </div>
   );
 }
