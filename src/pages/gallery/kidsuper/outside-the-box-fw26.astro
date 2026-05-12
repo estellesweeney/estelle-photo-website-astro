@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import GalleryLightbox from "@/components/GalleryLightbox";
 
 const images = [
   "/slides/kidsuper/otb-01.jpg",
@@ -26,25 +27,14 @@ const images = [
     <main class="px-6 py-10 max-w-6xl mx-auto">
       <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
         <div class="flex items-baseline gap-3">
-          <a href="/gallery/kidsuper" class="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-black transition-colors">KidSuper</a>
-          <span class="text-cream/20">—</span>
+          <a href="/gallery/kidsuper" class="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-cream transition-colors">KidSuper</a>
+          <span class="text-white/20">—</span>
           <h1 class="text-xs tracking-[0.25em] uppercase font-semibold">"Outside the Box"</h1>
         </div>
         <span class="text-xs tracking-[0.15em] uppercase text-white/40">F/W 26</span>
       </div>
 
-      <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 space-y-4">
-        {images.map((src) => (
-          <div class="break-inside-avoid overflow-hidden">
-            <img
-              src={src}
-              alt='KidSuper "Outside the Box" F/W 26'
-              class="w-full object-cover transition-opacity duration-300 hover:opacity-90"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+      <GalleryLightbox images={images} alt='KidSuper "Outside the Box" F/W 26' client:load />
     </main>
 
   </div>
