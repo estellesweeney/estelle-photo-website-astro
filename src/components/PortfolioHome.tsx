@@ -43,7 +43,7 @@ export default function PortfolioHome() {
                   draggable={false}
                 />
               </div>
-              <span className="text-[9px] tracking-[0.15em] uppercase font-display text-center pt-2 text-white/60">{label}</span>
+              <span className="text-[9px] tracking-[0.15em] uppercase text-center pt-2 text-white/60" style={{ fontFamily: 'Arial, sans-serif' }}>{label}</span>
             </a>
           ))}
         </section>
