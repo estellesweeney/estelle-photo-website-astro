@@ -30,11 +30,6 @@ export default function HeroSlideshow() {
     }, 400);
   }, []);
 
-  useEffect(() => {
-    const t = setInterval(() => go(1), 6000);
-    return () => clearInterval(t);
-  }, [go]);
-
   const handleImageClick = () => {
     window.location.href = slides[current].link;
   };
