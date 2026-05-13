@@ -4,7 +4,7 @@ const iconNav = [
   { id: "12", label: "RUNWAY",         link: "/runway" },
   { id: "22", label: "CAMPAIGNS",      link: "/campaigns" },
   { id: "17", label: "BACKSTAGE",      link: "/backstage" },
-  { id: "31", label: "GRAPHIC DESIGN", link: "#" },
+  { id: "31", label: "GRAPHIC DESIGN", link: "/graphic-design" },
   { id: "16", label: "ABOUT",          link: "#" },
 ];
 

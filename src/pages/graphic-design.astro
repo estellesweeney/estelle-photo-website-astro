@@ -1,0 +1,19 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import VirtualGallery from "@/components/VirtualGallery";
+---
+
+<Layout title="Graphic Design — Estelle Sweeney">
+  <div class="relative min-h-screen bg-[#141414]">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10 absolute top-0 left-0 right-0 z-10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display text-white hover:opacity-50 transition-opacity">
+        ← Home
+      </a>
+      <span class="text-xs tracking-[0.25em] uppercase font-display text-white">Graphic Design</span>
+    </nav>
+
+    <VirtualGallery client:load />
+
+  </div>
+</Layout>

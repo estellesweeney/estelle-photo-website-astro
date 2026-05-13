@@ -1,0 +1,79 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { galleryPieces } from "@/data/graphicDesign";
+
+export function getStaticPaths() {
+  return galleryPieces.map((p) => ({
+    params: { piece: p.slug },
+    props: { piece: p },
+  }));
+}
+
+const { piece } = Astro.props;
+const hasCopy = piece.inspo.summary || piece.inspo.sections.some((s) => s.body);
+---
+
+<Layout title={`${piece.title} — Estelle Sweeney`}>
+  <div class="min-h-screen bg-black text-white font-sans">
+
+    <!-- Nav -->
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/graphic-design" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">
+        ← Gallery
+      </a>
+      <span class="text-xs tracking-[0.25em] uppercase font-display">{piece.title}</span>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-16 flex flex-col gap-16">
+
+      <!-- Artwork -->
+      <div class="flex justify-center">
+        <div
+          class="relative"
+          style="padding: 20px; background: #f0ebe0; border: 3px solid #222; box-shadow: 0 20px 60px rgba(0,0,0,0.6);"
+        >
+          {piece.cover ? (
+            <img
+              src={piece.cover}
+              alt={piece.title}
+              class="block"
+              style="max-width: min(600px, 100%); max-height: 70vh; object-contain;"
+            />
+          ) : (
+            <div style="width: min(500px, 80vw); aspect-ratio: 4/5; background: #111; display: flex; align-items: center; justify-content: center;">
+              <span class="text-white/20 text-xs tracking-[0.3em] uppercase font-display">Coming Soon</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Title block -->
+      <div class="flex flex-col gap-2 border-b border-white/10 pb-10">
+        <h1 class="text-2xl font-display uppercase tracking-wide">{piece.title}</h1>
+        {(piece.medium || piece.year) && (
+          <p class="text-white/40 text-xs tracking-[0.2em] uppercase" style="font-family: Arial, sans-serif;">
+            {[piece.medium, piece.year].filter(Boolean).join(" · ")}
+          </p>
+        )}
+        {piece.inspo.summary && (
+          <p class="text-white/70 text-sm leading-relaxed mt-4 max-w-prose">{piece.inspo.summary}</p>
+        )}
+      </div>
+
+      <!-- Inspo sections -->
+      {hasCopy ? (
+        <div class="flex flex-col gap-12">
+          {piece.inspo.sections.filter((s) => s.body).map((section) => (
+            <div class="flex flex-col gap-3">
+              <h2 class="text-xs tracking-[0.3em] uppercase font-display text-white/40">{section.heading}</h2>
+              <p class="text-white/80 text-sm leading-relaxed max-w-prose whitespace-pre-wrap">{section.body}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-white/20 text-xs tracking-[0.25em] uppercase font-display">Inspo notes coming soon</p>
+      )}
+
+    </main>
+  </div>
+</Layout>
