@@ -32,7 +32,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "bape",
     name: "BAPE",
     season: "SS25",
-    // cover: "/slides/backstage/bape/cover.jpg",
+    cover: "/slides/backstage/bape/cover.jpg",
     images: [],
   },
   {
