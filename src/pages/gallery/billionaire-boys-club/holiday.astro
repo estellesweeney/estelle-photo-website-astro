@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import VerticalGallery from "@/components/VerticalGallery";
+import HorizontalGallery from "@/components/HorizontalGallery";
 
 const images = [
   "/slides/bbc/holiday1-01.jpg",
@@ -20,6 +20,6 @@ const images = [
       <a href="/gallery/billionaire-boys-club" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">← BBC</a>
       <span class="text-xs tracking-[0.25em] uppercase font-display">Holiday</span>
     </nav>
-    <VerticalGallery images={images} alt="Billionaire Boys Club Holiday" client:load />
+    <HorizontalGallery images={images} alt="Billionaire Boys Club Holiday" client:load />
   </div>
 </Layout>
