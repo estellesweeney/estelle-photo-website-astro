@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import GalleryLightbox from "@/components/GalleryLightbox";
+import VerticalGallery from "@/components/VerticalGallery";
 
 const images = [
   "/slides/bbc/holiday1-01.jpg",
@@ -12,20 +12,11 @@ const images = [
 
 <Layout title="Holiday 1 — Billionaire Boys Club — Estelle Sweeney">
   <div class="min-h-screen bg-black text-cream font-sans">
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
-      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10 absolute top-0 left-0 right-0 z-10">
+      <a href="/gallery/billionaire-boys-club" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">← BBC</a>
+      <span class="text-xs tracking-[0.25em] uppercase font-display">Holiday 1</span>
     </nav>
-    <main class="px-6 py-10 max-w-6xl mx-auto">
-      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
-        <div class="flex items-baseline gap-3">
-          <a href="/gallery/billionaire-boys-club" class="text-xs tracking-[0.15em] uppercase font-display text-white/40 hover:text-cream transition-colors">Billionaire Boys Club</a>
-          <span class="text-white/20">—</span>
-          <h1 class="text-xs tracking-[0.25em] uppercase font-display font-semibold">Holiday 1</h1>
-        </div>
-        <span class="text-xs tracking-[0.15em] uppercase text-white/40 font-display">Campaign</span>
-      </div>
-      <GalleryLightbox images={images} alt="Billionaire Boys Club Holiday 1" client:load />
-    </main>
+
+    <VerticalGallery images={images} alt="Billionaire Boys Club Holiday 1" client:load />
   </div>
 </Layout>
