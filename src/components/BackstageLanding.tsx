@@ -88,7 +88,7 @@ function PosterCard({ brand, rotation }: { brand: BackstageBrand; rotation: numb
               <img
                 src={brand.cover}
                 alt={brand.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain bg-black"
               />
             ) : (
               /* Placeholder typographic poster */
