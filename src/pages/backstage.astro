@@ -1,30 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import HorizontalGallery from "@/components/HorizontalGallery";
-
-// Add backstage images here — drop files into /public/slides/backstage/
-// and list them below in order.
-const images: string[] = [
-  // "/slides/backstage/bs-01.jpg",
-  // "/slides/backstage/bs-02.jpg",
-];
+import BackstageLanding from "@/components/BackstageLanding";
 ---
 
 <Layout title="Backstage — Estelle Sweeney">
-  <div class="min-h-screen bg-black text-cream font-sans">
-
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10 absolute top-0 left-0 right-0 z-10">
-      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">← Home</a>
-      <span class="text-xs tracking-[0.25em] uppercase font-display">Backstage</span>
-    </nav>
-
-    {images.length > 0 ? (
-      <HorizontalGallery images={images} alt="Backstage" client:load />
-    ) : (
-      <div class="flex items-center justify-center min-h-screen">
-        <p class="text-white/30 text-xs tracking-[0.2em] uppercase font-display">Coming soon</p>
-      </div>
-    )}
-
-  </div>
+  <BackstageLanding client:load />
 </Layout>
