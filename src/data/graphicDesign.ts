@@ -22,11 +22,11 @@ export interface GalleryPiece {
 
 export const galleryPieces: GalleryPiece[] = [
   {
-    slug: "observatory-no-1",
-    title: "Observatory No. 1",
+    slug: "billionaire-boys-club-illustrations",
+    title: "Billionaire Boys Club Illustrations",
     year: "2025",
-    medium: "Digital, Mixed Media",
-    // cover: "/art/observatory-no-1.jpg",
+    medium: "Illustration",
+    cover: "/art/bbc-illustrations.jpg",
     inspo: {
       summary: "",
       sections: [
