@@ -25,7 +25,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "comme-des-garcons",
     name: "Comme des Garçons",
     season: "SS25",
-    // cover: "/slides/backstage/comme-des-garcons/cover.jpg",
+    cover: "/slides/backstage/comme-des-garcons/cover.jpg",
     images: [],
   },
   {
