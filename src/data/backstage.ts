@@ -53,7 +53,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "walter-van-bierendonck",
     name: "Walter Van Bierendonck",
     season: "FW25",
-    // cover: "/slides/backstage/walter-van-bierendonck/cover.jpg",
+    cover: "/slides/backstage/walter-van-bierendonck/cover.jpg",
     images: [],
   },
 ];
