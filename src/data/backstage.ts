@@ -39,7 +39,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "billionaire-boys-club",
     name: "Billionaire Boys Club",
     season: "Holiday",
-    // cover: "/slides/backstage/billionaire-boys-club/cover.jpg",
+    cover: "/slides/backstage/billionaire-boys-club/cover.jpg",
     images: [],
   },
   {
