@@ -28,12 +28,9 @@ function Frame({
       <div
         style={{
           width: frameW,
-          aspectRatio: "4/5",
           background: "#111",
           overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: "block",
         }}
       >
         {piece.cover ? (
@@ -41,7 +38,7 @@ function Frame({
             src={piece.cover}
             alt={piece.title}
             draggable={false}
-            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+            style={{ width: "100%", height: "auto", display: "block" }}
           />
         ) : (
           <div
