@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const clients = [
+  {
+    name: "Billionaire Boys Club",
+    href: "/gallery/billionaire-boys-club",
+    cover: "/slides/bbc-hero.jpg",
+  },
+];
+---
+
+<Layout title="Campaigns — Estelle Sweeney">
+  <div class="min-h-screen bg-black text-cream font-sans">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-6xl mx-auto">
+      <h1 class="text-xs tracking-[0.25em] uppercase font-display pb-6 border-b border-white/10 mb-8">Campaigns</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {clients.map((c) => (
+          <a href={c.href} class="group flex flex-col gap-2">
+            <div class="overflow-hidden w-full bg-white/5">
+              <img
+                src={c.cover}
+                alt={c.name}
+                class="w-full object-cover transition-opacity duration-700 group-hover:opacity-80"
+              />
+            </div>
+            <span class="text-xs tracking-[0.15em] uppercase font-display font-semibold pt-1">{c.name}</span>
+          </a>
+        ))}
+      </div>
+    </main>
+
+  </div>
+</Layout>

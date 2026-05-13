@@ -2,7 +2,7 @@ import HeroSlideshow from "@/components/HeroSlideshow";
 
 const iconNav = [
   { id: "12", label: "RUNWAY",         link: "/runway" },
-  { id: "22", label: "CAMPAIGNS",      link: "/gallery/billionaire-boys-club" },
+  { id: "22", label: "CAMPAIGNS",      link: "/campaigns" },
   { id: "17", label: "BACKSTAGE",      link: "#" },
   { id: "31", label: "GRAPHIC DESIGN", link: "#" },
   { id: "16", label: "ABOUT",          link: "#" },
