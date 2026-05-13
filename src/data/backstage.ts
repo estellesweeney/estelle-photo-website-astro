@@ -16,7 +16,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "kidsuper",
     name: "KidSuper",
     season: "FW26",
-    // cover: "/slides/backstage/kidsuper/cover.jpg",
+    cover: "/slides/backstage/kidsuper/cover.jpg",
     images: [
       // "/slides/backstage/kidsuper/bs-01.jpg",
     ],
