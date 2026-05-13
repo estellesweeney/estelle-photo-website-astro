@@ -46,7 +46,7 @@ export const backstageBrands: BackstageBrand[] = [
     slug: "puma",
     name: "Puma",
     season: "SS25",
-    // cover: "/slides/backstage/puma/cover.jpg",
+    cover: "/slides/backstage/puma/cover.jpg",
     images: [],
   },
   {
