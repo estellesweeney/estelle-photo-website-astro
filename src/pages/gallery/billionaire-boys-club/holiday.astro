@@ -3,6 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import VerticalGallery from "@/components/VerticalGallery";
 
 const images = [
+  "/slides/bbc/holiday1-01.jpg",
+  "/slides/bbc/holiday1-02.jpg",
+  "/slides/bbc/holiday1-03.jpg",
+  "/slides/bbc/holiday1-04.jpg",
   "/slides/bbc/holiday2-01.jpg",
   "/slides/bbc/holiday2-02.jpg",
   "/slides/bbc/holiday2-03.jpg",
@@ -10,13 +14,12 @@ const images = [
 ];
 ---
 
-<Layout title="Holiday 2 — Billionaire Boys Club — Estelle Sweeney">
+<Layout title="Holiday — Billionaire Boys Club — Estelle Sweeney">
   <div class="min-h-screen bg-black text-cream font-sans">
     <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10 absolute top-0 left-0 right-0 z-10">
       <a href="/gallery/billionaire-boys-club" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">← BBC</a>
-      <span class="text-xs tracking-[0.25em] uppercase font-display">Holiday 2</span>
+      <span class="text-xs tracking-[0.25em] uppercase font-display">Holiday</span>
     </nav>
-
-    <VerticalGallery images={images} alt="Billionaire Boys Club Holiday 2" client:load />
+    <VerticalGallery images={images} alt="Billionaire Boys Club Holiday" client:load />
   </div>
 </Layout>
