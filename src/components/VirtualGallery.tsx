@@ -10,8 +10,8 @@ function Frame({
   piece: GalleryPiece;
   variant: "main" | "side";
 }) {
-  const mat = variant === "main" ? 16 : 9;
-  const frameW = variant === "main" ? "clamp(200px, 34vw, 520px)" : "clamp(100px, 16vw, 240px)";
+  const mat = variant === "main" ? 18 : 10;
+  const frameW = variant === "main" ? "clamp(160px, 26vw, 380px)" : "clamp(90px, 14vw, 200px)";
 
   return (
     <div
@@ -29,11 +29,11 @@ function Frame({
         style={{
           width: frameW,
           aspectRatio: "4/5",
+          background: "#111",
           overflow: "hidden",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0e0e0e",
         }}
       >
         {piece.cover ? (
@@ -41,7 +41,7 @@ function Frame({
             src={piece.cover}
             alt={piece.title}
             draggable={false}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
           />
         ) : (
           <div
