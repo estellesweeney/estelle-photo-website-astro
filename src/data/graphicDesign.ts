@@ -14,6 +14,7 @@ export interface GalleryPiece {
   year?: string;
   medium?: string;    // e.g. "Digital, Mixed Media"
   cover?: string;     // artwork image path
+  images?: string[];  // additional images shown on inspo page
   inspo: {
     summary: string;  // short blurb shown under the title
     sections: InspoSection[];
@@ -27,6 +28,14 @@ export const galleryPieces: GalleryPiece[] = [
     year: "2025",
     medium: "Illustration",
     cover: "/art/bbc-illustrations.jpg",
+    images: [
+      "/art/bbc/01.jpg",
+      "/art/bbc/02.jpg",
+      "/art/bbc/03.jpg",
+      "/art/bbc/04.jpg",
+      "/art/bbc/05.jpg",
+      "/art/bbc/06.jpg",
+    ],
     inspo: {
       summary: "",
       sections: [
