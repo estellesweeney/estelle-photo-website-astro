@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="About — Estelle Sweeney" description="Estelle Sweeney is a New York-based photographer, artist, and art director working across runway, backstage, editorial, and fine art.">
+  <div class="min-h-screen bg-black text-cream">
+
+    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+
+    <main class="px-6 py-10 max-w-2xl">
+
+      {/* Header */}
+      <h1 class="font-display text-xs tracking-[0.25em] uppercase pb-6 border-b border-white/10 mb-10">About</h1>
+
+      {/* Intro */}
+      <div class="flex flex-col gap-6 mb-14" style="font-family: Arial, sans-serif;">
+        <p class="text-sm leading-relaxed text-white/90">
+          Estelle Sweeney is a New York-based photographer, artist, and art director working at the intersection of fashion and fine art.
+          Her practice centers on 35mm analog film — a deliberate choice that shapes everything: the grain, the intimacy, the sense that something real happened in front of the lens.
+        </p>
+        <p class="text-sm leading-relaxed text-white/80">
+          She shoots runway, backstage, editorial, and campaign — with clients including KidSuper, Comme des Garçons, BAPE, Puma, and Billionaire Boys Club.
+          Her work has appeared in Times Square.
+        </p>
+        <p class="text-sm leading-relaxed text-white/80">
+          Beyond commercial work, Estelle maintains an ongoing conceptual practice. Her research project <em>Sacred Sketch Resonance</em> weaves together quantum physics, Egyptian cosmology, Vedic systems, and dream language — treating art as a form of memory retrieval, and symbols as frequency tools.
+        </p>
+      </div>
+
+      {/* Practice areas */}
+      <div class="mb-14 border-t border-white/10 pt-8">
+        <h2 class="text-xs tracking-[0.25em] uppercase font-display text-white/40 mb-6">Practice</h2>
+        <ul class="flex flex-col gap-0 divide-y divide-white/10" style="font-family: Arial, sans-serif;">
+          <li class="py-3 flex items-baseline justify-between">
+            <span class="text-sm">Runway &amp; Backstage</span>
+            <span class="text-xs text-white/40 uppercase tracking-wider">NYFW · PFW</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between">
+            <span class="text-sm">Editorial &amp; Campaign</span>
+            <span class="text-xs text-white/40 uppercase tracking-wider">Analog + Digital</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between">
+            <span class="text-sm">Fine Art &amp; Installation</span>
+            <span class="text-xs text-white/40 uppercase tracking-wider">Mixed Media</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between">
+            <span class="text-sm">Graphic Design</span>
+            <span class="text-xs text-white/40 uppercase tracking-wider">Art Direction</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between">
+            <span class="text-sm">Pame Studio</span>
+            <span class="text-xs text-white/40 uppercase tracking-wider">Jewelry</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Signature style */}
+      <div class="mb-14 border-t border-white/10 pt-8">
+        <h2 class="text-xs tracking-[0.25em] uppercase font-display text-white/40 mb-6">Approach</h2>
+        <p class="text-sm leading-relaxed text-white/80" style="font-family: Arial, sans-serif;">
+          Shot on Portra 400, Portra 800, and Ilford — with a Canon R6 alongside for situations that won't wait.
+          The work is cinematic and archival by instinct: raw access, imperfect moments, images that look like they've always existed.
+          Fashion and fine art don't live in separate rooms here. They're the same practice.
+        </p>
+      </div>
+
+      {/* Contact CTA */}
+      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div class="flex flex-col gap-1">
+          <span class="text-xs tracking-[0.25em] uppercase font-display text-white/40">Available for</span>
+          <span class="text-sm tracking-wider uppercase" style="font-family: Arial, sans-serif;">Runway · Backstage · Editorial · Campaign</span>
+        </div>
+        <a
+          href="mailto:estellescreative@gmail.com"
+          class="text-xs tracking-[0.2em] uppercase font-display underline underline-offset-4 hover:opacity-50 transition-opacity"
+        >
+          estellescreative@gmail.com
+        </a>
+      </div>
+
+    </main>
+  </div>
+</Layout>
