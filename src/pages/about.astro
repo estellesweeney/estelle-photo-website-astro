@@ -183,10 +183,25 @@ import Layout from "@/layouts/Layout.astro";
           </ul>
         </div>
 
-        {/* Based */}
-        <div class="border-t border-white/10 pt-8 pb-16 flex flex-col gap-1" style="font-family: Arial, sans-serif;">
-          <span class="text-xs tracking-[0.25em] uppercase font-display text-white/30">Based</span>
-          <span class="text-sm text-white/70">New York City</span>
+        {/* Based + Social */}
+        <div class="border-t border-white/10 pt-8 pb-16 flex items-end justify-between" style="font-family: Arial, sans-serif;">
+          <div class="flex flex-col gap-1">
+            <span class="text-xs tracking-[0.25em] uppercase font-display text-white/30">Based</span>
+            <span class="text-sm text-white/70">New York City</span>
+          </div>
+          <a
+            href="https://www.instagram.com/estellesweeney_"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/40 hover:text-white transition-colors"
+            aria-label="Instagram"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
         </div>
 
       </div>
