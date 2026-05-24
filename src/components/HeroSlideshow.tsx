@@ -33,7 +33,7 @@ export default function HeroSlideshow() {
   return (
     <div className="flex flex-col select-none">
       {/* Slideshow */}
-      <div className="relative w-full overflow-hidden h-[280px] sm:h-[380px] md:h-[480px]">
+      <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-auto md:h-screen">
 
         {/* Images */}
         {slides.map((s, i) => (
@@ -41,7 +41,7 @@ export default function HeroSlideshow() {
             key={s.image}
             src={s.image}
             alt={s.label}
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+            className="absolute inset-0 w-full h-full object-contain transition-opacity duration-700"
             style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
           />
         ))}
