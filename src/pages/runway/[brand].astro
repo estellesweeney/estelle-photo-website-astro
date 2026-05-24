@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import GalleryLightbox from "@/components/GalleryLightbox";
 import { runwayShows } from "@/data/runway";
 
 export function getStaticPaths() {
@@ -11,30 +10,71 @@ export function getStaticPaths() {
 
 const { brand } = Astro.params;
 const show = runwayShows.find((s) => s.slug === brand);
-if (!show) return Astro.redirect("/runway");
+if (!show) return Astro.redirect("/runway/shows");
+
+// Total slots in the grid — fill with photos, rest are blank
+const TOTAL_SLOTS = 24;
+const slots = Array.from({ length: TOTAL_SLOTS }, (_, i) =>
+  i < show.images.length ? show.images[i] : null
+);
 ---
 
 <Layout title={`${show.brand} — Runway — Estelle Sweeney`}>
   <div class="min-h-screen bg-black text-cream">
 
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
-      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+    <nav class="flex items-center justify-between px-8 py-6 border-b border-white/10">
+      <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">
+        Estelle Sweeney
+      </a>
+      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">
+        Contact
+      </a>
     </nav>
 
-    <main>
+    <main class="px-8 py-14 max-w-screen-xl mx-auto">
+
       {/* Header */}
-      <div class="px-6 py-8 border-b border-white/10 flex items-baseline justify-between">
-        <div class="flex flex-col gap-1">
-          <a href="/runway" class="text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white/60 transition-colors font-display mb-2">← Runway</a>
-          <h1 class="text-sm tracking-[0.2em] uppercase font-display">{show.brand}</h1>
+      <div class="mb-14 pb-6 border-b border-white/10 flex items-baseline justify-between">
+        <div class="flex flex-col gap-2">
+          <a href="/runway/shows" class="text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white/60 transition-colors font-display">
+            ← Runway
+          </a>
+          <h1 class="text-base font-display tracking-wide">{show.brand}</h1>
         </div>
-        <span class="text-xs tracking-wider text-white/40 uppercase">{show.season}</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-white/30" style="font-family: Arial, sans-serif;">
+          {show.season}
+        </span>
       </div>
 
-      {/* Gallery */}
-      <GalleryLightbox images={show.images} alt={show.brand} client:load />
-    </main>
+      {/* Photo grid with blank slots */}
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {slots.map((src, i) => (
+          <div
+            class="w-full overflow-hidden"
+            style="aspect-ratio: 4/5;"
+          >
+            {src ? (
+              <img
+                src={src}
+                alt={`${show.brand} ${i + 1}`}
+                class="w-full h-full object-cover hover:opacity-80 transition-opacity duration-300 cursor-pointer"
+                loading="lazy"
+                draggable={false}
+              />
+            ) : (
+              <div
+                class="w-full h-full border border-white/10 flex items-center justify-center"
+                style="background: rgba(255,255,255,0.02);"
+              >
+                <span class="text-white/15 text-xs tracking-[0.2em] uppercase font-display select-none">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
+    </main>
   </div>
 </Layout>
