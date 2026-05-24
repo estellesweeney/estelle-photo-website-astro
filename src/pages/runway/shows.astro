@@ -64,17 +64,17 @@ const allShows = [
             {/* 4-image horizontal strip */}
             <div class="grid grid-cols-4 gap-[2px] mb-4">
               {show.strip.map((src, j) => (
-                <div class="w-full overflow-hidden" style="aspect-ratio: 4/3;">
+                <div class="w-full overflow-hidden">
                   {src ? (
                     <img
                       src={src}
                       alt={show.brand}
-                      class="w-full h-full object-contain transition-opacity duration-400 group-hover:opacity-70"
+                      class="w-full h-auto block transition-opacity duration-400 group-hover:opacity-70"
                       loading="lazy"
                       draggable={false}
                     />
                   ) : (
-                    <div class="w-full h-full bg-white/[0.03] border border-white/[0.07]" />
+                    <div class="w-full bg-white/[0.03] border border-white/[0.07]" style="aspect-ratio: 4/3;" />
                   )}
                 </div>
               ))}
