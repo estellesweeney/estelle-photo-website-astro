@@ -3,20 +3,12 @@ import HeroSlideshow from "@/components/HeroSlideshow";
 import AsciiIntro from "@/components/AsciiIntro";
 import { Button } from "@/components/ui/button";
 
-const iconNav = [
-  { id: "12", label: "RUNWAY",         link: "/runway" },
-  { id: "22", label: "CAMPAIGNS",      link: "/campaigns" },
-  { id: "17", label: "BACKSTAGE",      link: "/backstage" },
-  { id: "31", label: "GRAPHIC DESIGN", link: "/graphic-design" },
-  { id: "16", label: "ABOUT",          link: "/about" },
-];
-
-const COLORS = [
-  "#E63946",
-  "#F5A623",
-  "#1D4ED8",
-  "#F5A623",
-  "#E63946",
+const nav = [
+  { label: "Runway",        link: "/runway" },
+  { label: "Campaigns",     link: "/campaigns" },
+  { label: "Backstage",     link: "/backstage" },
+  { label: "Graphic Design",link: "/graphic-design" },
+  { label: "About",         link: "/about" },
 ];
 
 export default function PortfolioHome() {
@@ -35,34 +27,17 @@ export default function PortfolioHome() {
 
         <main className="flex flex-col gap-0">
 
-          {/* Icon navigation */}
-          <section className="grid grid-cols-5 gap-0 pt-8 pb-4">
-            {iconNav.map(({ id, label, link }, i) => (
-              <a key={id} href={link} className="flex flex-col items-center group">
-                <div
-                  className="w-full aspect-square overflow-hidden transition-opacity group-hover:opacity-80"
-                  style={{ backgroundColor: COLORS[i] }}
+          {/* Ghost button navigation */}
+          <section className="flex flex-wrap gap-2 px-6 pt-8 pb-6 border-b border-white/10">
+            {nav.map(({ label, link }) => (
+              <a key={label} href={link}>
+                <Button
+                  variant="ghost"
+                  className="text-xs tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-white/10 h-9 px-4"
+                  style={{ fontFamily: 'Arial, sans-serif' }}
                 >
-                  <img
-                    src={`/icons/icon_${id}.svg`}
-                    alt={label}
-                    className="w-full h-full"
-                    style={{ mixBlendMode: "multiply" }}
-                    draggable={false}
-                  />
-                </div>
-                {id === "12" ? (
-                  <Button
-                    variant="ghost"
-                    tabIndex={-1}
-                    className="pointer-events-none text-[9px] tracking-[0.15em] uppercase text-center mt-2 h-auto px-1 py-0 text-white/60 group-hover:text-white transition-colors"
-                    style={{ fontFamily: 'Arial, sans-serif' }}
-                  >
-                    {label}
-                  </Button>
-                ) : (
-                  <span className="text-[9px] tracking-[0.15em] uppercase text-center pt-2 text-white/60" style={{ fontFamily: 'Arial, sans-serif' }}>{label}</span>
-                )}
+                  {label}
+                </Button>
               </a>
             ))}
           </section>
