@@ -34,7 +34,12 @@ export default function PortfolioHome() {
               <Tooltip key={label}>
                 <TooltipTrigger>
                   <a href={link}>
-                    <Button variant="outline">{label}</Button>
+                    <Button
+                      variant="outline"
+                      className="bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:text-white rounded-xl"
+                    >
+                      {label}
+                    </Button>
                   </a>
                 </TooltipTrigger>
                 <TooltipContent><p>{tip}</p></TooltipContent>
