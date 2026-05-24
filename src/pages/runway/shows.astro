@@ -2,38 +2,44 @@
 import Layout from "@/layouts/Layout.astro";
 import { runwayShows } from "@/data/runway";
 
-const featured = runwayShows.map((s) => ({
+// Shows with galleries — shown as filmstrips
+const galleryShows = runwayShows.map((s, i) => ({
+  index: i + 1,
   slug: s.slug,
   brand: s.brand,
   season: s.season,
-  cover: s.cover,
+  // Take first 4 images for the filmstrip preview
+  strip: Array.from({ length: 4 }, (_, j) => s.images[j] ?? null),
 }));
 
-const credits = [
-  { brand: "Science Project",             season: "PFW 2026" },
-  { brand: "Campillo AW26/27",            season: "PFW 2026" },
-  { brand: "Yuima Nakazato",              season: "PFW 2026" },
-  { brand: "Grace Ling AW26",             season: "NYFW 2026" },
-  { brand: "Mugler AW25",                 season: "PFW 2025" },
-  { brand: "Rick Owens SS24",             season: "PFW 2024" },
-  { brand: "Mugler SS24",                 season: "PFW 2024" },
-  { brand: "Louis De Javier AW25",        season: "PFW 2025" },
-  { brand: "Tombogo AW25",                season: "NYFW 2025" },
-  { brand: "Ruibuilt AW25",               season: "PFW 2025" },
-  { brand: "Paula Casanova Del Vas AW25", season: "PFW 2025" },
-  { brand: "Hold NYC AW25",               season: "NYFW 2025" },
-  { brand: "Franck Sorbier — Couture",    season: "PFW 2024" },
-  { brand: "Namesak3 SS26",               season: "NYFW 2025" },
-  { brand: "3.Paradis SS25",              season: "PFW 2025" },
-  { brand: "Vivienne Westwood AW25",      season: "PFW 2025" },
-  { brand: "Rhude AW24",                  season: "NYFW 2024" },
+// All shows (text index at bottom)
+const allShows = [
+  { brand: "Walter Van Bierendonck",      season: "PFW 2026",  slug: "walter-van-bierendonck" },
+  { brand: "KidSuper AW26/27",            season: "PFW 2026",  slug: "kidsuper-aw2627" },
+  { brand: "KidSuper AW25",               season: "PFW 2025",  slug: "kidsuper-aw25" },
+  { brand: "Science Project",             season: "PFW 2026",  slug: null },
+  { brand: "Campillo AW26/27",            season: "PFW 2026",  slug: null },
+  { brand: "Yuima Nakazato",              season: "PFW 2026",  slug: null },
+  { brand: "Grace Ling AW26",             season: "NYFW 2026", slug: null },
+  { brand: "Mugler AW25",                 season: "PFW 2025",  slug: null },
+  { brand: "Rick Owens SS24",             season: "PFW 2024",  slug: null },
+  { brand: "Mugler SS24",                 season: "PFW 2024",  slug: null },
+  { brand: "Louis De Javier AW25",        season: "PFW 2025",  slug: null },
+  { brand: "Tombogo AW25",                season: "NYFW 2025", slug: null },
+  { brand: "Ruibuilt AW25",               season: "PFW 2025",  slug: null },
+  { brand: "Paula Casanova Del Vas AW25", season: "PFW 2025",  slug: null },
+  { brand: "Hold NYC AW25",               season: "NYFW 2025", slug: null },
+  { brand: "Franck Sorbier — Couture",    season: "PFW 2024",  slug: null },
+  { brand: "Namesak3 SS26",               season: "NYFW 2025", slug: null },
+  { brand: "3.Paradis SS25",              season: "PFW 2025",  slug: null },
+  { brand: "Vivienne Westwood AW25",      season: "PFW 2025",  slug: null },
+  { brand: "Rhude AW24",                  season: "NYFW 2024", slug: null },
 ];
 ---
 
 <Layout title="Runway — Estelle Sweeney">
   <div class="min-h-screen bg-black text-cream">
 
-    {/* Nav */}
     <nav class="flex items-center justify-between px-8 py-6 border-b border-white/10">
       <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">
         Estelle Sweeney
@@ -43,58 +49,86 @@ const credits = [
       </a>
     </nav>
 
-    <main class="px-8 py-16 max-w-screen-xl mx-auto">
+    <main class="px-8 py-14 max-w-screen-xl mx-auto">
 
-      {/* Page title */}
-      <div class="mb-16 pb-6 border-b border-white/10">
+      {/* Page header */}
+      <div class="mb-14 pb-6 border-b border-white/10">
         <h1 class="text-xs tracking-[0.35em] uppercase font-display text-white/50">Runway</h1>
       </div>
 
-      {/* Featured shows — 2 col grid like Goodman */}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mb-24">
-        {featured.map((show) => (
-          <a
-            href={`/runway/${show.slug}`}
-            class="group block cursor-pointer"
-          >
-            {/* Image */}
-            <div class="w-full overflow-hidden mb-5" style="aspect-ratio: 4/3;">
-              <img
-                src={show.cover}
-                alt={show.brand}
-                class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-70"
-                loading="lazy"
-              />
+      {/* Filmstrip grid — one row per show */}
+      <div class="flex flex-col gap-12 mb-24">
+        {galleryShows.map((show) => (
+          <a href={`/runway/${show.slug}`} class="group block cursor-pointer">
+
+            {/* 4-image horizontal strip */}
+            <div class="grid grid-cols-4 gap-[2px] mb-4">
+              {show.strip.map((src, j) => (
+                <div class="w-full overflow-hidden" style="aspect-ratio: 4/3;">
+                  {src ? (
+                    <img
+                      src={src}
+                      alt={show.brand}
+                      class="w-full h-full object-cover transition-opacity duration-400 group-hover:opacity-70"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-white/[0.03] border border-white/[0.07]" />
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Caption — Goodman style */}
-            <div class="flex flex-col gap-1.5">
-              <p class="text-base font-display tracking-wide group-hover:opacity-60 transition-opacity">
+            {/* Caption */}
+            <div class="flex items-baseline gap-5">
+              <span class="text-[11px] text-white/25 tabular-nums" style="font-family: Arial, sans-serif;">
+                {String(show.index).padStart(3, "0")}
+              </span>
+              <span class="text-sm font-display tracking-wide group-hover:opacity-50 transition-opacity">
                 {show.brand}
-              </p>
-              <p class="text-xs tracking-[0.2em] uppercase text-white/40" style="font-family: Arial, sans-serif;">
+              </span>
+              <span class="text-xs tracking-[0.15em] uppercase text-white/30" style="font-family: Arial, sans-serif;">
                 {show.season}
-              </p>
+              </span>
             </div>
+
           </a>
         ))}
       </div>
 
-      {/* Selected Credits — smaller grid */}
-      <div class="border-t border-white/10 pt-16">
-        <h2 class="text-[10px] tracking-[0.35em] uppercase text-white/25 font-display mb-12">
-          Selected Credits
-        </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0">
-          {credits.map((show) => (
-            <div class="py-5 border-b border-white/10 flex flex-col gap-1">
-              <p class="text-sm font-display text-white/70 tracking-wide">{show.brand}</p>
-              <p class="text-[11px] tracking-[0.2em] uppercase text-white/30" style="font-family: Arial, sans-serif;">
-                {show.season}
-              </p>
-            </div>
+      {/* Full numbered index */}
+      <div class="border-t border-white/10 pt-14">
+        <ol class="flex flex-col divide-y divide-white/[0.07]">
+          {allShows.map((show, i) => (
+            <li>
+              {show.slug ? (
+                <a
+                  href={`/runway/${show.slug}`}
+                  class="group flex items-baseline gap-5 py-4 hover:opacity-60 transition-opacity"
+                >
+                  <span class="text-[11px] text-white/25 tabular-nums shrink-0 w-8" style="font-family: Arial, sans-serif;">
+                    {String(i + 1).padStart(3, "0")}
+                  </span>
+                  <span class="text-sm font-display tracking-wide">{show.brand}</span>
+                  <span class="text-xs tracking-[0.15em] uppercase text-white/30 ml-auto shrink-0" style="font-family: Arial, sans-serif;">
+                    {show.season}
+                  </span>
+                </a>
+              ) : (
+                <div class="flex items-baseline gap-5 py-4 opacity-40">
+                  <span class="text-[11px] text-white/25 tabular-nums shrink-0 w-8" style="font-family: Arial, sans-serif;">
+                    {String(i + 1).padStart(3, "0")}
+                  </span>
+                  <span class="text-sm font-display tracking-wide">{show.brand}</span>
+                  <span class="text-xs tracking-[0.15em] uppercase text-white/30 ml-auto shrink-0" style="font-family: Arial, sans-serif;">
+                    {show.season}
+                  </span>
+                </div>
+              )}
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
 
     </main>
