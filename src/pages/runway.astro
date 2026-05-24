@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import RunwayPhotoCarousel from "@/components/RunwayPhotoCarousel";
 
 const clients = [
   { name: "Walter Van Bierendonck", year: "2026" },
@@ -33,17 +34,26 @@ const clients = [
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="px-6 py-10 max-w-2xl">
-      <h1 class="text-xs tracking-[0.25em] uppercase pb-6 border-b border-white/10 mb-0" style="font-family: Arial, sans-serif;">Runway</h1>
+    <main class="flex flex-col md:flex-row min-h-[calc(100vh-65px)]">
 
-      <ul class="divide-y divide-white/10">
-        {clients.map((c) => (
-          <li class="flex items-baseline justify-between py-3">
-            <span class="text-sm">{c.name}</span>
-            <span class="text-xs text-white/40 ml-6 shrink-0">{c.year}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Show list — left column */}
+      <div class="w-full md:w-72 lg:w-80 shrink-0 px-6 py-10 md:border-r border-white/10">
+        <h1 class="text-xs tracking-[0.25em] uppercase pb-6 border-b border-white/10 mb-0">Runway</h1>
+        <ul class="divide-y divide-white/10">
+          {clients.map((c) => (
+            <li class="flex items-baseline justify-between py-3">
+              <span class="text-sm">{c.name}</span>
+              <span class="text-xs text-white/40 ml-6 shrink-0">{c.year}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Photo carousel — right column */}
+      <div class="flex-1 flex items-center py-10 md:py-0 overflow-hidden">
+        <RunwayPhotoCarousel client:load />
+      </div>
+
     </main>
 
   </div>
