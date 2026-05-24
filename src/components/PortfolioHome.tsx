@@ -31,13 +31,7 @@ export default function PortfolioHome() {
           <section className="flex flex-wrap gap-2 px-6 pt-8 pb-6 border-b border-white/10">
             {nav.map(({ label, link }) => (
               <a key={label} href={link}>
-                <Button
-                  variant="ghost"
-                  className="text-xs tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-white/10 h-9 px-4"
-                  style={{ fontFamily: 'Arial, sans-serif' }}
-                >
-                  {label}
-                </Button>
+                <Button variant="ghost">{label}</Button>
               </a>
             ))}
           </section>
