@@ -44,40 +44,45 @@ export default function RunwayGalleryGrid({ images, brand }: Props) {
 
   return (
     <>
-      {/* Grid */}
+      {/* Grid — true 2-col, 4:5 crop */}
       <div
-        style={{ columns: 2, gap: "3px" }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "3px",
+        }}
       >
         {images.map((src, i) => (
-          <div key={i} className="break-inside-avoid mb-[3px]">
-            {src ? (
-              <div
-                className="w-full overflow-hidden cursor-pointer group"
-                style={{ aspectRatio: "4/5" }}
-                onClick={() => open(src)}
-              >
-                <img
-                  src={src}
-                  alt={`${brand} ${i + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-75"
-                  loading="lazy"
-                  draggable={false}
-                />
-              </div>
-            ) : (
-              <div
-                className="w-full border border-white/10 flex items-center justify-center"
-                style={{
-                  aspectRatio: "4/5",
-                  background: "rgba(255,255,255,0.02)",
-                }}
-              >
-                <span className="text-white/15 text-xs tracking-[0.2em] uppercase select-none font-display">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-            )}
-          </div>
+          src ? (
+            <div
+              key={i}
+              className="overflow-hidden cursor-pointer group"
+              style={{ aspectRatio: "4/5" }}
+              onClick={() => open(src)}
+            >
+              <img
+                src={src}
+                alt={`${brand} ${i + 1}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                className="transition-opacity duration-300 group-hover:opacity-75"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+          ) : (
+            <div
+              key={i}
+              className="border border-white/10 flex items-center justify-center"
+              style={{
+                aspectRatio: "4/5",
+                background: "rgba(255,255,255,0.02)",
+              }}
+            >
+              <span className="text-white/15 text-xs tracking-[0.2em] uppercase select-none font-display">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+          )
         ))}
       </div>
 
