@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import GalleryLightbox from "@/components/GalleryLightbox";
+import RunwayGalleryGrid from "@/components/RunwayGalleryGrid";
 
 const images = [
   "/slides/kidsuper/moon-05.jpg",
@@ -13,23 +13,23 @@ const images = [
 ---
 
 <Layout title='"The Boy who Jumped the Moon" — KidSuper — Estelle Sweeney'>
-  <div class="min-h-screen bg-black text-cream font-sans">
+  <div class="min-h-screen bg-black text-cream">
 
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+    <nav class="flex items-center justify-between px-8 py-6 border-b border-white/10">
       <a href="/" class="text-sm font-semibold tracking-[0.2em] uppercase font-display hover:opacity-50 transition-opacity">Estelle Sweeney</a>
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="px-6 py-10 max-w-6xl mx-auto">
-      <div class="flex items-baseline justify-between mb-8 border-b border-white/10 pb-4">
-        <div class="flex items-baseline gap-3">
-          <a href="/gallery/kidsuper" class="text-xs tracking-[0.15em] uppercase font-display text-white/40 hover:text-cream transition-colors">KidSuper</a>
-          <span class="text-white/20">—</span>
-          <h1 class="text-xs tracking-[0.25em] uppercase font-display font-semibold">"The Boy who Jumped the Moon"</h1>
+    <main class="px-8 py-14 max-w-screen-xl mx-auto">
+      <div class="mb-14 pb-6 border-b border-white/10 flex items-baseline justify-between">
+        <div class="flex flex-col gap-2">
+          <a href="/gallery/kidsuper" class="text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white/60 transition-colors font-display">← KidSuper</a>
+          <h1 class="text-base font-display tracking-wide">"The Boy who Jumped the Moon"</h1>
         </div>
+        <span class="text-xs tracking-[0.2em] uppercase text-white/30" style="font-family: Arial, sans-serif;">AW25</span>
       </div>
 
-      <GalleryLightbox images={images} alt='KidSuper "The Boy who Jumped the Moon"' client:load />
+      <RunwayGalleryGrid images={images} brand="KidSuper" client:load />
     </main>
 
   </div>
