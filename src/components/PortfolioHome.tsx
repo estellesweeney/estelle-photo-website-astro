@@ -32,11 +32,11 @@ export default function PortfolioHome() {
           <section className="flex flex-wrap gap-2 px-6 pt-8 pb-6 border-b border-white/10">
             {nav.map(({ label, link, tip }) => (
               <Tooltip key={label}>
-                <TooltipTrigger render={(
+                <TooltipTrigger>
                   <a href={link}>
                     <Button variant="outline">{label}</Button>
                   </a>
-                )} />
+                </TooltipTrigger>
                 <TooltipContent><p>{tip}</p></TooltipContent>
               </Tooltip>
             ))}
