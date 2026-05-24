@@ -2,13 +2,14 @@ import { useState } from "react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import AsciiIntro from "@/components/AsciiIntro";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const nav = [
-  { label: "Runway",        link: "/runway" },
-  { label: "Campaigns",     link: "/campaigns" },
-  { label: "Backstage",     link: "/backstage" },
-  { label: "Graphic Design",link: "/graphic-design" },
-  { label: "About",         link: "/about" },
+  { label: "Runway",         link: "/runway",         tip: "35mm runway photography" },
+  { label: "Campaigns",      link: "/campaigns",      tip: "Campaign & editorial work" },
+  { label: "Backstage",      link: "/backstage",      tip: "Behind the scenes" },
+  { label: "Graphic Design", link: "/graphic-design", tip: "Art direction & design" },
+  { label: "About",          link: "/about",          tip: "Estelle Sweeney" },
 ];
 
 export default function PortfolioHome() {
@@ -27,12 +28,17 @@ export default function PortfolioHome() {
 
         <main className="flex flex-col gap-0">
 
-          {/* Ghost button navigation */}
+          {/* Outline button navigation with tooltips */}
           <section className="flex flex-wrap gap-2 px-6 pt-8 pb-6 border-b border-white/10">
-            {nav.map(({ label, link }) => (
-              <a key={label} href={link}>
-                <Button variant="ghost">{label}</Button>
-              </a>
+            {nav.map(({ label, link, tip }) => (
+              <Tooltip key={label}>
+                <TooltipTrigger render={(
+                  <a href={link}>
+                    <Button variant="outline">{label}</Button>
+                  </a>
+                )} />
+                <TooltipContent><p>{tip}</p></TooltipContent>
+              </Tooltip>
             ))}
           </section>
 
