@@ -26,7 +26,7 @@ const photos = [
 
 function Slide({ src, slug }: { src: string; slug: string }) {
   const [hovered, setHovered] = useState(false);
-  const href = slug === "__shows__" ? "/runway/shows" : slug ? `/runway/${slug}` : "/runway";
+  const href = "/runway/shows";
 
   return (
     <a
