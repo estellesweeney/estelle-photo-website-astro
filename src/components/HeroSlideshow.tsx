@@ -32,16 +32,6 @@ export default function HeroSlideshow() {
 
   return (
     <div className="flex flex-col select-none">
-      {/* Label — centered above photo */}
-      <div
-        className="w-full text-center pb-2 transition-all duration-500"
-        style={{ opacity: showLabel ? 1 : 0 }}
-      >
-        <p className="text-[10px] tracking-[0.25em] uppercase font-display font-medium" style={{ color: '#F5F0E8' }}>
-          {slides[current].label}
-        </p>
-      </div>
-
       {/* Slideshow */}
       <div className="relative w-full overflow-hidden h-[280px] sm:h-[380px] md:h-[480px]">
 
