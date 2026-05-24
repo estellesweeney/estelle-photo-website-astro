@@ -1,4 +1,6 @@
+import { useState } from "react";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import AsciiIntro from "@/components/AsciiIntro";
 
 const iconNav = [
   { id: "12", label: "Runway",        link: "/runway",          color: "#E63946" },
@@ -9,7 +11,11 @@ const iconNav = [
 ];
 
 export default function PortfolioHome() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
+    <>
+      {showIntro && <AsciiIntro onDone={() => setShowIntro(false)} />}
     <div style={{ background: "white", minHeight: "100vh", fontFamily: "Arial, sans-serif" }}>
 
       {/* Nav */}
@@ -173,5 +179,6 @@ export default function PortfolioHome() {
       </section>
 
     </div>
+    </>
   );
 }
