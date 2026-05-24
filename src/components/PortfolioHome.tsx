@@ -1,4 +1,5 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
+import { Button } from "@/components/ui/button";
 
 const iconNav = [
   { id: "12", label: "RUNWAY",         link: "/runway" },
@@ -28,24 +29,43 @@ export default function PortfolioHome() {
       <main className="flex flex-col gap-0">
 
         {/* Icon navigation */}
-        <section className="grid grid-cols-5 gap-0 pt-8 pb-4">
-          {iconNav.map(({ id, label, link }, i) => (
-            <a key={id} href={link} className="flex flex-col items-center group">
-              <div
-                className="w-full aspect-square overflow-hidden transition-opacity group-hover:opacity-80"
-                style={{ backgroundColor: COLORS[i] }}
-              >
-                <img
-                  src={`/icons/icon_${id}.svg`}
-                  alt={label}
-                  className="w-full h-full"
-                  style={{ mixBlendMode: "multiply" }}
-                  draggable={false}
-                />
-              </div>
-              <span className="text-[9px] tracking-[0.15em] uppercase text-center pt-2 text-white/60" style={{ fontFamily: 'Arial, sans-serif' }}>{label}</span>
-            </a>
-          ))}
+        <section className="grid grid-cols-5 gap-0 pt-6 pb-4">
+          {iconNav.map(({ id, label, link }, i) => {
+            if (id === "12") {
+              return (
+                <a key={id} href={link} className="flex flex-col items-center group">
+                  <div className="w-full aspect-square flex items-center justify-center border border-white/15 group-hover:border-white/40 group-hover:bg-white/5 transition-all">
+                    <Button
+                      variant="ghost"
+                      tabIndex={-1}
+                      className="pointer-events-none text-white/50 group-hover:text-white text-[9px] tracking-[0.2em] uppercase h-auto p-0"
+                      style={{ fontFamily: 'Arial, sans-serif' }}
+                    >
+                      Runway
+                    </Button>
+                  </div>
+                  <span className="text-[9px] tracking-[0.15em] uppercase text-center pt-2 text-white/40" style={{ fontFamily: 'Arial, sans-serif' }}>{label}</span>
+                </a>
+              );
+            }
+            return (
+              <a key={id} href={link} className="flex flex-col items-center group">
+                <div
+                  className="w-full aspect-square overflow-hidden transition-opacity group-hover:opacity-80"
+                  style={{ backgroundColor: COLORS[i] }}
+                >
+                  <img
+                    src={`/icons/icon_${id}.svg`}
+                    alt={label}
+                    className="w-full h-full"
+                    style={{ mixBlendMode: "multiply" }}
+                    draggable={false}
+                  />
+                </div>
+                <span className="text-[9px] tracking-[0.15em] uppercase text-center pt-2 text-white/60" style={{ fontFamily: 'Arial, sans-serif' }}>{label}</span>
+              </a>
+            );
+          })}
         </section>
 
         {/* Slideshow — full bleed */}
