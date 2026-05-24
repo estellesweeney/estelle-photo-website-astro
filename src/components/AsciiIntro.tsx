@@ -33,7 +33,7 @@ export default function AsciiIntro({ onDone }: Props) {
       }}
     >
       <AsciiArt
-        src="/slides/wvb/01.jpg"
+        src="/ascii-source.jpg"
         resolution={120}
         color="#ffffff"
         animationStyle="fade"
