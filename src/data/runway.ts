@@ -49,7 +49,6 @@ export const runwayShows: RunwayShow[] = [
     cover: "/slides/kidsuper/otb-cover.jpg",
     images: [
       "/slides/kidsuper/otb-01.jpg",
-      "/slides/kidsuper/otb-02.jpg",
       "/slides/kidsuper/otb-03.jpg",
       "/slides/kidsuper/otb-04.jpg",
       "/slides/kidsuper/otb-05.jpg",
