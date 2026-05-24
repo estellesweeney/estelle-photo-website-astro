@@ -34,7 +34,7 @@ const clients = [
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="flex flex-col md:flex-row h-[calc(100svh-65px)]">
+    <main class="flex flex-col md:flex-row md:h-[calc(100svh-65px)]">
 
       {/* Show list — left column */}
       <div class="order-2 md:order-1 w-full md:w-72 lg:w-80 shrink-0 px-6 py-10 md:border-r border-white/10 overflow-y-auto">
@@ -50,7 +50,7 @@ const clients = [
       </div>
 
       {/* Photo carousel — right column */}
-      <div class="order-1 md:order-2 flex-1 flex items-stretch overflow-hidden">
+      <div class="order-1 md:order-2 flex-1 flex items-stretch overflow-hidden h-[70svh] md:h-auto">
         <RunwayPhotoCarousel client:load />
       </div>
 
