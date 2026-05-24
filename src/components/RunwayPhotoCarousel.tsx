@@ -11,6 +11,13 @@ const photos = [
   "/slides/runway/08.jpg",
   "/slides/runway/09.jpg",
   "/slides/runway/10.jpg",
+  "/slides/runway/11.jpg",
+  "/slides/runway/12.jpg",
+  "/slides/runway/13.jpg",
+  "/slides/runway/14.jpg",
+  "/slides/runway/15.jpg",
+  "/slides/runway/16.jpg",
+  "/slides/runway/17.jpg",
 ];
 
 export default function RunwayPhotoCarousel() {
