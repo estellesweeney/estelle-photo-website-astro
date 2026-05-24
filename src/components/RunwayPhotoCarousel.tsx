@@ -25,17 +25,45 @@ export default function RunwayPhotoCarousel() {
     align: "start",
     dragFree: true,
     loop: true,
+    containScroll: false,
   });
 
   return (
-    <div className="w-full overflow-hidden" ref={emblaRef}>
-      <div className="flex gap-2">
+    <div
+      ref={emblaRef}
+      style={{
+        overflow: "hidden",
+        width: "100%",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          gap: "6px",
+          backfaceVisibility: "hidden",
+          touchAction: "pan-y pinch-zoom",
+          userSelect: "none",
+        }}
+      >
         {photos.map((src, i) => (
-          <div key={i} className="flex-none h-[340px] sm:h-[420px]">
+          <div
+            key={i}
+            style={{
+              flex: "0 0 auto",
+              minWidth: 0,
+              height: "clamp(220px, 45vw, 480px)",
+            }}
+          >
             <img
               src={src}
               alt={`Runway ${i + 1}`}
-              className="h-full w-auto object-cover"
+              style={{
+                height: "100%",
+                width: "auto",
+                display: "block",
+                objectFit: "cover",
+                pointerEvents: "none",
+              }}
               loading="lazy"
               draggable={false}
             />
