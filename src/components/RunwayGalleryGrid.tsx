@@ -47,7 +47,6 @@ export default function RunwayGalleryGrid({ images, brand }: Props) {
       {/* Grid */}
       <div
         style={{ columns: 2, gap: "3px" }}
-        className="md:[columns:3] lg:[columns:4]"
       >
         {images.map((src, i) => (
           <div key={i} className="break-inside-avoid mb-[3px]">
