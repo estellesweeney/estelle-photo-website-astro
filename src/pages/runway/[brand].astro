@@ -46,25 +46,22 @@ const slots = Array.from({ length: TOTAL_SLOTS }, (_, i) =>
         </span>
       </div>
 
-      {/* Photo grid with blank slots */}
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      {/* Photo grid — natural proportions, no cropping */}
+      <div style="columns: 2; gap: 4px;" class="md:[columns:3] lg:[columns:4]">
         {slots.map((src, i) => (
-          <div
-            class="w-full overflow-hidden"
-            style="aspect-ratio: 4/5;"
-          >
+          <div class="break-inside-avoid mb-1">
             {src ? (
               <img
                 src={src}
                 alt={`${show.brand} ${i + 1}`}
-                class="w-full h-full object-cover hover:opacity-80 transition-opacity duration-300 cursor-pointer"
+                class="w-full h-auto block hover:opacity-80 transition-opacity duration-300"
                 loading="lazy"
                 draggable={false}
               />
             ) : (
               <div
-                class="w-full h-full border border-white/10 flex items-center justify-center"
-                style="background: rgba(255,255,255,0.02);"
+                class="w-full border border-white/10 flex items-center justify-center"
+                style="aspect-ratio: 4/5; background: rgba(255,255,255,0.02);"
               >
                 <span class="text-white/15 text-xs tracking-[0.2em] uppercase font-display select-none">
                   {String(i + 1).padStart(2, "0")}
