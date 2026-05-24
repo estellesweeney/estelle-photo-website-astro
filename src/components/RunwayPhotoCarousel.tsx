@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 const photos = [
   "/slides/runway/01.jpg",
@@ -21,12 +22,15 @@ const photos = [
 ];
 
 export default function RunwayPhotoCarousel() {
-  const [emblaRef] = useEmblaCarousel({
-    align: "start",
-    dragFree: true,
-    loop: true,
-    containScroll: false,
-  });
+  const [emblaRef] = useEmblaCarousel(
+    {
+      align: "start",
+      dragFree: true,
+      loop: true,
+      containScroll: false,
+    },
+    [WheelGesturesPlugin()]
+  );
 
   return (
     <div
