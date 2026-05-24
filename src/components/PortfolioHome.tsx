@@ -1,5 +1,4 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
-import RunwayCarousel from "@/components/RunwayCarousel";
 import { Button } from "@/components/ui/button";
 
 const iconNav = [
@@ -61,10 +60,6 @@ export default function PortfolioHome() {
           ))}
         </section>
 
-        {/* Runway carousel */}
-        <section>
-          <RunwayCarousel />
-        </section>
 
         {/* Slideshow — full bleed */}
         <section>
