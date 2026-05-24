@@ -5,7 +5,7 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 // Map each photo to its show slug — update slugs once Estelle confirms which photo is from which show
 // Existing show pages: /runway/walter-van-bierendonck | /runway/kidsuper-aw2627 | /runway/kidsuper-aw25
 const photos = [
-  { src: "/slides/runway/01.jpg", slug: "" },
+  { src: "/slides/runway/01.jpg", slug: "__shows__" },
   { src: "/slides/runway/02.jpg", slug: "" },
   { src: "/slides/runway/03.jpg", slug: "" },
   { src: "/slides/runway/04.jpg", slug: "" },
@@ -26,7 +26,7 @@ const photos = [
 
 function Slide({ src, slug }: { src: string; slug: string }) {
   const [hovered, setHovered] = useState(false);
-  const href = slug ? `/runway/${slug}` : "/runway";
+  const href = slug === "__shows__" ? "/runway/shows" : slug ? `/runway/${slug}` : "/runway";
 
   return (
     <a
