@@ -107,7 +107,8 @@ export default function RunwayGalleryGrid({ images, brand }: Props) {
           {/* Close */}
           <button
             className="absolute top-5 right-6 text-white/50 hover:text-white text-xl transition-colors"
-            onClick={close}
+            style={{ zIndex: 60 }}
+            onClick={(e) => { e.stopPropagation(); close(); }}
             aria-label="Close"
           >
             ✕
