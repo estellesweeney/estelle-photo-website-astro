@@ -2,7 +2,7 @@ import { useState } from "react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import AsciiIntro from "@/components/AsciiIntro";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 const nav = [
   { label: "Runway",         link: "/runway",         tip: "35mm runway photography" },
@@ -16,7 +16,7 @@ export default function PortfolioHome() {
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <>
+    <TooltipProvider>
       {showIntro && <AsciiIntro onDone={() => setShowIntro(false)} />}
 
       <div className="min-h-screen bg-black text-cream font-sans">
@@ -99,6 +99,6 @@ export default function PortfolioHome() {
 
         </main>
       </div>
-    </>
+    </TooltipProvider>
   );
 }
