@@ -9,9 +9,6 @@ const slides = [
   { src: "/slides/home/05.jpg", link: "/runway" },
   { src: "/slides/home/06.jpg", link: "/runway" },
   { src: "/slides/home/07.jpg", link: "/runway" },
-  { src: "/slides/home/08.jpg", link: "/runway" },
-  { src: "/slides/home/09.jpg", link: "/runway" },
-  { src: "/slides/home/10.jpg", link: "/runway" },
 ];
 
 const nav = [
