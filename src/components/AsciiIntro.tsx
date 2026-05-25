@@ -103,23 +103,10 @@ export default function AsciiIntro({ onDone }: Props) {
       const cx = COLS / 2;
       const cr = ROWS / 2;
 
-      // ── Circular motion detection (after 5s = ~300 ticks) ────────────────
-      if (tick > 300 && phase === "vortex") {
-        const hist = histRef.current;
-        if (hist.length > 12) {
-          let totalAngle = 0;
-          for (let i = 2; i < hist.length; i++) {
-            const v1x = hist[i-1].x - hist[i-2].x, v1y = hist[i-1].y - hist[i-2].y;
-            const v2x = hist[i].x   - hist[i-1].x, v2y = hist[i].y   - hist[i-1].y;
-            const cross = v1x * v2y - v1y * v2x;
-            const dot   = v1x * v2x + v1y * v2y;
-            totalAngle += Math.atan2(cross, dot);
-          }
-          showClick.current = Math.abs(totalAngle) > Math.PI * 0.3;
-        }
-      } else if (tick <= 300) {
-        showClick.current = false;
-      }
+      // ── Show "click" as soon as mouse moves ──────────────────────────────
+      const hist = histRef.current;
+      const now = Date.now();
+      showClick.current = phase === "vortex" && hist.length > 0 && (now - hist[hist.length - 1].t) < 200;
 
       // Fade click label alpha
       const targetAlpha = showClick.current ? 1 : 0;
