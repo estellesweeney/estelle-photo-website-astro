@@ -107,7 +107,7 @@ export default function PortfolioHome() {
           }}/>
 
           {/* ── Sharp main image ── */}
-          <img src="/slides/home/hero.jpg" alt="" draggable={false} style={{
+          <img src="/slides/home/hero.jpg" alt="" draggable={false} className="hero-img" style={{
             position:"absolute",inset:0,width:"100%",height:"100%",
             objectFit:"cover",objectPosition:"center 12%",
             filter:"grayscale(15%) brightness(0.62) contrast(1.12)",
@@ -385,6 +385,7 @@ export default function PortfolioHome() {
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
+          .hero-img { object-fit: contain !important; object-position: center center !important; background: #080808; }
           .hero-nav { padding: 20px 18px !important; }
           .hero-carousel { bottom: 16px !important; padding: 0 !important; }
           .hero-carousel-track { gap: 2px !important; }
