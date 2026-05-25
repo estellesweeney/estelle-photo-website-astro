@@ -305,7 +305,7 @@ export default function PortfolioHome() {
               </div>
               <div style={{ position:"relative",overflow:"hidden",border:"1px solid rgba(245,240,232,0.15)" }}>
                 <CornerMarkers color="rgba(245,240,232,0.5)" size={18}/>
-                <video ref={videoRef} src="/video/reel.mp4" autoPlay muted loop playsInline style={{ width:"100%",display:"block",objectFit:"cover",aspectRatio:"16/9" }}/>
+                <video ref={videoRef} src="/video/reel.mp4" autoPlay muted loop playsInline style={{ width:"100%",display:"block",objectFit:"cover",aspectRatio:"4/5" }}/>
                 <div style={{ position:"absolute",left:0,right:0,height:"1px",top:`${scanPos}%`,background:"linear-gradient(to right,transparent,rgba(245,240,232,0.18),transparent)",pointerEvents:"none",zIndex:2 }}/>
                 <div style={{ position:"absolute",inset:0,zIndex:1,pointerEvents:"none",backgroundImage:"linear-gradient(rgba(245,240,232,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,0.03) 1px,transparent 1px)",backgroundSize:"40px 40px" }}/>
                 <div style={{ position:"absolute",top:"10px",left:"14px",zIndex:3 }}><MonoLabel color={cream}>REC ●</MonoLabel></div>
