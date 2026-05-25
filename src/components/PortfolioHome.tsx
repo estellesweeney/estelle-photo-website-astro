@@ -212,10 +212,10 @@ export default function PortfolioHome() {
                     onMouseEnter={()=>setActive(i)}
                     className={`hero-carousel-item ${isActive ? "hero-carousel-active" : "hero-carousel-inactive"}`}
                     style={{
-                      flex: isActive ? "2.2 0 0" : "1 0 0",minWidth:0,
+                      flex: isActive ? "2 0 0" : "1 0 0",minWidth:0,
                       display:"block",position:"relative",overflow:"hidden",
-                      aspectRatio:"3/4",textDecoration:"none",
-                      maxHeight:"clamp(140px, 24vh, 230px)",
+                      height:"clamp(90px, 13vh, 150px)",
+                      textDecoration:"none",
                       outline: isActive ? "1px solid rgba(245,240,232,0.28)" : "1px solid transparent",
                       transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
                     }}
