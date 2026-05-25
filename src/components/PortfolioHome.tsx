@@ -80,10 +80,10 @@ export default function PortfolioHome() {
           <rect width="100%" height="100%" filter="url(#grain)" opacity="0.18" />
         </svg>
 
-        {/* ── Nav ─────────────────────────────────────────────────────────── */}
-        <nav style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "28px 44px", zIndex: 10 }}>
-          <a href="/" style={{ color: "rgba(245,240,232,0.9)", textDecoration: "none", fontFamily: "'Bodoni Moda', serif", fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase" }}>
-            ES
+        {/* ── Nav / Header ─────────────────────────────────────────────────── */}
+        <nav style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "24px 44px", zIndex: 10 }}>
+          <a href="/" style={{ color: "rgba(245,240,232,0.88)", textDecoration: "none", fontFamily: "'Bodoni Moda', serif", fontSize: "13px", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            Estelle Sweeney
           </a>
           <div style={{ display: "flex", gap: "32px" }}>
             {nav.map(({ label, href }) => (
@@ -95,53 +95,15 @@ export default function PortfolioHome() {
           </div>
         </nav>
 
-        {/* ── Text block — upper center ────────────────────────────────────── */}
-        <div style={{
-          position: "absolute",
-          top: "24%",
-          left: 0,
-          right: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          zIndex: 10,
-          textAlign: "center",
-          padding: "0 24px",
-          pointerEvents: "none",
-        }}>
-          <h1 style={{
-            fontFamily: "'Bodoni Moda', serif",
-            fontSize: "clamp(38px, 6.5vw, 88px)",
-            fontWeight: 400,
-            letterSpacing: "0.12em",
-            color: "rgba(245,240,232,0.96)",
-            margin: 0,
-            lineHeight: 1,
-            textTransform: "uppercase",
-          }}>
-            Estelle Sweeney
-          </h1>
-
-          <p style={{ fontFamily: "Arial, sans-serif", fontSize: "clamp(7px, 0.9vw, 10px)", letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(245,240,232,0.4)", margin: "18px 0 0", lineHeight: 1 }}>
-            Analog Fashion Photography &nbsp;/&nbsp; Runway &nbsp;/&nbsp; Backstage
-          </p>
-
-          {/* Star divider */}
-          <div style={{ margin: "18px 0", color: "rgba(245,240,232,0.28)", fontSize: "10px", letterSpacing: "0.4em" }}>✦ ✦ ✦</div>
-
-          <p style={{ fontFamily: "'Bodoni Moda', serif", fontStyle: "italic", fontSize: "clamp(11px, 1.3vw, 17px)", letterSpacing: "0.04em", color: "rgba(245,240,232,0.28)", margin: 0, lineHeight: 1 }}>
-            Fashion, movement, and memory caught on film.
-          </p>
-        </div>
-
         {/* ── Carousel ─────────────────────────────────────────────────────── */}
         <div style={{
           position: "absolute",
-          bottom: 0,
+          top: "50%",
           left: 0,
           right: 0,
+          transform: "translateY(-50%)",
           zIndex: 10,
-          padding: "0 44px 36px",
+          padding: "0 44px",
         }}>
           {/* Carousel track */}
           <div style={{ display: "flex", gap: "12px", alignItems: "flex-end" }}>
@@ -162,7 +124,7 @@ export default function PortfolioHome() {
                     href={item.href}
                     style={{
                       display: "block",
-                      flex: isActive ? "0 0 clamp(100px,14vw,180px)" : "0 0 clamp(54px,7vw,88px)",
+                      flex: isActive ? "0 0 clamp(200px,28vw,360px)" : "0 0 clamp(80px,10vw,140px)",
                       transition: "flex 0.5s cubic-bezier(0.4,0,0.2,1)",
                       textDecoration: "none",
                       position: "relative",
@@ -176,7 +138,7 @@ export default function PortfolioHome() {
                       draggable={false}
                       style={{
                         width: "100%",
-                        height: "clamp(80px,12vw,150px)",
+                        height: "clamp(180px,26vw,340px)",
                         objectFit: "cover",
                         objectPosition: "center 15%",
                         display: "block",
