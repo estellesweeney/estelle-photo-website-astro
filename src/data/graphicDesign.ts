@@ -75,11 +75,22 @@ export const galleryPieces: GalleryPiece[] = [
     },
   },
   {
-    slug: "threshold",
-    title: "Threshold",
+    slug: "kidsuper",
+    title: "Kidsuper",
     year: "2025",
-    medium: "Mixed Media",
-    // cover: "/art/threshold.jpg",
+    medium: "Illustration",
+    cover: "/art/kidsuper/cover.jpg",
+    images: [
+      "/art/kidsuper/01.jpg",
+      "/art/kidsuper/02.jpg",
+      "/art/kidsuper/03.jpg",
+      "/art/kidsuper/04.jpg",
+      "/art/kidsuper/05.jpg",
+      "/art/kidsuper/06.jpg",
+      "/art/kidsuper/07.jpg",
+      "/art/kidsuper/08.jpg",
+      "/art/kidsuper/09.jpg",
+    ],
     inspo: {
       summary: "",
       sections: [
