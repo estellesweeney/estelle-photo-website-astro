@@ -1,4 +1,18 @@
 import { useState, useEffect, useRef } from "react";
+
+function HomeIconReact() {
+  const [hov, setHov] = useState(false);
+  return (
+    <a href="/" aria-label="Home"
+      onMouseEnter={()=>setHov(true)}
+      onMouseLeave={()=>setHov(false)}
+      style={{ display:"inline-flex",flexDirection:"column",alignItems:"flex-start",textDecoration:"none",gap:"3px",lineHeight:1 }}
+    >
+      <img src="/icons/icon_16.svg" alt="" style={{ width:"22px",height:"22px",filter:"invert(1)",opacity:hov?1:0.55,transition:"opacity 0.25s ease",display:"block" }} />
+      <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.12em",color:"rgba(245,240,232,0.75)",opacity:hov?1:0,transition:"opacity 0.25s ease",whiteSpace:"nowrap" }}>home</span>
+    </a>
+  );
+}
 import { backstageBrands } from "@/data/backstage";
 
 // Only show brands with covers
@@ -160,9 +174,7 @@ export default function BackstageLanding() {
         background: "rgba(10,10,10,0.92)",
         backdropFilter: "blur(10px)",
       }}>
-        <a href="/" style={{ color: "rgba(245,240,232,0.88)", textDecoration: "none", fontFamily: "'Bodoni Moda', serif", fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase" }}>
-          Estelle Sweeney
-        </a>
+        <HomeIconReact />
         <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
           {[
             { label: "Portfolio", href: "/runway" },

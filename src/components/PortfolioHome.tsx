@@ -1,6 +1,20 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import AsciiIntro from "@/components/AsciiIntro";
 
+function HomeIconReact() {
+  const [hov, setHov] = useState(false);
+  return (
+    <a href="/" aria-label="Home"
+      onMouseEnter={()=>setHov(true)}
+      onMouseLeave={()=>setHov(false)}
+      style={{ display:"inline-flex",flexDirection:"column",alignItems:"flex-start",textDecoration:"none",gap:"3px",lineHeight:1 }}
+    >
+      <img src="/icons/icon_16.svg" alt="" style={{ width:"22px",height:"22px",filter:"invert(1)",opacity:hov?1:0.55,transition:"opacity 0.25s ease",display:"block" }} />
+      <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.12em",color:"rgba(245,240,232,0.75)",opacity:hov?1:0,transition:"opacity 0.25s ease",whiteSpace:"nowrap" }}>home</span>
+    </a>
+  );
+}
+
 const nav = [
   { label: "Portfolio",   href: "/runway" },
   { label: "Collections", href: "/backstage" },
@@ -116,9 +130,7 @@ export default function PortfolioHome() {
 
           {/* ── Nav ── */}
           <nav className="hero-nav" style={{ position:"absolute",top:0,left:0,right:0,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"26px 40px",zIndex:10 }}>
-            <a href="/" style={{ color:"rgba(245,240,232,0.85)",textDecoration:"none",fontFamily:"'Bodoni Moda', serif",fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase" }}>
-              Estelle Sweeney
-            </a>
+            <HomeIconReact />
             <div style={{ display:"flex",gap:"28px" }}>
               {nav.map(({ label, href }) => (
                 <a key={label} href={href} style={{ color:"rgba(245,240,232,0.42)",textDecoration:"none",fontFamily:"Arial, sans-serif",fontSize:"8px",letterSpacing:"0.22em",textTransform:"uppercase",transition:"color 0.25s" }}
