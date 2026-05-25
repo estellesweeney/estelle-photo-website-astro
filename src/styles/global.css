@@ -49,6 +49,15 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+.home-grid {
+  grid-template-columns: 1fr 1.15fr 0.85fr;
+}
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @layer utilities {
   .text-cream { color: #F5F0E8; }
   .bg-cream { background-color: #F5F0E8; }

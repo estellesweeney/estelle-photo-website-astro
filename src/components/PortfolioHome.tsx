@@ -1,390 +1,312 @@
 import { useState } from "react";
 import AsciiIntro from "@/components/AsciiIntro";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-
 const menuLinks = [
-  { label: "Runway",         link: "/runway" },
-  { label: "Campaigns",      link: "/campaigns" },
-  { label: "Backstage",      link: "/backstage" },
-  { label: "Graphic Design", link: "/graphic-design" },
+  { label: "Work",           link: "/runway" },
+  { label: "Services",       link: "/campaigns" },
   { label: "About",          link: "/about" },
+  { label: "Contact",        link: "/about" },
 ];
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+const services = [
+  "RUNWAY / SHOWS",
+  "BACKSTAGE",
+  "CAMPAIGNS",
+  "EDITORIAL",
+  "GRAPHIC DESIGN",
+];
 
-interface ImageItem {
-  src: string;
-  label: string;
-  sub?: string;
-  link: string;
-}
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-function PhotoCard({ item, style }: { item: ImageItem; style?: React.CSSProperties }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <a
-      href={item.link}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "block",
-        textDecoration: "none",
-        ...style,
-      }}
-    >
-      <div style={{
-        overflow: "hidden",
-        background: "#111",
-        transform: hovered ? "scale(1.015)" : "scale(1)",
-        transition: "transform 0.55s cubic-bezier(0.2,0,0,1)",
-      }}>
-        <img
-          src={item.src}
-          alt={item.label}
-          draggable={false}
-          style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-            transform: hovered ? "scale(1.04)" : "scale(1)",
-            transition: "transform 0.55s cubic-bezier(0.2,0,0,1)",
-          }}
-        />
-      </div>
-      <div style={{
-        marginTop: "10px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "baseline",
-        gap: "12px",
-      }}>
-        <span style={{
-          color: hovered ? "rgba(245,240,232,0.9)" : "rgba(245,240,232,0.55)",
-          fontFamily: "'Bodoni Moda', serif",
-          fontSize: "clamp(11px, 1.1vw, 14px)",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          transition: "color 0.3s ease",
-        }}>
-          {item.label}
-        </span>
-        {item.sub && (
-          <span style={{
-            color: "rgba(245,240,232,0.2)",
-            fontFamily: "Arial, sans-serif",
-            fontSize: "9px",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            flexShrink: 0,
-          }}>
-            {item.sub}
-          </span>
-        )}
-      </div>
-    </a>
-  );
-}
-
-// ─── Main ─────────────────────────────────────────────────────────────────────
+const footerNav = [
+  { icon: "◈", top: "COLLECTIONS", bot: "ARCHIVE",      link: "/runway" },
+  { icon: "◻", top: "BACKSTAGE",   bot: "ACCESS",        link: "/backstage" },
+  { icon: "✦", top: "EDITORIAL",   bot: "PRESS",         link: "/campaigns" },
+  { icon: "◉", top: "GRAPHIC",     bot: "DESIGN",        link: "/graphic-design" },
+  { icon: "◌", top: "ABOUT",       bot: "CONTACT",       link: "/about" },
+];
 
 export default function PortfolioHome() {
   const [showIntro, setShowIntro] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const cream = "#EDEAE2";
+  const ink   = "#0d0d0d";
+  const muted = "rgba(13,13,13,0.38)";
+
   return (
     <>
       {showIntro && <AsciiIntro onDone={() => setShowIntro(false)} />}
 
-      <div style={{ background: "#080808", minHeight: "100dvh", color: "rgba(245,240,232,0.9)" }}>
+      <div style={{ background: cream, color: ink, minHeight: "100dvh", fontFamily: "Arial, sans-serif" }}>
 
-        {/* ── Header ── */}
+        {/* ── HEADER ──────────────────────────────────────────────────────── */}
         <header style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "22px 32px",
+          padding: "0 28px",
+          height: "48px",
+          borderBottom: `1px solid rgba(13,13,13,0.12)`,
           position: "sticky",
           top: 0,
           zIndex: 50,
-          background: "rgba(8,8,8,0.92)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(255,255,255,0.045)",
+          background: cream,
         }}>
-          <a href="/" style={{
-            color: "rgba(245,240,232,0.9)",
-            textDecoration: "none",
-            fontSize: "11px",
-            letterSpacing: "0.24em",
-            textTransform: "uppercase",
-            fontFamily: "'Bodoni Moda', serif",
-          }}>
+          <a href="/" style={{ color: ink, textDecoration: "none", fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'Bodoni Moda', serif", fontWeight: 600 }}>
             Estelle Sweeney
           </a>
-
-          <nav style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-            {[
-              { label: "Work", href: "/runway" },
-              { label: "Services", href: "/campaigns" },
-              { label: "About", href: "/about" },
-            ].map(({ label, href }) => (
-              <a key={label} href={href} style={{
-                color: "rgba(245,240,232,0.38)",
+          <nav style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+            {menuLinks.map(({ label, link }, i) => (
+              <a key={label} href={link} style={{
+                color: i === 0 ? ink : muted,
                 textDecoration: "none",
                 fontSize: "9px",
-                letterSpacing: "0.22em",
+                letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                fontFamily: "Arial, sans-serif",
-                transition: "color 0.2s",
+                padding: "4px 10px",
+                border: i === 0 ? `1px solid ${ink}` : "1px solid transparent",
+                transition: "all 0.2s",
               }}
-                onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,240,232,0.9)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,240,232,0.38)")}
+                onMouseEnter={e => { e.currentTarget.style.color = ink; e.currentTarget.style.borderColor = ink; }}
+                onMouseLeave={e => { e.currentTarget.style.color = i === 0 ? ink : muted; e.currentTarget.style.borderColor = i === 0 ? ink : "transparent"; }}
               >
                 {label}
               </a>
             ))}
-            <button
-              onClick={() => setMenuOpen(true)}
-              style={{
-                color: "rgba(245,240,232,0.55)",
-                background: "none",
-                border: "none",
-                fontSize: "20px",
-                cursor: "pointer",
-                lineHeight: 1,
-                padding: "4px 0",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,240,232,1)")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,240,232,0.55)")}
-              aria-label="Open menu"
-            >
-              +
-            </button>
+            <button onClick={() => setMenuOpen(true)} style={{ background: "none", border: "none", color: muted, fontSize: "18px", cursor: "pointer", padding: "4px 6px", lineHeight: 1 }}
+              onMouseEnter={e => (e.currentTarget.style.color = ink)}
+              onMouseLeave={e => (e.currentTarget.style.color = muted)}
+            >+</button>
           </nav>
         </header>
 
-        {/* ── Menu overlay ── */}
+        {/* ── MENU OVERLAY ─────────────────────────────────────────────────── */}
         {menuOpen && (
-          <div style={{
-            position: "fixed",
-            inset: 0,
-            background: "#080808",
-            zIndex: 100,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "clamp(12px, 2.2vh, 26px)",
-          }}>
-            <button
-              onClick={() => setMenuOpen(false)}
-              style={{
-                position: "absolute",
-                top: "22px", right: "32px",
-                color: "rgba(245,240,232,0.45)",
-                background: "none",
-                border: "none",
-                fontSize: "22px",
-                cursor: "pointer",
-              }}
-              aria-label="Close menu"
-            >
-              ×
-            </button>
+          <div style={{ position: "fixed", inset: 0, background: cream, zIndex: 100, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "clamp(12px,2.2vh,24px)" }}>
+            <button onClick={() => setMenuOpen(false)} style={{ position: "absolute", top: "16px", right: "28px", background: "none", border: "none", fontSize: "22px", cursor: "pointer", color: muted }}>×</button>
             {menuLinks.map(({ label, link }) => (
-              <a
-                key={label}
-                href={link}
-                style={{
-                  color: "rgba(245,240,232,0.85)",
-                  textDecoration: "none",
-                  fontSize: "clamp(28px, 5vw, 58px)",
-                  fontFamily: "'Bodoni Moda', serif",
-                  letterSpacing: "0.04em",
-                  transition: "opacity 0.2s",
-                }}
+              <a key={label} href={link} style={{ color: ink, textDecoration: "none", fontSize: "clamp(28px,5vw,56px)", fontFamily: "'Bodoni Moda', serif", letterSpacing: "0.04em", transition: "opacity 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = "0.25")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-              >
-                {label}
-              </a>
+              >{label}</a>
             ))}
           </div>
         )}
 
-        {/* ── Content ── */}
-        <main style={{ padding: "0 clamp(20px, 4vw, 56px)", paddingBottom: "120px" }}>
+        {/* ── MAIN 3-COLUMN GRID ───────────────────────────────────────────── */}
+        <main style={{ display: "grid", gridTemplateColumns: "1fr 1.15fr 0.85fr", borderBottom: `1px solid rgba(13,13,13,0.1)` }} className="home-grid">
 
-          {/* ─ Section 1: Two images, offset ─ */}
-          <div style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "clamp(16px, 2.5vw, 40px)",
-            marginTop: "clamp(40px, 7vh, 80px)",
-          }}>
-            <div style={{ flex: "0 0 54%" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/01.jpg", label: "Runway", sub: "2025–26", link: "/runway" }}
-              />
+          {/* ── LEFT COL ── */}
+          <div style={{ borderRight: `1px solid rgba(13,13,13,0.1)`, display: "flex", flexDirection: "column" }}>
+
+            {/* Top label */}
+            <div style={{ padding: "14px 20px 12px", borderBottom: `1px solid rgba(13,13,13,0.1)` }}>
+              <span style={{ fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: muted }}>Projects</span>
             </div>
-            <div style={{ flex: "0 0 36%", marginTop: "clamp(60px, 12vh, 130px)" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/02.jpg", label: "Backstage", sub: "2025", link: "/backstage" }}
-              />
+
+            {/* Big name */}
+            <div style={{ padding: "16px 20px 0", flex: 1 }}>
+              <div style={{
+                fontFamily: "'Bodoni Moda', serif",
+                fontSize: "clamp(52px, 7.5vw, 110px)",
+                lineHeight: 0.92,
+                fontWeight: 400,
+                letterSpacing: "-0.01em",
+                color: ink,
+              }}>
+                ESTELLE<br />SWEENEY
+              </div>
+
+              <div style={{ marginTop: "20px", fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: muted, lineHeight: 1.8 }}>
+                <span style={{ color: "#c0392b" }}>Analog Works</span> + <span style={{ color: "#2980b9" }}>Runway</span><br />
+                Since 2019
+              </div>
+
+              <a href="/runway" style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                marginTop: "20px",
+                color: ink, textDecoration: "underline",
+                fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase",
+                transition: "opacity 0.2s",
+              }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.45")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              >
+                View Projects →
+              </a>
+            </div>
+
+            {/* Bottom: two small photos */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderTop: `1px solid rgba(13,13,13,0.1)`, marginTop: "24px" }}>
+              {["/slides/home/03.jpg", "/slides/home/07.jpg"].map((src, i) => (
+                <a key={i} href="/runway" style={{ display: "block", borderRight: i === 0 ? `1px solid rgba(13,13,13,0.1)` : "none" }}>
+                  <img src={src} alt="" draggable={false} style={{ width: "100%", height: "clamp(120px,16vw,220px)", objectFit: "cover", display: "block", filter: "grayscale(20%)" }} />
+                </a>
+              ))}
+            </div>
+
+            {/* Speech bubble */}
+            <div style={{
+              margin: "16px 20px",
+              background: "#c0392b",
+              color: "#fff",
+              padding: "8px 14px",
+              fontSize: "9px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              lineHeight: 1.6,
+              display: "inline-block",
+              alignSelf: "flex-start",
+            }}>
+              WVB · KIDSUPER · BBC<br />NYC + PARIS 2025–26
             </div>
           </div>
 
-          {/* ─ Section 2: Text ─ */}
-          <div style={{
-            marginTop: "clamp(60px, 10vh, 110px)",
-            maxWidth: "680px",
-            padding: "0 4px",
-          }}>
-            <p style={{
-              color: "rgba(245,240,232,0.82)",
-              fontFamily: "'Bodoni Moda', serif",
-              fontSize: "clamp(22px, 3.2vw, 42px)",
-              lineHeight: 1.25,
-              letterSpacing: "0.01em",
-              fontWeight: 400,
-              margin: "0 0 32px 0",
-            }}>
-              Runway, backstage, and editorial photography at the intersection of fashion and fine art.
-            </p>
-            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-              {[
-                { label: "All Work", href: "/runway" },
-                { label: "About", href: "/about" },
-              ].map(({ label, href }) => (
-                <a key={label} href={href} style={{
-                  color: "rgba(245,240,232,0.55)",
-                  textDecoration: "none",
-                  fontSize: "9px",
-                  letterSpacing: "0.28em",
-                  textTransform: "uppercase",
-                  fontFamily: "Arial, sans-serif",
-                  padding: "10px 20px",
-                  border: "1px solid rgba(245,240,232,0.15)",
-                  transition: "all 0.25s ease",
-                }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.color = "rgba(245,240,232,0.9)";
-                    e.currentTarget.style.borderColor = "rgba(245,240,232,0.45)";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.color = "rgba(245,240,232,0.55)";
-                    e.currentTarget.style.borderColor = "rgba(245,240,232,0.15)";
-                  }}
-                >
-                  {label}
+          {/* ── CENTER COL ── */}
+          <div style={{ borderRight: `1px solid rgba(13,13,13,0.1)`, display: "flex", flexDirection: "column" }}>
+
+            {/* Top label row */}
+            <div style={{ padding: "14px 20px 12px", borderBottom: `1px solid rgba(13,13,13,0.1)`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: muted }}>Featured</span>
+              <span style={{ fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", color: muted }}>2025–26</span>
+            </div>
+
+            {/* Two large photos */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+              <a href="/runway" style={{ display: "block", borderRight: `1px solid rgba(13,13,13,0.1)` }}>
+                <img src="/slides/home/01.jpg" alt="Runway" draggable={false}
+                  style={{ width: "100%", height: "clamp(260px,36vw,480px)", objectFit: "cover", display: "block", filter: "grayscale(15%)", transition: "filter 0.4s" }}
+                  onMouseEnter={e => ((e.target as HTMLImageElement).style.filter = "grayscale(0%)")}
+                  onMouseLeave={e => ((e.target as HTMLImageElement).style.filter = "grayscale(15%)")}
+                />
+              </a>
+              <a href="/backstage" style={{ display: "block" }}>
+                <img src="/slides/home/11.jpg" alt="Backstage" draggable={false}
+                  style={{ width: "100%", height: "clamp(260px,36vw,480px)", objectFit: "cover", display: "block", marginTop: "clamp(30px,5vw,60px)", filter: "grayscale(15%)", transition: "filter 0.4s" }}
+                  onMouseEnter={e => ((e.target as HTMLImageElement).style.filter = "grayscale(0%)")}
+                  onMouseLeave={e => ((e.target as HTMLImageElement).style.filter = "grayscale(15%)")}
+                />
+              </a>
+            </div>
+
+            {/* Caption */}
+            <div style={{ padding: "12px 20px", borderTop: `1px solid rgba(13,13,13,0.1)`, marginTop: "auto" }}>
+              <span style={{ fontSize: "8px", letterSpacing: "0.16em", textTransform: "uppercase", color: muted }}>
+                Runway · Backstage · Editorial
+              </span>
+            </div>
+
+            {/* Lower photos: 3 in a row */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderTop: `1px solid rgba(13,13,13,0.1)` }}>
+              {["/slides/home/04.jpg", "/slides/home/13.jpg", "/slides/home/16.jpg"].map((src, i) => (
+                <a key={i} href="/runway" style={{ display: "block", borderRight: i < 2 ? `1px solid rgba(13,13,13,0.1)` : "none" }}>
+                  <img src={src} alt="" draggable={false}
+                    style={{ width: "100%", height: "clamp(90px,12vw,160px)", objectFit: "cover", display: "block", filter: "grayscale(20%)", transition: "filter 0.4s" }}
+                    onMouseEnter={e => ((e.target as HTMLImageElement).style.filter = "grayscale(0%)")}
+                    onMouseLeave={e => ((e.target as HTMLImageElement).style.filter = "grayscale(20%)")}
+                  />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* ─ Section 3: Three images ─ */}
-          <div style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "clamp(16px, 2.5vw, 40px)",
-            marginTop: "clamp(60px, 10vh, 110px)",
-          }}>
-            <div style={{ flex: "0 0 26%", marginTop: "clamp(30px, 6vh, 70px)" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/05.jpg", label: "Campaigns", link: "/campaigns" }}
-              />
-            </div>
-            <div style={{ flex: "0 0 42%" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/06.jpg", label: "Walter Van Bierendonck", sub: "AW25", link: "/runway/walter-van-bierendonck" }}
-              />
-            </div>
-            <div style={{ flex: "0 0 24%", marginTop: "clamp(80px, 16vh, 160px)" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/09.jpg", label: "KidSuper", sub: "AW26", link: "/runway/kidsuper-aw2627" }}
-              />
-            </div>
-          </div>
+          {/* ── RIGHT COL ── */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
 
-          {/* ─ Section 4: Full width ─ */}
-          <div style={{ marginTop: "clamp(60px, 10vh, 110px)" }}>
-            <PhotoCard
-              item={{ src: "/slides/home/11.jpg", label: "Runway", sub: "NYC · 2025–26", link: "/runway" }}
-            />
-          </div>
-
-          {/* ─ Section 5: Two images, reversed offset ─ */}
-          <div style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "clamp(16px, 2.5vw, 40px)",
-            marginTop: "clamp(60px, 10vh, 110px)",
-          }}>
-            <div style={{ flex: "0 0 38%", marginTop: "clamp(50px, 10vh, 100px)" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/13.jpg", label: "Graphic Design", link: "/graphic-design" }}
-              />
-            </div>
-            <div style={{ flex: "0 0 52%" }}>
-              <PhotoCard
-                item={{ src: "/slides/home/14.jpg", label: "Backstage", sub: "2025–26", link: "/backstage" }}
-              />
-            </div>
-          </div>
-
-          {/* ─ Section 6: Three equal ─ */}
-          <div style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "clamp(16px, 2.5vw, 40px)",
-            marginTop: "clamp(60px, 10vh, 110px)",
-          }}>
-            {[
-              { src: "/slides/home/15.jpg", label: "Runway", link: "/runway" },
-              { src: "/slides/home/16.jpg", label: "KidSuper", sub: "AW25", link: "/runway/kidsuper-aw25", offset: "clamp(40px, 8vh, 80px)" },
-              { src: "/slides/home/17.jpg", label: "Backstage", link: "/backstage", offset: "clamp(16px, 3vh, 30px)" },
-            ].map((item, i) => (
-              <div key={i} style={{ flex: "1", marginTop: item.offset ?? "0" }}>
-                <PhotoCard item={{ src: item.src, label: item.label, sub: item.sub, link: item.link }} />
+            {/* Top label */}
+            <div style={{ padding: "14px 20px 12px", borderBottom: `1px solid rgba(13,13,13,0.1)`, display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: muted }}>Gallery</span>
+              <div style={{ display: "flex", gap: "6px" }}>
+                {["Grid", "List"].map((t, i) => (
+                  <span key={t} style={{ fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", color: i === 0 ? ink : muted, cursor: "pointer" }}>{t}</span>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
 
+            {/* 2×2 image grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+              {["/slides/home/02.jpg", "/art/bbc-illustrations.jpg", "/slides/home/05.jpg", "/art/kidsuper/cover.jpg"].map((src, i) => (
+                <a key={i} href={i % 2 === 1 ? "/graphic-design" : "/runway"} style={{ display: "block", borderRight: i % 2 === 0 ? `1px solid rgba(13,13,13,0.1)` : "none", borderBottom: i < 2 ? `1px solid rgba(13,13,13,0.1)` : "none" }}>
+                  <img src={src} alt="" draggable={false}
+                    style={{ width: "100%", height: "clamp(110px,14vw,180px)", objectFit: "cover", display: "block", filter: "grayscale(20%)", transition: "filter 0.4s" }}
+                    onMouseEnter={e => ((e.target as HTMLImageElement).style.filter = "grayscale(0%)")}
+                    onMouseLeave={e => ((e.target as HTMLImageElement).style.filter = "grayscale(20%)")}
+                  />
+                </a>
+              ))}
+            </div>
+
+            {/* Speech bubble */}
+            <div style={{
+              margin: "14px 20px 0",
+              background: "#2980b9",
+              color: "#fff",
+              padding: "8px 14px",
+              fontSize: "9px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              lineHeight: 1.6,
+              alignSelf: "flex-start",
+            }}>
+              Analog · Film · Archive
+            </div>
+
+            {/* Services list */}
+            <div style={{ padding: "16px 20px", borderTop: `1px solid rgba(13,13,13,0.1)`, marginTop: "16px" }}>
+              <div style={{ fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: muted, marginBottom: "10px" }}>Services</div>
+              {services.map(s => (
+                <div key={s} style={{ fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: ink, padding: "5px 0", borderBottom: `1px solid rgba(13,13,13,0.07)`, lineHeight: 1 }}>
+                  {s}
+                </div>
+              ))}
+            </div>
+
+            {/* Contact + big photo */}
+            <div style={{ marginTop: "auto" }}>
+              <a href="/runway" style={{ display: "block", borderTop: `1px solid rgba(13,13,13,0.1)` }}>
+                <img src="/slides/home/14.jpg" alt="" draggable={false}
+                  style={{ width: "100%", height: "clamp(140px,18vw,240px)", objectFit: "cover", display: "block", filter: "grayscale(15%)", transition: "filter 0.4s" }}
+                  onMouseEnter={e => ((e.target as HTMLImageElement).style.filter = "grayscale(0%)")}
+                  onMouseLeave={e => ((e.target as HTMLImageElement).style.filter = "grayscale(15%)")}
+                />
+              </a>
+              <div style={{ padding: "14px 20px", borderTop: `1px solid rgba(13,13,13,0.1)` }}>
+                <div style={{ fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", color: muted, marginBottom: "6px" }}>Project inquiries</div>
+                <a href="mailto:info@estellesweeney.com" style={{ fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: ink, textDecoration: "underline" }}>
+                  Let's Create Together →
+                </a>
+              </div>
+            </div>
+
+          </div>
         </main>
 
-        {/* ── Footer ── */}
+        {/* ── FOOTER ICON NAV ──────────────────────────────────────────────── */}
         <footer style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "20px 32px",
-          borderTop: "1px solid rgba(255,255,255,0.05)",
+          display: "grid",
+          gridTemplateColumns: "repeat(5, 1fr)",
+          borderTop: `1px solid rgba(13,13,13,0.1)`,
         }}>
-          <span style={{
-            color: "rgba(245,240,232,0.18)",
-            fontSize: "9px",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            fontFamily: "Arial, sans-serif",
-          }}>
-            Estelle Sweeney © All Rights Reserved
-          </span>
-          <a
-            href="https://www.instagram.com/estellesweeney_"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "rgba(245,240,232,0.25)", display: "block", transition: "opacity 0.2s" }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "0.25")}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
+          {footerNav.map(({ icon, top, bot, link }, i) => (
+            <a key={i} href={link} style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "16px 20px",
+              borderRight: i < 4 ? `1px solid rgba(13,13,13,0.1)` : "none",
+              textDecoration: "none",
+              color: ink,
+              transition: "background 0.2s",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(13,13,13,0.04)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              <span style={{ fontSize: "18px", opacity: 0.5, flexShrink: 0 }}>{icon}</span>
+              <div>
+                <div style={{ fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", lineHeight: 1.5 }}>{top}</div>
+                <div style={{ fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", color: muted, lineHeight: 1.5 }}>{bot}</div>
+              </div>
+            </a>
+          ))}
         </footer>
 
       </div>
