@@ -74,11 +74,12 @@ export default function AsciiIntro({ onDone }: Props) {
 
     // ── Mouse tracking ───────────────────────────────────────────────────────
     const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
       const now = Date.now();
+      const prev = mouseRef.current;
+      mouseRef.current = { x: e.clientX, y: e.clientY };
       histRef.current.push({ x: e.clientX, y: e.clientY, t: now });
-      // Keep last 700ms
-      const cutoff = now - 700;
+      // Keep last 300ms
+      const cutoff = now - 300;
       let i = 0;
       while (i < histRef.current.length && histRef.current[i].t < cutoff) i++;
       if (i > 0) histRef.current.splice(0, i);
@@ -103,14 +104,29 @@ export default function AsciiIntro({ onDone }: Props) {
       const cx = COLS / 2;
       const cr = ROWS / 2;
 
-      // ── Show "click" as soon as mouse moves ──────────────────────────────
-      const hist = histRef.current;
-      const now = Date.now();
-      showClick.current = phase === "vortex" && hist.length > 0 && (now - hist[hist.length - 1].t) < 200;
+      // ── Show "click" on sharp/fast mouse movement ──────────────────────
+      if (phase === "vortex") {
+        const hist = histRef.current;
+        if (hist.length > 2) {
+          // Compute velocity over last few points
+          const newest = hist[hist.length - 1];
+          const oldest = hist[0];
+          const dt = Math.max(1, newest.t - oldest.t);
+          const dx = newest.x - oldest.x;
+          const dy = newest.y - oldest.y;
+          const vel = Math.sqrt(dx * dx + dy * dy) / dt; // px/ms
+          showClick.current = vel > 0.55; // sharp movement threshold
+        } else {
+          showClick.current = false;
+        }
+      } else {
+        showClick.current = false;
+      }
 
       // Fade click label alpha
       const targetAlpha = showClick.current ? 1 : 0;
-      clickAlpha.current += (targetAlpha - clickAlpha.current) * 0.22;
+      const fadeSpeed = targetAlpha > clickAlpha.current ? 0.25 : 0.12;
+      clickAlpha.current += (targetAlpha - clickAlpha.current) * fadeSpeed;
 
       // ── Vortex scroll ─────────────────────────────────────────────────────
       for (let r = 0; r < ROWS; r++) {
