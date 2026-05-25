@@ -64,8 +64,8 @@ export default function AsciiIntro({ onDone }: Props) {
     let GAP       = Math.max(1, Math.floor(scale * 0.7));
     if (WORD.length * LW + (WORD.length - 1) * GAP > COLS * 0.96) GAP = 0;
     const totalW  = WORD.length * LW + (WORD.length - 1) * GAP;
-    const originC = Math.floor((COLS - totalW) / 2);
-    // Center vertically using actual canvas pixel height, not padded ROWS
+    // Center using actual canvas pixel dimensions, not padded grid
+    const originC = Math.round((W / CW - totalW) / 2);
     const originR = Math.round((H / CH - GLYPH_ROWS * scale) / 2);
 
     for (let li = 0; li < WORD.length; li++) {
