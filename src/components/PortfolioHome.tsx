@@ -206,7 +206,8 @@ export default function PortfolioHome() {
                     style={{
                       flex: isActive ? "3 0 0" : "1 0 0",minWidth:0,
                       display:"block",position:"relative",overflow:"hidden",
-                      aspectRatio:"2/3",textDecoration:"none",
+                      aspectRatio:"1/1",textDecoration:"none",
+                      maxHeight:"clamp(100px, 22vh, 260px)",
                       outline: isActive ? "1px solid rgba(245,240,232,0.35)" : "1px solid transparent",
                       transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
                     }}
@@ -372,15 +373,13 @@ export default function PortfolioHome() {
         @media (max-width: 768px) {
           .scroll-section { flex-direction: column !important; }
           .scroll-left { width:100% !important; position:relative !important; height:70vw !important; padding:20px !important; }
-          .hero-carousel { bottom: 32px !important; padding: 0 8px !important; }
-          .hero-carousel a { aspect-ratio: 1/1 !important; }
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
           .hero-nav { padding: 20px 18px !important; }
           .hero-carousel { bottom: 16px !important; padding: 0 !important; }
           .hero-carousel-track { gap: 2px !important; }
-          .hero-carousel-item { aspect-ratio: 2/3 !important; }
+          .hero-carousel-item { aspect-ratio: 2/3 !important; max-height: none !important; }
           .hero-text-block {
             padding: 0 !important;
             width: 100vw !important;
