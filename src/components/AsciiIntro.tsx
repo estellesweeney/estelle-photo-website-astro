@@ -263,10 +263,31 @@ export default function AsciiIntro({ onDone }: Props) {
           style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
         />
 
+        {/* Pulsing circle — touch devices only, vortex phase */}
+        <div className="tap-circle-wrap" style={{
+          position: "absolute", top:0, left:0, right:0, bottom:0,
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center",
+          gap: "12px",
+          opacity: uiPhase === "vortex" ? 1 : 0,
+          transition: "opacity 0.5s ease",
+          pointerEvents: "none",
+          zIndex: 3,
+        }}>
+          <div style={{
+            width: "52px", height: "52px", borderRadius: "50%",
+            border: "1px solid rgba(245,240,232,0.35)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            animation: "tap-pulse 2s ease-in-out infinite",
+          }}>
+            <span style={{ fontSize: "20px", color: "rgba(245,240,232,0.8)" }}>✦</span>
+          </div>
+          <span style={{ fontFamily:"monospace", fontSize:"9px", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(245,240,232,0.45)", whiteSpace:"nowrap" }}>tap to enter</span>
+        </div>
+
       </div>
       <style>{`
-        /* Only show tap prompt on touch devices */
-        @media (pointer: fine) { .ios-tap-prompt { display: none !important; } }
+        @media (pointer: fine) { .tap-circle-wrap { display: none !important; } }
       `}</style>
     </>
   );
