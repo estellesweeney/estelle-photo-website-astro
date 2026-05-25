@@ -92,11 +92,11 @@ export default function AsciiIntro({ onDone }: Props) {
     if (isTouch) {
       for (let li = 0; li < WORD.length; li++) {
         const lc0 = originC + li * (LW + GAP);
-        const baseDelay = (li / (WORD.length - 1)) * 2400; // 0 to 2400ms
+        const baseDelay = (li / (WORD.length - 1)) * 4200; // 0 to 4200ms (5s total)
         for (let r = 0; r < ROWS; r++) {
           for (let c = lc0; c < lc0 + LW; c++) {
             if (c >= 0 && c < COLS && litCell[r][c] === 1) {
-              lockDelay[r][c] = baseDelay + Math.random() * 400;
+              lockDelay[r][c] = baseDelay + Math.random() * 600;
             }
           }
         }
@@ -170,14 +170,15 @@ export default function AsciiIntro({ onDone }: Props) {
               const elapsed = Date.now() - spellStartMs.current;
               const locked  = !isTouch || elapsed >= lockDelay[r][c];
               if (locked) {
-                // Fully locked in — bright and steady
-                if (Math.random() < 0.04) chars[r][c] = ch === "0" ? "1" : "0";
-                alpha = 0.75 + Math.sin(tick * 0.09 + c * 0.3) * 0.15;
+                // Snapped in — flash bright on lock, then steady
+                const justLocked = (Date.now() - spellStartMs.current) - lockDelay[r][c];
+                const flashBoost = justLocked < 120 ? (1 - justLocked / 120) * 0.5 : 0;
+                if (Math.random() < 0.02) chars[r][c] = ch === "0" ? "1" : "0";
+                alpha = 0.75 + flashBoost + Math.sin(tick * 0.09 + c * 0.3) * 0.1;
               } else {
-                // Still scrambling — rapid flicker
-                if (Math.random() < 0.35) chars[r][c] = ch === "0" ? "1" : "0";
-                const scrambleAlpha = 0.15 + Math.random() * 0.45;
-                alpha = scrambleAlpha;
+                // Slow deliberate scramble — clicks every ~8 frames
+                if (Math.random() < 0.08) chars[r][c] = ch === "0" ? "1" : "0";
+                alpha = 0.12 + Math.random() * 0.22;
               }
             } else {
               if (Math.random() < 0.012) chars[r][c] = ch === "0" ? "1" : "0";
@@ -274,7 +275,7 @@ export default function AsciiIntro({ onDone }: Props) {
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
       // Auto-exit: 3s scramble + 1.5s to read = 4.5s, or tap to skip
-      setTimeout(() => exit(), isTouch ? 4500 : 8000);
+      setTimeout(() => exit(), isTouch ? 7000 : 9000);
     } else if (phaseRef.current === "spelling") {
       exit();
     }
