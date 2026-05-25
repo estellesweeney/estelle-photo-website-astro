@@ -385,7 +385,7 @@ export default function PortfolioHome() {
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
-          .hero-img { object-fit: contain !important; object-position: center center !important; background: #080808; }
+          .hero-img { object-fit: cover !important; object-position: center center !important; }
           .hero-nav { padding: 20px 18px !important; }
           .hero-carousel { bottom: 16px !important; padding: 0 !important; }
           .hero-carousel-track { gap: 2px !important; }
