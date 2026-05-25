@@ -247,10 +247,26 @@ export default function VirtualGallery() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", zIndex: 10 }}>
           <a
             href={`/graphic-design/${piece.slug}`}
-            style={{ display: "block" }}
-            className="transition-transform duration-300 hover:scale-[1.015]"
+            style={{ display: "block", position: "relative", cursor: "pointer" }}
+            className="transition-transform duration-300 hover:scale-[1.015] group"
           >
             <Frame piece={piece} variant="main" />
+            {/* Hover overlay */}
+            <div
+              className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%)", pointerEvents: "none" }}
+            >
+              <span style={{
+                color: "rgba(245,240,232,0.92)",
+                fontFamily: "var(--font-display, serif)",
+                fontSize: "clamp(10px, 1.1vw, 13px)",
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                paddingBottom: "clamp(10px, 2.5%, 20px)",
+              }}>
+                View Project →
+              </span>
+            </div>
           </a>
 
           {/* Gallery plaque */}

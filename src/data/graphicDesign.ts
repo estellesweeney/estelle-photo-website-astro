@@ -53,7 +53,7 @@ export const galleryPieces: GalleryPiece[] = [
     title: "Mauri",
     year: "2025",
     medium: "Illustration",
-    cover: "/art/mauri/01.jpg",
+    cover: "/art/mauri/cover.jpg",
     images: [
       "/art/mauri/01.jpg",
       "/art/mauri/02.jpg",
