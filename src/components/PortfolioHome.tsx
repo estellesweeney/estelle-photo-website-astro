@@ -110,7 +110,7 @@ export default function PortfolioHome() {
           </nav>
 
           {/* ── Big centered "ESTELLE" ── */}
-          <div style={{
+          <div className="hero-text-block" style={{
             position:"absolute",
             top:"24%",
             left:0,right:0,
@@ -341,13 +341,17 @@ export default function PortfolioHome() {
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
-          .hero-title {
-            font-size: min(22vw, 88px) !important;
-            text-align: center !important;
-            width: 100% !important;
+          .hero-text-block {
+            padding: 0 !important;
+            width: 100vw !important;
             left: 0 !important;
             right: 0 !important;
-            padding: 0 !important;
+          }
+          .hero-title {
+            font-size: 16vw !important;
+            letter-spacing: 0.06em !important;
+            width: 100vw !important;
+            text-align: center !important;
           }
         }
       `}</style>
