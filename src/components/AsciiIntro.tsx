@@ -33,8 +33,13 @@ export default function AsciiIntro({ onDone }: Props) {
     canvas.width  = W;
     canvas.height = H;
 
+    // On mobile: font size must be small enough that ESTELLE (7 letters × 5 cols + gaps)
+    // fits within COLS at scale=1. We need COLS ≥ 41, so CW ≤ W/41, so FS ≤ W/(41×0.62)
     const isMobile = W < 768;
-    const FS   = isMobile ? Math.max(13, Math.min(18, W / 22)) : Math.max(9, Math.min(13, W / 90));
+    const maxFSForFit = W / (41 * 0.62); // guarantees ESTELLE fits at scale=1
+    const FS = isMobile
+      ? Math.min(maxFSForFit, Math.max(10, W / 28))   // readable but guaranteed to fit
+      : Math.max(9, Math.min(13, W / 90));
     const CW   = FS * 0.62;
     const CH   = FS * 1.35;
     const COLS = Math.ceil(W / CW) + 2;
@@ -55,7 +60,9 @@ export default function AsciiIntro({ onDone }: Props) {
       scale--;
     }
     const LW      = GLYPH_COLS * scale;
-    const GAP     = Math.max(1, Math.floor(scale * 0.7));
+    // Safety net: if even scale=1 is too wide, reduce gap to 0
+    let GAP       = Math.max(1, Math.floor(scale * 0.7));
+    if (WORD.length * LW + (WORD.length - 1) * GAP > COLS * 0.96) GAP = 0;
     const totalW  = WORD.length * LW + (WORD.length - 1) * GAP;
     const originC = Math.floor((COLS - totalW) / 2);
     const originR = Math.floor((ROWS - GLYPH_ROWS * scale) / 2);
