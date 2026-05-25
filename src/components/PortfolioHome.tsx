@@ -142,12 +142,12 @@ export default function PortfolioHome() {
           </div>
 
           {/* ── Carousel — bottom, centered, equal-width ── */}
-          <div style={{
+          <div className="hero-carousel" style={{
             position:"absolute",
             bottom:"48px",
-            left:"50%",
-            transform:"translateX(-50%)",
-            width:"clamp(300px, 78vw, 1000px)",
+            left:0,
+            right:0,
+            padding:"0 clamp(12px, 4vw, 48px)",
             zIndex:10,
           }}>
             {/* Thumbnails row */}
@@ -175,7 +175,7 @@ export default function PortfolioHome() {
                   >
                     <img src={item.src} alt={item.label} draggable={false} loading="lazy" style={{
                       position:"absolute",inset:0,width:"100%",height:"100%",
-                      objectFit:"cover",objectPosition:"center 18%",
+                      objectFit:"cover",objectPosition:"center center",
                       filter: isActive ? "grayscale(0%) brightness(0.88)" : "grayscale(100%) brightness(0.42)",
                       transition:"filter 0.6s ease",
                     }}/>
@@ -334,6 +334,11 @@ export default function PortfolioHome() {
         @media (max-width: 768px) {
           .scroll-section { flex-direction: column !important; }
           .scroll-left { width:100% !important; position:relative !important; height:70vw !important; padding:20px !important; }
+          .hero-carousel { bottom: 32px !important; padding: 0 8px !important; }
+          .hero-carousel a { aspect-ratio: 1/1 !important; }
+        }
+        @supports (-webkit-touch-callout: none) {
+          section:first-child { height: 100svh !important; }
         }
       `}</style>
     </>
