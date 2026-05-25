@@ -36,7 +36,7 @@ export default function PortfolioHome() {
     <>
       {showIntro && <AsciiIntro onDone={() => setShowIntro(false)} />}
 
-      <div style={{ background: cream, color: ink, minHeight: "100dvh", fontFamily: "Arial, sans-serif" }}>
+      <div style={{ background: cream, color: ink, minHeight: "100dvh", fontFamily: "Arial, sans-serif", opacity: showIntro ? 0 : 1, transition: "opacity 0.5s ease" }}>
 
         {/* ── HEADER ──────────────────────────────────────────────────────── */}
         <header style={{

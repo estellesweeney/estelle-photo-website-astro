@@ -139,9 +139,11 @@
     cursor: none !important;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: #080808;
     }
   html {
     @apply font-sans;
+    background: #080808;
     }
 }
