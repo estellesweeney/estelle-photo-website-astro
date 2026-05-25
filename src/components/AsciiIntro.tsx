@@ -22,17 +22,11 @@ export default function AsciiIntro({ onDone }: Props) {
   const histRef      = useRef<Array<{ x: number; y: number; t: number }>>([]);
   const clickAlpha   = useRef(0);
   const spellStartMs = useRef(0);
-  const canTapRef     = useRef(false);
+
   const [uiPhase, setUiPhase] = useState<"vortex" | "spelling" | "out">("vortex");
   const onDoneRef    = useRef(onDone);
   const isTouch      = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   onDoneRef.current = onDone;
-
-  // Enable tapping after 3s
-  useEffect(() => {
-    const t = setTimeout(() => { canTapRef.current = true; }, 3000);
-    return () => clearTimeout(t);
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -277,15 +271,15 @@ export default function AsciiIntro({ onDone }: Props) {
   };
 
   const handleClick = () => {
-    if (!canTapRef.current) return; // ignore taps during first 3s
     if (phaseRef.current === "vortex") {
+      // Vortex tap works immediately
       phaseRef.current = "spelling";
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
-      // Auto-exit: 3s scramble + 1.5s to read = 4.5s, or tap to skip
-      // On touch: hold ESTELLE until tapped. On desktop: auto-exit after 9s.
       if (!isTouch) setTimeout(() => exit(), 9000);
     } else if (phaseRef.current === "spelling") {
+      // Must view ESTELLE for at least 3s before tap-to-exit works
+      if (Date.now() - spellStartMs.current < 3000) return;
       exit();
     }
   };
