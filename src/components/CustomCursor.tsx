@@ -4,6 +4,7 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: -100, y: -100 });
   const smoothPos = useRef({ x: -100, y: -100 });
+  const firstMove = useRef(true);
   const raf = useRef<number>();
   const [clicking, setClicking] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -12,6 +13,10 @@ export default function CustomCursor() {
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY };
+      if (firstMove.current) {
+        smoothPos.current = { x: e.clientX, y: e.clientY };
+        firstMove.current = false;
+      }
       if (!visible) setVisible(true);
     };
 
