@@ -120,7 +120,7 @@ export default function PortfolioHome() {
           }}>
             <h1 style={{
               fontFamily:"'Bodoni Moda', serif",
-              fontSize:"clamp(52px, 11vw, 148px)",
+              fontSize:"clamp(78px, 14vw, 148px)",
               fontWeight:400,
               letterSpacing:"0.16em",
               color:"rgba(245,240,232,0.96)",

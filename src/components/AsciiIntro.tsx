@@ -33,7 +33,8 @@ export default function AsciiIntro({ onDone }: Props) {
     canvas.width  = W;
     canvas.height = H;
 
-    const FS   = Math.max(9, Math.min(13, W / 90));
+    const isMobile = W < 768;
+    const FS   = isMobile ? Math.max(13, Math.min(18, W / 22)) : Math.max(9, Math.min(13, W / 90));
     const CW   = FS * 0.62;
     const CH   = FS * 1.35;
     const COLS = Math.ceil(W / CW) + 2;
