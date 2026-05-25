@@ -176,7 +176,7 @@ export default function PortfolioHome() {
             zIndex:10,
           }}>
             {/* Thumbnails row */}
-            <div style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
+            <div className="hero-carousel-track" style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
 
               {/* Prev arrow */}
               <button onClick={prev} style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
@@ -190,12 +190,13 @@ export default function PortfolioHome() {
                 return (
                   <a key={i} href={item.href}
                     onMouseEnter={()=>setActive(i)}
+                    className={`hero-carousel-item ${isActive ? "hero-carousel-active" : "hero-carousel-inactive"}`}
                     style={{
-                      flex:"1 0 0",minWidth:0,
+                      flex: isActive ? "3 0 0" : "1 0 0",minWidth:0,
                       display:"block",position:"relative",overflow:"hidden",
                       aspectRatio:"2/3",textDecoration:"none",
                       outline: isActive ? "1px solid rgba(245,240,232,0.35)" : "1px solid transparent",
-                      transition:"outline 0.3s ease",
+                      transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
                     }}
                   >
                     <img src={item.src} alt={item.label} draggable={false} loading="lazy" style={{
@@ -365,6 +366,9 @@ export default function PortfolioHome() {
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
           .hero-nav { padding: 20px 18px !important; }
+          .hero-carousel { bottom: 16px !important; padding: 0 !important; }
+          .hero-carousel-track { gap: 2px !important; }
+          .hero-carousel-item { aspect-ratio: 2/3 !important; }
           .hero-text-block {
             padding: 0 !important;
             width: 100vw !important;
