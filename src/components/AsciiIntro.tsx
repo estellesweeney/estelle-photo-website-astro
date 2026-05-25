@@ -65,7 +65,8 @@ export default function AsciiIntro({ onDone }: Props) {
     if (WORD.length * LW + (WORD.length - 1) * GAP > COLS * 0.96) GAP = 0;
     const totalW  = WORD.length * LW + (WORD.length - 1) * GAP;
     const originC = Math.floor((COLS - totalW) / 2);
-    const originR = Math.floor((ROWS - GLYPH_ROWS * scale) / 2);
+    // Center vertically using actual canvas pixel height, not padded ROWS
+    const originR = Math.round((H / CH - GLYPH_ROWS * scale) / 2);
 
     for (let li = 0; li < WORD.length; li++) {
       const glyph = GLYPH[WORD[li]];
