@@ -16,13 +16,15 @@ const GLYPH_ROWS = 7;
 const GLYPH_COLS = 5;
 
 export default function AsciiIntro({ onDone }: Props) {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const phaseRef   = useRef<"vortex" | "spelling" | "out">("vortex");
-  const mouseRef   = useRef({ x: -999, y: -999 });
-  const histRef    = useRef<Array<{ x: number; y: number; t: number }>>([]);
-  const clickAlpha = useRef(0);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const phaseRef     = useRef<"vortex" | "spelling" | "out">("vortex");
+  const mouseRef     = useRef({ x: -999, y: -999 });
+  const histRef      = useRef<Array<{ x: number; y: number; t: number }>>([]);
+  const clickAlpha   = useRef(0);
+  const spellStartMs = useRef(0);
   const [uiPhase, setUiPhase] = useState<"vortex" | "spelling" | "out">("vortex");
-  const onDoneRef  = useRef(onDone);
+  const onDoneRef    = useRef(onDone);
+  const isTouch      = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   onDoneRef.current = onDone;
 
   useEffect(() => {
@@ -45,10 +47,12 @@ export default function AsciiIntro({ onDone }: Props) {
     const COLS = Math.ceil(W / CW) + 2;
     const ROWS = Math.ceil(H / CH) + 2;
 
-    const chars   = Array.from({ length: ROWS }, () =>
+    const chars     = Array.from({ length: ROWS }, () =>
       Array.from({ length: COLS }, () => (Math.random() < 0.5 ? "0" : "1"))
     );
-    const litCell = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+    const litCell   = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+    // lockDelay[r][c] = ms after spellStart when this cell locks in (0–2800ms, left-to-right stagger)
+    const lockDelay = Array.from({ length: ROWS }, () => new Float32Array(COLS).fill(9999));
 
     // Scale must fit both height AND width
     let scale = Math.max(1, Math.floor((ROWS * 0.55) / GLYPH_ROWS));
@@ -82,6 +86,21 @@ export default function AsciiIntro({ onDone }: Props) {
                 litCell[r][c] = lit ? 1 : 0;
             }
         }
+    }
+
+    // Assign lock delays: stagger left-to-right across letters (0–2800ms) + small jitter
+    if (isTouch) {
+      for (let li = 0; li < WORD.length; li++) {
+        const lc0 = originC + li * (LW + GAP);
+        const baseDelay = (li / (WORD.length - 1)) * 2400; // 0 to 2400ms
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = lc0; c < lc0 + LW; c++) {
+            if (c >= 0 && c < COLS && litCell[r][c] === 1) {
+              lockDelay[r][c] = baseDelay + Math.random() * 400;
+            }
+          }
+        }
+      }
     }
 
     const onMouseMove = (e: MouseEvent) => {
@@ -144,11 +163,21 @@ export default function AsciiIntro({ onDone }: Props) {
             const isLit = litCell[r][c] === 1;
             ch = chars[r][c];
             if (isLit) {
-              if (Math.random() < 0.06) chars[r][c] = ch === "0" ? "1" : "0";
-              alpha = 0.72 + Math.sin(tick * 0.09 + c * 0.3) * 0.18;
+              const elapsed = Date.now() - spellStartMs.current;
+              const locked  = !isTouch || elapsed >= lockDelay[r][c];
+              if (locked) {
+                // Fully locked in — bright and steady
+                if (Math.random() < 0.04) chars[r][c] = ch === "0" ? "1" : "0";
+                alpha = 0.75 + Math.sin(tick * 0.09 + c * 0.3) * 0.15;
+              } else {
+                // Still scrambling — rapid flicker
+                if (Math.random() < 0.35) chars[r][c] = ch === "0" ? "1" : "0";
+                const scrambleAlpha = 0.15 + Math.random() * 0.45;
+                alpha = scrambleAlpha;
+              }
             } else {
               if (Math.random() < 0.012) chars[r][c] = ch === "0" ? "1" : "0";
-              alpha = 0.028 + Math.random() * 0.012;
+              alpha = 0.025 + Math.random() * 0.01;
             }
           }
 
@@ -202,8 +231,9 @@ export default function AsciiIntro({ onDone }: Props) {
     if (phaseRef.current === "vortex") {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
-      // Auto-exit fallback after 8s if they don't click again
-      setTimeout(() => exit(), 8000);
+      spellStartMs.current = Date.now();
+      // Auto-exit: 3s scramble + 1.5s to read = 4.5s, or tap to skip
+      setTimeout(() => exit(), isTouch ? 4500 : 8000);
     } else if (phaseRef.current === "spelling") {
       exit();
     }
