@@ -26,7 +26,7 @@ const carousel = [
   { src: "/slides/home/01.jpg",         label: "Backstage",     href: "/backstage" },
   { src: "/slides/home/05.jpg",         label: "KidSuper",       href: "/runway/kidsuper-aw2627" },
   { src: "/art/bbc-illustrations.jpg",  label: "Graphic Design",href: "/graphic-design" },
-  { src: "/slides/home/14.jpg",         label: "Play",          href: "/graphic-design" },
+  { src: "/slides/home/14.jpg",         label: "BBC Summer",    href: "/gallery/billionaire-boys-club/summer" },
 ];
 
 function CornerMarkers({ color = "rgba(245,240,232,0.45)", size = 14, weight = 1.5 }) {
