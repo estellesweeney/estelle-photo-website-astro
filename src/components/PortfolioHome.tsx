@@ -8,8 +8,8 @@ const nav = [
 ];
 
 const carousel = [
-  { src: "/slides/home/01.jpg",         label: "Runway",        href: "/runway" },
-  { src: "/slides/home/11.jpg",         label: "Backstage",     href: "/backstage" },
+  { src: "/slides/home/11.jpg",         label: "Runway",        href: "/runway" },
+  { src: "/slides/home/01.jpg",         label: "Backstage",     href: "/backstage" },
   { src: "/slides/home/05.jpg",         label: "Campaigns",     href: "/campaigns" },
   { src: "/art/bbc-illustrations.jpg",  label: "Graphic Design",href: "/graphic-design" },
   { src: "/slides/home/14.jpg",         label: "Archive",       href: "/runway" },
