@@ -9,6 +9,16 @@ const slides = [
   { src: "/slides/home/05.jpg", link: "/runway" },
   { src: "/slides/home/06.jpg", link: "/runway" },
   { src: "/slides/home/07.jpg", link: "/runway" },
+  { src: "/slides/home/08.jpg", link: "/runway" },
+  { src: "/slides/home/09.jpg", link: "/runway" },
+  { src: "/slides/home/10.jpg", link: "/runway" },
+  { src: "/slides/home/11.jpg", link: "/runway" },
+  { src: "/slides/home/12.jpg", link: "/runway" },
+  { src: "/slides/home/13.jpg", link: "/runway" },
+  { src: "/slides/home/14.jpg", link: "/runway" },
+  { src: "/slides/home/15.jpg", link: "/runway" },
+  { src: "/slides/home/16.jpg", link: "/runway" },
+  { src: "/slides/home/17.jpg", link: "/runway" },
 ];
 
 const nav = [
