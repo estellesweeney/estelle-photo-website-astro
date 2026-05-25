@@ -280,8 +280,8 @@ export default function AsciiIntro({ onDone }: Props) {
       spellStartMs.current = Date.now();
       if (!isTouch) setTimeout(() => exit(), 9000);
     } else if (phaseRef.current === "spelling") {
-      // Must view ESTELLE for at least 3s before tap-to-exit works
-      if (Date.now() - spellStartMs.current < 3000) return;
+      // Allow tap once animation completes (~1.5s after spelling starts)
+      if (Date.now() - spellStartMs.current < 1500) return;
       exit();
     }
   };
