@@ -165,7 +165,7 @@ export default function PortfolioHome() {
             <a href={slides[current].link} style={{ display: "block", textDecoration: "none" }}>
               <div style={{
                 width: "clamp(200px, 55vw, 480px)",
-                aspectRatio: "4/5",
+                maxHeight: "clamp(300px, 72vh, 680px)",
                 overflow: "hidden",
               }}>
                 <img
@@ -173,8 +173,7 @@ export default function PortfolioHome() {
                   alt="Estelle Sweeney"
                   style={{
                     width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
+                    height: "auto",
                     display: "block",
                     transition: "opacity 0.4s ease",
                   }}
