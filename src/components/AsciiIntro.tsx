@@ -103,6 +103,10 @@ export default function AsciiIntro({ onDone }: Props) {
       }
     }
 
+    // Preload icon for canvas rendering
+    const iconImg = new Image();
+    iconImg.src = "/icons/icon_16_white.png";
+
     const onMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -186,6 +190,43 @@ export default function AsciiIntro({ onDone }: Props) {
         }
       }
 
+      // ── Star icon + tap prompt at vortex center (touch devices) ──────────
+      if (phase === "vortex" && isTouch && tick > 30) {
+        const fadeIn  = Math.min(1, (tick - 30) / 60);
+        const pulse   = 1 + Math.sin(tick * 0.07) * 0.08;
+        const iconSize = Math.min(W, H) * 0.14 * pulse;
+        const cx2 = W / 2, cy2 = H / 2;
+
+        ctx.save();
+
+        // Warm glow behind icon
+        const glow = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, iconSize * 2.2);
+        glow.addColorStop(0,   `rgba(180,60,10,${(0.35 * fadeIn).toFixed(2)})`);
+        glow.addColorStop(0.5, `rgba(100,30,5,${(0.18 * fadeIn).toFixed(2)})`);
+        glow.addColorStop(1,   "rgba(0,0,0,0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, H);
+
+        // Icon
+        if (iconImg.complete) {
+          ctx.globalAlpha = 0.88 * fadeIn;
+          ctx.drawImage(iconImg, cx2 - iconSize / 2, cy2 - iconSize / 1.6, iconSize, iconSize);
+          ctx.globalAlpha = 1;
+        }
+
+        // "✦ tap me! ✦" in binary-style monospace
+        const textAlpha = Math.min(1, (tick - 60) / 40) * fadeIn * (0.7 + Math.sin(tick * 0.08) * 0.2);
+        if (textAlpha > 0.01) {
+          ctx.font = `${FS * 1.1}px monospace`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = `rgba(245,240,232,${textAlpha.toFixed(3)})`;
+          ctx.fillText("✦ tap me! ✦", cx2, cy2 + iconSize * 0.72);
+        }
+
+        ctx.restore();
+      }
+
       // draw "click" above cursor (mouse devices)
       if (clickAlpha.current > 0.01 && mouseRef.current.x > 0) {
         ctx.font = `${FS}px monospace`;
@@ -263,27 +304,7 @@ export default function AsciiIntro({ onDone }: Props) {
           style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
         />
 
-        {/* Pulsing circle — touch devices only, vortex phase */}
-        <div className="tap-circle-wrap" style={{
-          position: "absolute", top:0, left:0, right:0, bottom:0,
-          display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center",
-          gap: "12px",
-          opacity: uiPhase === "vortex" ? 1 : 0,
-          transition: "opacity 0.5s ease",
-          pointerEvents: "none",
-          zIndex: 3,
-        }}>
-          <div style={{
-            width: "52px", height: "52px", borderRadius: "50%",
-            border: "1px solid rgba(245,240,232,0.35)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            animation: "tap-pulse 2s ease-in-out infinite",
-          }}>
-            <span style={{ fontSize: "20px", color: "rgba(245,240,232,0.8)" }}>✦</span>
-          </div>
-          <span style={{ fontFamily:"monospace", fontSize:"9px", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(245,240,232,0.45)", whiteSpace:"nowrap" }}>tap to enter</span>
-        </div>
+
 
       </div>
       <style>{`
