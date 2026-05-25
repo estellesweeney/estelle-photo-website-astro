@@ -6,6 +6,33 @@ interface Props {
 
 // ─── Pixel font (7 rows × 5 cols) ────────────────────────────────────────────
 const GLYPH: Record<string, number[][]> = {
+  C: [
+    [0,1,1,1,1],
+    [1,0,0,0,0],
+    [1,0,0,0,0],
+    [1,0,0,0,0],
+    [1,0,0,0,0],
+    [1,0,0,0,0],
+    [0,1,1,1,1],
+  ],
+  I: [
+    [1,1,1,1,1],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [1,1,1,1,1],
+  ],
+  K: [
+    [1,0,0,0,1],
+    [1,0,0,1,0],
+    [1,0,1,0,0],
+    [1,1,0,0,0],
+    [1,0,1,0,0],
+    [1,0,0,1,0],
+    [1,0,0,0,1],
+  ],
   E: [
     [1,1,1,1,1],
     [1,0,0,0,0],
@@ -44,7 +71,8 @@ const GLYPH: Record<string, number[][]> = {
   ],
 };
 
-const WORD = "ESTELLE";
+const WORD  = "ESTELLE";
+const HINT  = "CLICK";
 const GLYPH_ROWS = 7;
 const GLYPH_COLS = 5;
 
@@ -109,6 +137,33 @@ export default function AsciiIntro({ onDone }: Props) {
       }
     }
 
+    // ── Compute CLICK hint positions (smaller scale, near bottom) ────────────
+    const hintScale  = Math.max(1, Math.floor(scale * 0.45));
+    const hintLH     = GLYPH_ROWS * hintScale;
+    const hintLW     = GLYPH_COLS * hintScale;
+    const hintGAP    = Math.max(1, Math.floor(hintScale * 0.7));
+    const hintTotalW = HINT.length * hintLW + (HINT.length - 1) * hintGAP;
+    const hintOriginC = Math.floor((COLS - hintTotalW) / 2);
+    const hintOriginR = ROWS - hintLH - 3;
+    const hintCell   = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+
+    for (let li = 0; li < HINT.length; li++) {
+      const glyph = GLYPH[HINT[li]];
+      const lc0   = hintOriginC + li * (hintLW + hintGAP);
+      for (let gr = 0; gr < GLYPH_ROWS; gr++) {
+        for (let gc = 0; gc < GLYPH_COLS; gc++) {
+          if (glyph[gr][gc] !== 1) continue;
+          for (let sr = 0; sr < hintScale; sr++) {
+            for (let sc = 0; sc < hintScale; sc++) {
+              const r = hintOriginR + gr * hintScale + sr;
+              const c = lc0 + gc * hintScale + sc;
+              if (r >= 0 && r < ROWS && c >= 0 && c < COLS) hintCell[r][c] = 1;
+            }
+          }
+        }
+      }
+    }
+
     // ── Row-scroll offsets for vortex ────────────────────────────────────────
     const scrollOffsets = new Float32Array(ROWS);
 
@@ -152,11 +207,16 @@ export default function AsciiIntro({ onDone }: Props) {
             if (Math.random() < 0.018) chars[r][srcC] = ch === "0" ? "1" : "0";
 
             // Brightness: swirl wave + depth falloff
-            const dx    = (c - cx) / cx;
-            const dist  = Math.sqrt(dx * dx + dy * dy) / Math.SQRT2;
-            const angle = Math.atan2(dy, dx);
-            const wave  = Math.sin(angle * 4 - tick * 0.06 + dist * 10);
-            alpha = Math.max(0.03, 0.04 + Math.max(0, wave) * 0.42 * (1 - dist * 0.55));
+            // CLICK flash — appears after ~2s, pulses in/out
+            if (tick > 120 && hintCell[r][c] === 1) {
+              alpha = Math.max(0, 0.5 + Math.sin(tick * 0.07) * 0.42);
+            } else {
+              const dx    = (c - cx) / cx;
+              const dist  = Math.sqrt(dx * dx + dy * dy) / Math.SQRT2;
+              const angle = Math.atan2(dy, dx);
+              const wave  = Math.sin(angle * 4 - tick * 0.06 + dist * 10);
+              alpha = Math.max(0.03, 0.04 + Math.max(0, wave) * 0.42 * (1 - dist * 0.55));
+            }
 
           } else {
             // Spelling phase
@@ -217,27 +277,7 @@ export default function AsciiIntro({ onDone }: Props) {
         style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
       />
 
-      {/* Tap hint */}
-      <div style={{
-        position: "absolute",
-        bottom: "9%",
-        left: 0, right: 0,
-        display: "flex",
-        justifyContent: "center",
-        opacity: uiPhase === "vortex" ? 0.3 : 0,
-        transition: "opacity 0.5s ease",
-        pointerEvents: "none",
-      }}>
-        <span style={{
-          color: "rgba(245,240,232,1)",
-          fontFamily: "Arial, sans-serif",
-          fontSize: "9px",
-          letterSpacing: "0.35em",
-          textTransform: "uppercase",
-        }}>
-          tap
-        </span>
-      </div>
+
     </div>
   );
 }
