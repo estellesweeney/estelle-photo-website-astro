@@ -214,7 +214,8 @@ export default function PortfolioHome() {
                     style={{
                       flex: isActive ? "2 0 0" : "1 0 0",minWidth:0,
                       display:"block",position:"relative",overflow:"hidden",
-                      height:"clamp(90px, 13vh, 150px)",
+                      aspectRatio:"4/5",
+                      maxHeight:"clamp(160px, 26vh, 240px)",
                       textDecoration:"none",
                       outline: isActive ? "1px solid rgba(245,240,232,0.28)" : "1px solid transparent",
                       transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
