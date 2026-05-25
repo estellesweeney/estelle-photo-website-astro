@@ -223,7 +223,7 @@ export default function PortfolioHome() {
                   >
                     <img src={item.src} alt={item.label} draggable={false} loading="lazy" style={{
                       position:"absolute",inset:0,width:"100%",height:"100%",
-                      objectFit:"cover",objectPosition:"center center",
+                      objectFit:"contain",objectPosition:"center center",background:"#080808",
                       filter: isActive ? "grayscale(0%) brightness(0.88)" : "grayscale(100%) brightness(0.42)",
                       transition:"filter 0.6s ease",
                     }}/>
