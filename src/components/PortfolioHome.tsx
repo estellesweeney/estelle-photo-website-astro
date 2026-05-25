@@ -381,7 +381,8 @@ export default function PortfolioHome() {
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
         @media (max-width: 768px) {
           .scroll-section { flex-direction: column !important; }
-          .scroll-left { width:100% !important; position:relative !important; height:70vw !important; padding:20px !important; }
+          .scroll-left { width:100% !important; position:relative !important; height:auto !important; padding:16px !important; }
+          .scroll-left img { object-fit: contain !important; object-position: center center !important; height: auto !important; max-height: 80vw; width: 100% !important; }
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
