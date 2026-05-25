@@ -58,18 +58,22 @@ export default function PortfolioHome() {
   });
   const [active,    setActive]    = useState(0);
   const [scanPos,   setScanPos]   = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef   = useRef<HTMLVideoElement>(null);
+  const iosTrack   = useRef<HTMLDivElement>(null);
 
   const prev = useCallback(() => { setActive(i => (i - 1 + carousel.length) % carousel.length); if (navigator.vibrate) navigator.vibrate(8); }, []);
   const next = useCallback(() => { setActive(i => (i + 1) % carousel.length); if (navigator.vibrate) navigator.vibrate(8); }, []);
 
-  // Touch swipe for iOS carousel
-  const touchStartX = useRef(0);
-  const onTouchStart = useCallback((e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; }, []);
-  const onTouchEnd = useCallback((e: React.TouchEvent) => {
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
-  }, [next, prev]);
+  // iOS scroll-snap carousel: sync dot indicator with scroll position
+  const onIosScroll = useCallback(() => {
+    const el = iosTrack.current;
+    if (!el) return;
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    setActive(idx);
+    if (navigator.vibrate) navigator.vibrate(6);
+  }, []);
+
+  const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
 
   useEffect(() => {
     const id = setInterval(() => setScanPos(p => (p + 0.4) % 100), 16);
@@ -186,84 +190,70 @@ export default function PortfolioHome() {
             </p>
           </div>
 
-          {/* ── Carousel — bottom, centered, equal-width ── */}
-          <div className="hero-carousel" style={{
-            position:"absolute",
-            bottom:"48px",
-            left:0,
-            right:0,
-            padding:"0 clamp(12px, 4vw, 48px)",
-            zIndex:10,
-          }}>
-            {/* Thumbnails row */}
-            <div className="hero-carousel-track" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
+          {/* ── Desktop carousel ── */}
+          {!isTouch && (
+            <div style={{ position:"absolute",bottom:"48px",left:0,right:0,padding:"0 clamp(12px,4vw,48px)",zIndex:10 }}>
+              <div style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
+                <button onClick={prev} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
+                  onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
+                  onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
+                >‹</button>
+                {carousel.map((item,i) => {
+                  const isActive = i === active;
+                  return (
+                    <a key={i} href={item.href} onMouseEnter={()=>setActive(i)}
+                      style={{ flex:isActive?"2 0 0":"1 0 0",minWidth:0,display:"block",position:"relative",overflow:"hidden",aspectRatio:"4/5",maxHeight:"clamp(160px,26vh,240px)",textDecoration:"none",outline:isActive?"1px solid rgba(245,240,232,0.28)":"1px solid transparent",transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease" }}
+                    >
+                      <img src={item.src} alt={item.label} draggable={false} loading="lazy" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center center",filter:isActive?"grayscale(0%) brightness(0.88)":"grayscale(100%) brightness(0.42)",transition:"filter 0.6s ease" }}/>
+                      <div style={{ position:"absolute",bottom:0,left:0,right:0,padding:"18px 10px 10px",background:"linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 100%)",opacity:isActive?1:0,transition:"opacity 0.4s ease" }}>
+                        <span style={{ color:"rgba(245,240,232,0.92)",fontFamily:"Arial, sans-serif",fontSize:"7px",letterSpacing:"0.22em",textTransform:"uppercase" }}>{item.label}</span>
+                      </div>
+                    </a>
+                  );
+                })}
+                <button onClick={next} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
+                  onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
+                  onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
+                >›</button>
+              </div>
+              <div style={{ display:"flex",justifyContent:"center",gap:"5px",marginTop:"12px" }}>
+                {carousel.map((_,i)=>(<button key={i} onClick={()=>setActive(i)} style={{ width:i===active?"18px":"4px",height:"4px",borderRadius:"2px",background:i===active?"rgba(245,240,232,0.6)":"rgba(245,240,232,0.2)",border:"none",padding:0,cursor:"pointer",transition:"all 0.3s ease" }}/>))}
+              </div>
+            </div>
+          )}
 
-              {/* Prev arrow — desktop only */}
-              <button onClick={prev} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
-                onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
-                onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
-              >‹</button>
-
-              {/* Equal-width thumbnails */}
-              {carousel.map((item,i) => {
-                const isActive = i === active;
-                return (
-                  <a key={i} href={item.href}
-                    onMouseEnter={()=>setActive(i)}
-                    className={`hero-carousel-item ${isActive ? "hero-carousel-active" : "hero-carousel-inactive"}`}
-                    style={{
-                      flex: isActive ? "2 0 0" : "1 0 0",minWidth:0,
-                      display:"block",position:"relative",overflow:"hidden",
-                      aspectRatio:"4/5",
-                      maxHeight:"clamp(160px, 26vh, 240px)",
-                      textDecoration:"none",
-                      outline: isActive ? "1px solid rgba(245,240,232,0.28)" : "1px solid transparent",
-                      transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
-                    }}
-                  >
-                    <img src={item.src} alt={item.label} draggable={false} loading="lazy" style={{
-                      position:"absolute",inset:0,width:"100%",height:"100%",
-                      objectFit:"cover",objectPosition:"center center",
-                      filter: isActive ? "grayscale(0%) brightness(0.88)" : "grayscale(100%) brightness(0.42)",
-                      transition:"filter 0.6s ease",
-                    }}/>
-                    {/* Active label */}
-                    <div style={{
-                      position:"absolute",bottom:0,left:0,right:0,
-                      padding:"18px 10px 10px",
-                      background:"linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 100%)",
-                      opacity:isActive?1:0,transition:"opacity 0.4s ease",
-                    }}>
+          {/* ── iOS carousel — full-width scroll-snap (like gallery pages) ── */}
+          {isTouch && (
+            <div style={{ position:"absolute",bottom:0,left:0,right:0,zIndex:10,height:"clamp(220px,48svh,400px)" }}>
+              {/* Scroll track */}
+              <div ref={iosTrack} onScroll={onIosScroll} style={{
+                display:"flex",height:"100%",
+                overflowX:"scroll",overflowY:"hidden",
+                scrollSnapType:"x mandatory",
+                scrollBehavior:"smooth",
+                WebkitOverflowScrolling:"touch",
+                scrollbarWidth:"none",
+                msOverflowStyle:"none",
+              }}>
+                {carousel.map((item,i)=>(
+                  <a key={i} href={item.href} style={{ flexShrink:0,width:"100%",height:"100%",scrollSnapAlign:"start",scrollSnapStop:"always",display:"block",position:"relative",textDecoration:"none" }}>
+                    <img src={item.src} alt={item.label} loading="lazy" draggable={false} style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center center" }}/>
+                    {/* Label */}
+                    <div style={{ position:"absolute",bottom:0,left:0,right:0,padding:"20px 16px 12px",background:"linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 100%)" }}>
                       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                        <span style={{ color:"rgba(245,240,232,0.92)",fontFamily:"Arial, sans-serif",fontSize:"7px",letterSpacing:"0.22em",textTransform:"uppercase" }}>
-                          {item.label}
-                        </span>
-                        <span style={{ color:"rgba(245,240,232,0.55)",fontSize:"9px" }}>→</span>
+                        <span style={{ color:"rgba(245,240,232,0.9)",fontFamily:"Arial, sans-serif",fontSize:"8px",letterSpacing:"0.22em",textTransform:"uppercase" }}>{item.label}</span>
+                        <span style={{ color:"rgba(245,240,232,0.5)",fontSize:"10px" }}>→</span>
                       </div>
                     </div>
                   </a>
-                );
-              })}
-
-              {/* Next arrow — desktop only */}
-              <button onClick={next} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
-                onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
-                onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
-              >›</button>
-
+                ))}
+              </div>
+              {/* Dots */}
+              <div style={{ position:"absolute",bottom:"10px",left:0,right:0,display:"flex",justifyContent:"center",gap:"5px",zIndex:2 }}>
+                {carousel.map((_,i)=>(<div key={i} style={{ width:i===active?"18px":"5px",height:"5px",borderRadius:"3px",background:i===active?"rgba(245,240,232,0.8)":"rgba(245,240,232,0.3)",transition:"all 0.3s ease" }}/>))}
+              </div>
             </div>
-
-            {/* Dots */}
-            <div style={{ display:"flex",justifyContent:"center",gap:"5px",marginTop:"12px" }}>
-              {carousel.map((_,i)=>(
-                <button key={i} onClick={()=>setActive(i)} style={{
-                  width:i===active?"18px":"4px",height:"4px",borderRadius:"2px",
-                  background:i===active?"rgba(245,240,232,0.6)":"rgba(245,240,232,0.2)",
-                  border:"none",padding:0,cursor:"pointer",transition:"all 0.3s ease",
-                }}/>
-              ))}
-            </div>
-          </div>
+          )}
 
         </section>
 
