@@ -95,11 +95,11 @@ export default function AsciiIntro({ onDone }: Props) {
     if (isTouch) {
       for (let li = 0; li < WORD.length; li++) {
         const lc0 = originC + li * (LW + GAP);
-        const baseDelay = (li / (WORD.length - 1)) * 4200; // 0 to 4200ms (5s total)
+        const baseDelay = (li / (WORD.length - 1)) * 1200; // 0 to 1200ms (~2s total)
         for (let r = 0; r < ROWS; r++) {
           for (let c = lc0; c < lc0 + LW; c++) {
             if (c >= 0 && c < COLS && litCell[r][c] === 1) {
-              lockDelay[r][c] = baseDelay + Math.random() * 600;
+              lockDelay[r][c] = baseDelay + Math.random() * 200;
             }
           }
         }
