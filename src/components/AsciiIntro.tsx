@@ -115,7 +115,7 @@ export default function AsciiIntro({ onDone }: Props) {
             const dot   = v1x * v2x + v1y * v2y;
             totalAngle += Math.atan2(cross, dot);
           }
-          showClick.current = Math.abs(totalAngle) > Math.PI * 0.75;
+          showClick.current = Math.abs(totalAngle) > Math.PI * 0.3;
         }
       } else if (tick <= 300) {
         showClick.current = false;
@@ -123,7 +123,7 @@ export default function AsciiIntro({ onDone }: Props) {
 
       // Fade click label alpha
       const targetAlpha = showClick.current ? 1 : 0;
-      clickAlpha.current += (targetAlpha - clickAlpha.current) * 0.12;
+      clickAlpha.current += (targetAlpha - clickAlpha.current) * 0.22;
 
       // ── Vortex scroll ─────────────────────────────────────────────────────
       for (let r = 0; r < ROWS; r++) {
