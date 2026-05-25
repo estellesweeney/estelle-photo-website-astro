@@ -188,7 +188,8 @@ export default function AsciiIntro({ onDone }: Props) {
     if (phaseRef.current === "vortex") {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
-      setTimeout(() => exit(), 2400);
+      // Auto-exit fallback after 8s if they don't click again
+      setTimeout(() => exit(), 8000);
     } else if (phaseRef.current === "spelling") {
       exit();
     }
@@ -217,6 +218,21 @@ export default function AsciiIntro({ onDone }: Props) {
           ref={canvasRef}
           style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
         />
+        {/* Second tap hint — shown during spelling phase */}
+        <div style={{
+          position: "absolute",
+          bottom: "8%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 2,
+          opacity: uiPhase === "spelling" ? 0.5 : 0,
+          transition: "opacity 0.6s ease 0.8s",
+          pointerEvents: "none",
+          whiteSpace: "nowrap",
+        }}>
+          <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.28em",textTransform:"uppercase",color:"rgba(245,240,232,1)" }}>tap to enter</span>
+        </div>
+
         {/* iOS tap prompt — only on touch devices, shown during vortex */}
         <div style={{
           position: "absolute",
