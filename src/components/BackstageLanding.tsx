@@ -152,11 +152,12 @@ function PosterCard({ brand, rotation }: { brand: BackstageBrand; rotation: numb
 }
 
 export default function BackstageLanding() {
-  // Split into rows of 2
+  // Filter out blank cards (no cover), then split into rows of 2
   const chunkSize = 2;
   const rows: BackstageBrand[][] = [];
-  for (let i = 0; i < backstageBrands.length; i += chunkSize) {
-    rows.push(backstageBrands.slice(i, i + chunkSize));
+  const activeBrands = backstageBrands.filter(b => b.cover);
+  for (let i = 0; i < activeBrands.length; i += chunkSize) {
+    rows.push(activeBrands.slice(i, i + chunkSize));
   }
 
   return (

@@ -51,20 +51,6 @@ export const backstageBrands: BackstageBrand[] = [
     images: [],
   },
   {
-    slug: "aniye-records",
-    name: "Aniye Records",
-    season: "MFW SS24",
-    cover: "/slides/backstage/aniye-records/cover.jpg",
-    images: [],
-  },
-  {
-    slug: "maxivive",
-    name: "Maxivive",
-    season: "MFW SS24",
-    cover: "/slides/backstage/maxivive/cover.jpg",
-    images: [],
-  },
-  {
     slug: "walter-van-bierendonck",
     name: "Walter Van Bierendonck",
     season: "FW25",
