@@ -8,7 +8,7 @@ function HomeIconReact() {
       onMouseLeave={()=>setHov(false)}
       style={{ display:"inline-flex",flexDirection:"column",alignItems:"flex-start",textDecoration:"none",gap:"3px",lineHeight:1 }}
     >
-      <img src="/icons/icon_16_white.png" alt="" style={{ width:"22px",height:"22px",filter:"none",opacity:hov?0.45:0.9,transition:"opacity 0.25s ease",display:"block" }} />
+      <img src="/icons/icon_16_white.png" alt="" style={{ height:"22px",width:"auto",filter:"none",opacity:hov?0.45:0.9,transition:"opacity 0.25s ease",display:"block" }} />
       <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.12em",color:"rgba(245,240,232,0.75)",opacity:hov?1:0,transition:"opacity 0.25s ease",whiteSpace:"nowrap" }}>home</span>
     </a>
   );
