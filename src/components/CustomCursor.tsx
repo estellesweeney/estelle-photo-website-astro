@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
+  // Don't render on touch-only devices (phones/tablets — no mouse)
+  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+    return null;
+  }
   const cursorRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: -100, y: -100 });
   const smoothPos = useRef({ x: -100, y: -100 });

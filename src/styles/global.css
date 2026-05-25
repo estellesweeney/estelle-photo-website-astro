@@ -138,6 +138,10 @@
     @apply border-border outline-ring/50;
     cursor: none !important;
     }
+  @media (pointer: coarse) {
+    * { cursor: auto !important; }
+    a, button { cursor: pointer !important; }
+  }
   body {
     @apply text-foreground;
     background: #080808;

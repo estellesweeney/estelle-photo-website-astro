@@ -44,7 +44,15 @@ export default function AsciiIntro({ onDone }: Props) {
     );
     const litCell = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
 
-    const scale   = Math.max(1, Math.floor((ROWS * 0.55) / GLYPH_ROWS));
+    // Scale must fit both height AND width
+    let scale = Math.max(1, Math.floor((ROWS * 0.55) / GLYPH_ROWS));
+    // Shrink scale until ESTELLE fits horizontally
+    while (scale > 1) {
+      const testGAP = Math.max(1, Math.floor(scale * 0.7));
+      const testW   = WORD.length * GLYPH_COLS * scale + (WORD.length - 1) * testGAP;
+      if (testW <= COLS * 0.94) break;
+      scale--;
+    }
     const LW      = GLYPH_COLS * scale;
     const GAP     = Math.max(1, Math.floor(scale * 0.7));
     const totalW  = WORD.length * LW + (WORD.length - 1) * GAP;
