@@ -2,14 +2,16 @@ import { useState, useCallback } from "react";
 import AsciiIntro from "@/components/AsciiIntro";
 
 const slides = [
-  { src: "/slides/wvb/01.jpg",             link: "/runway/walter-van-bierendonck" },
-  { src: "/slides/runway/03.jpg",           link: "/runway/shows" },
-  { src: "/slides/bbc-spring2.jpg",         link: "/gallery/billionaire-boys-club" },
-  { src: "/slides/wvb/05.jpg",             link: "/runway/walter-van-bierendonck" },
-  { src: "/slides/kidsuper/otb-01.jpg",     link: "/runway/kidsuper-aw2627" },
-  { src: "/slides/wvb/09.jpg",             link: "/runway/walter-van-bierendonck" },
-  { src: "/slides/runway/07.jpg",           link: "/runway/shows" },
-  { src: "/slides/kidsuper/moon-06.jpg",    link: "/runway/kidsuper-aw25" },
+  { src: "/slides/home/01.jpg", link: "/runway" },
+  { src: "/slides/home/02.jpg", link: "/runway" },
+  { src: "/slides/home/03.jpg", link: "/runway" },
+  { src: "/slides/home/04.jpg", link: "/runway" },
+  { src: "/slides/home/05.jpg", link: "/runway" },
+  { src: "/slides/home/06.jpg", link: "/runway" },
+  { src: "/slides/home/07.jpg", link: "/runway" },
+  { src: "/slides/home/08.jpg", link: "/runway" },
+  { src: "/slides/home/09.jpg", link: "/runway" },
+  { src: "/slides/home/10.jpg", link: "/runway" },
 ];
 
 const nav = [
