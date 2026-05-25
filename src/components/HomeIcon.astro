@@ -2,7 +2,7 @@
 // Drop-in replacement for "Estelle Sweeney" nav link across all pages
 ---
 <a href="/" class="home-icon-wrap" aria-label="Home">
-  <img src="/icons/icon_16.svg" alt="" class="home-icon-img" />
+  <img src="/icons/icon_16_white.png" alt="" class="home-icon-img" />
   <span class="home-icon-label">home</span>
 </a>
 
@@ -19,13 +19,13 @@
   .home-icon-img {
     width: 22px;
     height: 22px;
-    filter: none;
-    opacity: 0.9;
-    transition: opacity 0.25s ease;
+    opacity: 0.88;
+    transition: opacity 0.25s ease, filter 0.25s ease;
     display: block;
   }
   .home-icon-wrap:hover .home-icon-img {
-    opacity: 0.45;
+    opacity: 0.4;
+    filter: brightness(0.3);
   }
   .home-icon-label {
     font-family: monospace;
