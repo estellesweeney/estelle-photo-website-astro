@@ -35,7 +35,7 @@ export default function PortfolioHome() {
 
       <div style={{
         background: "black",
-        minHeight: "100svh",
+        minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
         position: "relative",
