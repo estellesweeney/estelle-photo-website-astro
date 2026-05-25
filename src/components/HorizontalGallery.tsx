@@ -3,9 +3,12 @@ import { useState, useRef, useCallback, useEffect } from "react";
 interface Props {
   images: string[];
   alt?: string;
+  backHref?: string;
+  backLabel?: string;
+  title?: string;
 }
 
-export default function HorizontalGallery({ images, alt = "" }: Props) {
+export default function HorizontalGallery({ images, alt = "", backHref = "/", backLabel = "← Back", title }: Props) {
   const [current, setCurrent] = useState(0);
   const [showHint, setShowHint] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -98,7 +101,7 @@ export default function HorizontalGallery({ images, alt = "" }: Props) {
         zIndex: 20,
         background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 100%)",
       }}>
-        <a href="/campaigns" style={{
+        <a href={backHref} style={{
           color: "rgba(245,240,232,0.8)", textDecoration: "none",
           fontFamily: "Arial, sans-serif", fontSize: "9px",
           letterSpacing: "0.22em", textTransform: "uppercase",
@@ -106,8 +109,9 @@ export default function HorizontalGallery({ images, alt = "" }: Props) {
         }}
           onMouseEnter={e => (e.currentTarget.style.opacity = "0.4")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-        >← Back</a>
+        >{backLabel}</a>
 
+        {title && <span style={{ color:"rgba(245,240,232,0.5)", fontFamily:"Arial, sans-serif", fontSize:"9px", letterSpacing:"0.18em", textTransform:"uppercase" }}>{title}</span>}
         {/* Image counter */}
         <span style={{
           color: "rgba(245,240,232,0.5)",
