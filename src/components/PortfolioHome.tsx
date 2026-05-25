@@ -12,7 +12,7 @@ const carousel = [
   { src: "/slides/home/01.jpg",         label: "Backstage",     href: "/backstage" },
   { src: "/slides/home/05.jpg",         label: "Campaigns",     href: "/campaigns" },
   { src: "/art/bbc-illustrations.jpg",  label: "Graphic Design",href: "/graphic-design" },
-  { src: "/slides/home/14.jpg",         label: "Archive",       href: "/runway" },
+  { src: "/slides/home/14.jpg",         label: "Play",          href: "/graphic-design" },
 ];
 
 function CornerMarkers({ color = "rgba(245,240,232,0.45)", size = 14, weight = 1.5 }) {
@@ -38,7 +38,10 @@ function MonoLabel({ children, dim=false, color="inherit" }: { children: React.R
 }
 
 export default function PortfolioHome() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return !sessionStorage.getItem("intro_seen");
+  });
   const [active,    setActive]    = useState(0);
   const [scanPos,   setScanPos]   = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -60,7 +63,7 @@ export default function PortfolioHome() {
 
   return (
     <>
-      {showIntro && <AsciiIntro onDone={() => setShowIntro(false)} />}
+      {showIntro && <AsciiIntro onDone={() => { sessionStorage.setItem("intro_seen", "1"); setShowIntro(false); }} />}
 
       <div style={{ opacity: showIntro ? 0 : 1, transition: "opacity 0.6s ease" }}>
 
@@ -137,7 +140,7 @@ export default function PortfolioHome() {
           }}>
             <h1 className="hero-title" style={{
               fontFamily:"'Bodoni Moda', serif",
-              fontSize:"clamp(78px, 14vw, 148px)",
+              fontSize:"clamp(48px, 7.5vw, 110px)",
               fontWeight:400,
               letterSpacing:"0.16em",
               color:"rgba(245,240,232,0.96)",
@@ -156,7 +159,10 @@ export default function PortfolioHome() {
               color:"rgba(245,240,232,0.35)",
               margin:"18px 0 0",lineHeight:1,
             }}>
-              Analog Fashion Photography &nbsp;/&nbsp; Runway &nbsp;/&nbsp; Backstage
+<a href="/runway" style={{ color:"inherit",textDecoration:"none",borderBottom:"1px solid rgba(245,240,232,0.2)",paddingBottom:"1px",transition:"border-color 0.2s" }}
+                onMouseEnter={e=>(e.currentTarget.style.borderColor="rgba(245,240,232,0.7)")}
+                onMouseLeave={e=>(e.currentTarget.style.borderColor="rgba(245,240,232,0.2)")}
+              >Analog Fashion Photography &nbsp;/&nbsp; Runway &nbsp;/&nbsp; Backstage</a>
             </p>
           </div>
 
@@ -366,7 +372,7 @@ export default function PortfolioHome() {
             right: 0 !important;
           }
           .hero-title {
-            font-size: 16vw !important;
+            font-size: 13vw !important;
             letter-spacing: 0.06em !important;
             width: 100vw !important;
             text-align: center !important;
