@@ -92,7 +92,7 @@ export default function PortfolioHome() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* HERO SECTION                                                       */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <section style={{ height:"100dvh", position:"relative", overflow:"hidden", background:"#0a0806" }}>
+        <section style={{ height:"100dvh", minHeight:"-webkit-fill-available", position:"relative", overflow:"hidden", background:"#0a0806" }}>
 
           {/* ── Blurred mirror-fill layer (edges at wide viewports) ── */}
           <div style={{
@@ -107,7 +107,7 @@ export default function PortfolioHome() {
           }}/>
 
           {/* ── Sharp main image ── */}
-          <img src="/slides/home/hero.jpg" alt="" draggable={false} className="hero-img" style={{
+          <img src="/slides/home/hero.jpg" alt="" draggable={false} className="hero-img" fetchPriority="high" style={{
             position:"absolute",inset:0,width:"100%",height:"100%",
             objectFit:"cover",objectPosition:"center 12%",
             filter:"grayscale(15%) brightness(0.62) contrast(1.12)",
@@ -305,7 +305,7 @@ export default function PortfolioHome() {
               </div>
               <div style={{ position:"relative",overflow:"hidden",border:"1px solid rgba(245,240,232,0.15)" }}>
                 <CornerMarkers color="rgba(245,240,232,0.5)" size={18}/>
-                <video ref={videoRef} src="/video/reel.mp4" autoPlay muted loop playsInline style={{ width:"100%",display:"block",objectFit:"cover",aspectRatio:"4/5" }}/>
+                <video ref={videoRef} src="/video/reel.mp4" autoPlay muted loop playsInline style={{ width:"100%",display:"block",objectFit:"cover",aspectRatio:"4/5" }} preload="none"/>
                 <div style={{ position:"absolute",left:0,right:0,height:"1px",top:`${scanPos}%`,background:"linear-gradient(to right,transparent,rgba(245,240,232,0.18),transparent)",pointerEvents:"none",zIndex:2 }}/>
                 <div style={{ position:"absolute",inset:0,zIndex:1,pointerEvents:"none",backgroundImage:"linear-gradient(rgba(245,240,232,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,0.03) 1px,transparent 1px)",backgroundSize:"40px 40px" }}/>
                 <div style={{ position:"absolute",top:"10px",left:"14px",zIndex:3 }}><MonoLabel color={cream}>REC ●</MonoLabel></div>

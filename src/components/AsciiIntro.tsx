@@ -31,10 +31,12 @@ export default function AsciiIntro({ onDone }: Props) {
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx    = canvas.getContext("2d")!;
-    const W = window.innerWidth;
-    const H = window.innerHeight;
+    const W = window.screen.width  || window.innerWidth;
+    const H = window.screen.height || window.innerHeight;
     canvas.width  = W;
     canvas.height = H;
+    canvas.style.width  = "100%";
+    canvas.style.height = "100%";
 
     // On mobile: font size must be small enough that ESTELLE (7 letters × 5 cols + gaps)
     // fits within COLS at scale=1. We need COLS ≥ 41, so CW ≤ W/41, so FS ≤ W/(41×0.62)
