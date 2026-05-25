@@ -60,8 +60,16 @@ export default function PortfolioHome() {
   const [scanPos,   setScanPos]   = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const prev = useCallback(() => setActive(i => (i - 1 + carousel.length) % carousel.length), []);
-  const next = useCallback(() => setActive(i => (i + 1) % carousel.length), []);
+  const prev = useCallback(() => { setActive(i => (i - 1 + carousel.length) % carousel.length); if (navigator.vibrate) navigator.vibrate(8); }, []);
+  const next = useCallback(() => { setActive(i => (i + 1) % carousel.length); if (navigator.vibrate) navigator.vibrate(8); }, []);
+
+  // Touch swipe for iOS carousel
+  const touchStartX = useRef(0);
+  const onTouchStart = useCallback((e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; }, []);
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+  }, [next, prev]);
 
   useEffect(() => {
     const id = setInterval(() => setScanPos(p => (p + 0.4) % 100), 16);
@@ -152,7 +160,7 @@ export default function PortfolioHome() {
           }}>
             <h1 className="hero-title" style={{
               fontFamily:"'Bodoni Moda', serif",
-              fontSize:"clamp(48px, 7.5vw, 110px)",
+              fontSize:"clamp(42px, 4.8vw, 72px)",
               fontWeight:400,
               letterSpacing:"0.16em",
               color:"rgba(245,240,232,0.96)",
@@ -188,10 +196,10 @@ export default function PortfolioHome() {
             zIndex:10,
           }}>
             {/* Thumbnails row */}
-            <div className="hero-carousel-track" style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
+            <div className="hero-carousel-track" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{ display:"flex",gap:"6px",alignItems:"stretch" }}>
 
-              {/* Prev arrow */}
-              <button onClick={prev} style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
+              {/* Prev arrow — desktop only */}
+              <button onClick={prev} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
                 onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
                 onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
               >‹</button>
@@ -204,11 +212,11 @@ export default function PortfolioHome() {
                     onMouseEnter={()=>setActive(i)}
                     className={`hero-carousel-item ${isActive ? "hero-carousel-active" : "hero-carousel-inactive"}`}
                     style={{
-                      flex: isActive ? "3 0 0" : "1 0 0",minWidth:0,
+                      flex: isActive ? "2.2 0 0" : "1 0 0",minWidth:0,
                       display:"block",position:"relative",overflow:"hidden",
-                      aspectRatio:"1/1",textDecoration:"none",
-                      maxHeight:"clamp(100px, 22vh, 260px)",
-                      outline: isActive ? "1px solid rgba(245,240,232,0.35)" : "1px solid transparent",
+                      aspectRatio:"3/4",textDecoration:"none",
+                      maxHeight:"clamp(140px, 24vh, 230px)",
+                      outline: isActive ? "1px solid rgba(245,240,232,0.28)" : "1px solid transparent",
                       transition:"flex 0.55s cubic-bezier(0.4,0,0.2,1), outline 0.3s ease",
                     }}
                   >
@@ -236,8 +244,8 @@ export default function PortfolioHome() {
                 );
               })}
 
-              {/* Next arrow */}
-              <button onClick={next} style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
+              {/* Next arrow — desktop only */}
+              <button onClick={next} className="carousel-arrow" style={{ background:"none",border:"none",color:"rgba(245,240,232,0.3)",fontSize:"20px",cursor:"pointer",padding:"0 6px",lineHeight:1,flexShrink:0,alignSelf:"center",transition:"color 0.2s" }}
                 onMouseEnter={e=>(e.currentTarget.style.color="rgba(245,240,232,0.9)")}
                 onMouseLeave={e=>(e.currentTarget.style.color="rgba(245,240,232,0.3)")}
               >›</button>
@@ -380,6 +388,7 @@ export default function PortfolioHome() {
           .hero-carousel { bottom: 16px !important; padding: 0 !important; }
           .hero-carousel-track { gap: 2px !important; }
           .hero-carousel-item { aspect-ratio: 2/3 !important; max-height: none !important; }
+          .carousel-arrow { display: none !important; }
           .hero-text-block {
             padding: 0 !important;
             width: 100vw !important;

@@ -195,20 +195,69 @@ export default function AsciiIntro({ onDone }: Props) {
   };
 
   return (
-    <div
-      onClick={handleClick}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 999,
-        opacity: uiPhase === "out" ? 0 : 1,
-        transition: "opacity 0.7s ease",
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
-      />
-    </div>
+    <>
+      <style>{`
+        @keyframes tap-pulse {
+          0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+          50% { opacity: 0.9; transform: translateX(-50%) scale(1.06); }
+        }
+      `}</style>
+      <div
+        onClick={handleClick}
+        onTouchEnd={handleClick}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 999,
+          opacity: uiPhase === "out" ? 0 : 1,
+          transition: "opacity 0.7s ease",
+        }}
+      >
+        <canvas
+          ref={canvasRef}
+          style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
+        />
+        {/* iOS tap prompt — only on touch devices, shown during vortex */}
+        <div style={{
+          position: "absolute",
+          bottom: "10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+          opacity: uiPhase === "vortex" ? 1 : 0,
+          transition: "opacity 0.5s ease",
+          pointerEvents: "none",
+        }} className="ios-tap-prompt">
+          {/* Pulsing circle */}
+          <div style={{
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            border: "1px solid rgba(245,240,232,0.35)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            animation: "tap-pulse 2s ease-in-out infinite",
+          }}>
+            <span style={{ fontSize: "18px" }}>✦</span>
+          </div>
+          <span style={{
+            fontFamily: "monospace",
+            fontSize: "9px",
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "rgba(245,240,232,0.5)",
+          }}>tap to enter</span>
+        </div>
+      </div>
+      <style>{`
+        /* Only show tap prompt on touch devices */
+        @media (pointer: fine) { .ios-tap-prompt { display: none !important; } }
+      `}</style>
+    </>
   );
 }
