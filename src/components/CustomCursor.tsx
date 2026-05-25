@@ -8,7 +8,7 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: -100, y: -100 });
   const smoothPos = useRef({ x: -100, y: -100 });
-  const firstMove = useRef(true);
+  const snapFrames = useRef(3); // snap for first N frames after first move
   const raf = useRef<number>();
   const [clicking, setClicking] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -17,9 +17,9 @@ export default function CustomCursor() {
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY };
-      if (firstMove.current) {
+      if (snapFrames.current > 0) {
         smoothPos.current = { x: e.clientX, y: e.clientY };
-        firstMove.current = false;
+        snapFrames.current--;
       }
       if (!visible) setVisible(true);
     };
@@ -48,7 +48,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", onEnterWindow);
 
     const loop = () => {
-      const ease = 0.28;
+      const ease = 0.38;
       smoothPos.current.x += (pos.current.x - smoothPos.current.x) * ease;
       smoothPos.current.y += (pos.current.y - smoothPos.current.y) * ease;
 
