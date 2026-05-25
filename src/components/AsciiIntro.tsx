@@ -157,13 +157,27 @@ export default function AsciiIntro({ onDone }: Props) {
         }
       }
 
-      // draw "click" above cursor
+      // draw "click" above cursor (mouse devices)
       if (clickAlpha.current > 0.01 && mouseRef.current.x > 0) {
         ctx.font = `${FS}px monospace`;
         ctx.fillStyle = `rgba(245,240,232,${clickAlpha.current.toFixed(3)})`;
         ctx.textBaseline = "bottom";
         ctx.fillText("click", mouseRef.current.x - FS * 1.5, mouseRef.current.y - 18);
         ctx.textBaseline = "top";
+      }
+
+      // draw "tap to enter" at exact center of vortex (fades in after 2s)
+      if (phase === "vortex" && tick > 120) {
+        const fadeIn = Math.min(1, (tick - 120) / 40);
+        const pulse  = 0.45 + Math.sin(tick * 0.06) * 0.2;
+        const a      = (fadeIn * pulse).toFixed(3);
+        ctx.save();
+        ctx.font = `${FS}px monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = `rgba(245,240,232,${a})`;
+        ctx.fillText("tap to enter", W / 2, H / 2);
+        ctx.restore();
       }
 
       rafId = requestAnimationFrame(draw);
@@ -218,59 +232,7 @@ export default function AsciiIntro({ onDone }: Props) {
           ref={canvasRef}
           style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
         />
-        {/* Second tap hint — perfectly centered */}
-        <div style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0, bottom: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 2,
-          opacity: uiPhase === "spelling" ? 0.5 : 0,
-          transition: "opacity 0.6s ease 0.8s",
-          pointerEvents: "none",
-        }}>
-          <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.28em",textTransform:"uppercase",color:"rgba(245,240,232,1)",whiteSpace:"nowrap" }}>tap to enter</span>
-        </div>
 
-        {/* iOS tap prompt — only on touch devices, shown during vortex */}
-        <div style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0, bottom: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "10px",
-          opacity: uiPhase === "vortex" ? 1 : 0,
-          transition: "opacity 0.5s ease",
-          pointerEvents: "none",
-        }} className="ios-tap-prompt">
-          {/* Pulsing circle */}
-          <div style={{
-            width: "44px",
-            height: "44px",
-            borderRadius: "50%",
-            border: "1px solid rgba(245,240,232,0.35)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            animation: "tap-pulse 2s ease-in-out infinite",
-          }}>
-            <span style={{ fontSize: "18px" }}>✦</span>
-          </div>
-          <span style={{
-            fontFamily: "monospace",
-            fontSize: "9px",
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(245,240,232,0.5)",
-          }}>tap to enter</span>
-        </div>
       </div>
       <style>{`
         /* Only show tap prompt on touch devices */
