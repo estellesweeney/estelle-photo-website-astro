@@ -49,11 +49,22 @@ export const galleryPieces: GalleryPiece[] = [
     },
   },
   {
-    slug: "red-sparrow",
-    title: "Red Sparrow",
+    slug: "mauri",
+    title: "Mauri",
     year: "2025",
-    medium: "Digital",
-    // cover: "/art/red-sparrow.jpg",
+    medium: "Illustration",
+    cover: "/art/mauri/01.jpg",
+    images: [
+      "/art/mauri/01.jpg",
+      "/art/mauri/02.jpg",
+      "/art/mauri/03.jpg",
+      "/art/mauri/04.jpg",
+      "/art/mauri/05.jpg",
+      "/art/mauri/06.jpg",
+      "/art/mauri/07.jpg",
+      "/art/mauri/08.jpg",
+      "/art/mauri/09.jpg",
+    ],
     inspo: {
       summary: "",
       sections: [
