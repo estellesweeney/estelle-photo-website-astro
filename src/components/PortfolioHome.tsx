@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import AsciiIntro from "@/components/AsciiIntro";
 
 const nav = [
-  { label: "Home",        href: "/" },
   { label: "Portfolio",   href: "/runway" },
   { label: "Collections", href: "/backstage" },
   { label: "Contact",     href: "/about" },
