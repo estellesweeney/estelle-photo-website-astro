@@ -218,19 +218,19 @@ export default function AsciiIntro({ onDone }: Props) {
           ref={canvasRef}
           style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated" }}
         />
-        {/* Second tap hint — shown during spelling phase */}
+        {/* Second tap hint — perfectly centered */}
         <div style={{
           position: "absolute",
-          bottom: "8%",
-          left: "50%",
-          transform: "translateX(-50%)",
+          top: 0, left: 0, right: 0, bottom: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           zIndex: 2,
           opacity: uiPhase === "spelling" ? 0.5 : 0,
           transition: "opacity 0.6s ease 0.8s",
           pointerEvents: "none",
-          whiteSpace: "nowrap",
         }}>
-          <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.28em",textTransform:"uppercase",color:"rgba(245,240,232,1)" }}>tap to enter</span>
+          <span style={{ fontFamily:"monospace",fontSize:"9px",letterSpacing:"0.28em",textTransform:"uppercase",color:"rgba(245,240,232,1)",whiteSpace:"nowrap" }}>tap to enter</span>
         </div>
 
         {/* iOS tap prompt — only on touch devices, shown during vortex */}
