@@ -112,7 +112,7 @@ export default function PortfolioHome() {
           </svg>
 
           {/* ── Nav ── */}
-          <nav style={{ position:"absolute",top:0,left:0,right:0,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"26px 40px",zIndex:10 }}>
+          <nav className="hero-nav" style={{ position:"absolute",top:0,left:0,right:0,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"26px 40px",zIndex:10 }}>
             <a href="/" style={{ color:"rgba(245,240,232,0.85)",textDecoration:"none",fontFamily:"'Bodoni Moda', serif",fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase" }}>
               Estelle Sweeney
             </a>
@@ -358,6 +358,7 @@ export default function PortfolioHome() {
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
+          .hero-nav { padding: 20px 18px !important; }
           .hero-text-block {
             padding: 0 !important;
             width: 100vw !important;
