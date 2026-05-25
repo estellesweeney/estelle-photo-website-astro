@@ -39,7 +39,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", onEnterWindow);
 
     const loop = () => {
-      const ease = 0.14;
+      const ease = 0.28;
       smoothPos.current.x += (pos.current.x - smoothPos.current.x) * ease;
       smoothPos.current.y += (pos.current.y - smoothPos.current.y) * ease;
 
@@ -63,7 +63,7 @@ export default function CustomCursor() {
     };
   }, []);
 
-  const size = hovering ? 44 : clicking ? 28 : 36;
+  const size = hovering ? 34 : clicking ? 20 : 26;
 
   return (
     <div
