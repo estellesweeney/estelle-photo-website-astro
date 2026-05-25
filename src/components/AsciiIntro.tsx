@@ -22,10 +22,17 @@ export default function AsciiIntro({ onDone }: Props) {
   const histRef      = useRef<Array<{ x: number; y: number; t: number }>>([]);
   const clickAlpha   = useRef(0);
   const spellStartMs = useRef(0);
+  const canTapRef     = useRef(false);
   const [uiPhase, setUiPhase] = useState<"vortex" | "spelling" | "out">("vortex");
   const onDoneRef    = useRef(onDone);
   const isTouch      = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   onDoneRef.current = onDone;
+
+  // Enable tapping after 3s
+  useEffect(() => {
+    const t = setTimeout(() => { canTapRef.current = true; }, 3000);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -270,6 +277,7 @@ export default function AsciiIntro({ onDone }: Props) {
   };
 
   const handleClick = () => {
+    if (!canTapRef.current) return; // ignore taps during first 3s
     if (phaseRef.current === "vortex") {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
