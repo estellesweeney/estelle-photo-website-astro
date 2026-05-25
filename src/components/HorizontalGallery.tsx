@@ -6,17 +6,23 @@ interface Props {
   backHref?: string;
   backLabel?: string;
   title?: string;
+  nextHref?: string;
+  nextLabel?: string;
+  nextCover?: string;
 }
 
-export default function HorizontalGallery({ images, alt = "", backHref = "/", backLabel = "← Back", title }: Props) {
+export default function HorizontalGallery({ images, alt = "", backHref = "/", backLabel = "← Back", title, nextHref, nextLabel, nextCover }: Props) {
   const [current, setCurrent] = useState(0);
   const [showHint, setShowHint] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const haptic = (ms = 8) => { if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate(ms); };
 
   const goTo = useCallback((i: number) => {
     const el = trackRef.current?.children[i] as HTMLElement;
     el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     setCurrent(i);
+    haptic();
   }, []);
 
   const prev = useCallback(() => goTo(Math.max(0, current - 1)), [current, goTo]);
@@ -91,6 +97,24 @@ export default function HorizontalGallery({ images, alt = "", backHref = "/", ba
             />
           </div>
         ))}
+
+        {/* ── Next up end card ── */}
+        {nextHref && (
+          <div style={{ flexShrink:0, width:"100%", height:"100%", scrollSnapAlign:"start", scrollSnapStop:"always", position:"relative", background:"#080808", display:"flex", alignItems:"center", justifyContent:"center" }}>
+            {nextCover && <img src={nextCover} alt={nextLabel} style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",filter:"grayscale(40%) brightness(0.35)" }} />}
+            <div style={{ position:"relative",zIndex:2,textAlign:"center",padding:"40px" }}>
+              <p style={{ fontFamily:"monospace",fontSize:"8px",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(245,240,232,0.4)",marginBottom:"20px" }}>Next Up</p>
+              <a href={nextHref} onClick={()=>haptic(12)} style={{ fontFamily:"'Bodoni Moda', serif",fontSize:"clamp(28px,5vw,52px)",color:"rgba(245,240,232,0.95)",textDecoration:"none",letterSpacing:"0.08em",display:"block",marginBottom:"32px",transition:"opacity 0.2s" }}
+                onMouseEnter={e=>(e.currentTarget.style.opacity="0.5")}
+                onMouseLeave={e=>(e.currentTarget.style.opacity="1")}
+              >{nextLabel} →</a>
+              <div style={{ display:"flex",justifyContent:"center",gap:"20px" }}>
+                <a href={backHref} style={{ fontFamily:"monospace",fontSize:"8px",letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(245,240,232,0.3)",textDecoration:"none" }}>{backLabel}</a>
+                <a href="/" style={{ fontFamily:"monospace",fontSize:"8px",letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(245,240,232,0.3)",textDecoration:"none" }}>Home</a>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Top nav overlay ── */}
