@@ -118,7 +118,7 @@ export default function PortfolioHome() {
             zIndex:10,pointerEvents:"none",textAlign:"center",
             padding:"0 20px",
           }}>
-            <h1 style={{
+            <h1 className="hero-title" style={{
               fontFamily:"'Bodoni Moda', serif",
               fontSize:"clamp(78px, 14vw, 148px)",
               fontWeight:400,
@@ -126,6 +126,8 @@ export default function PortfolioHome() {
               color:"rgba(245,240,232,0.96)",
               margin:0,lineHeight:1,
               textTransform:"uppercase",
+              width:"100%",
+              textAlign:"center",
             }}>
               ESTELLE
             </h1>
@@ -339,6 +341,14 @@ export default function PortfolioHome() {
         }
         @supports (-webkit-touch-callout: none) {
           section:first-child { height: 100svh !important; }
+          .hero-title {
+            font-size: min(22vw, 88px) !important;
+            text-align: center !important;
+            width: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding: 0 !important;
+          }
         }
       `}</style>
     </>
