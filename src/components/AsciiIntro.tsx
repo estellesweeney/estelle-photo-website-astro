@@ -275,7 +275,8 @@ export default function AsciiIntro({ onDone }: Props) {
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
       // Auto-exit: 3s scramble + 1.5s to read = 4.5s, or tap to skip
-      setTimeout(() => exit(), isTouch ? 7000 : 9000);
+      // On touch: hold ESTELLE until tapped. On desktop: auto-exit after 9s.
+      if (!isTouch) setTimeout(() => exit(), 9000);
     } else if (phaseRef.current === "spelling") {
       exit();
     }
