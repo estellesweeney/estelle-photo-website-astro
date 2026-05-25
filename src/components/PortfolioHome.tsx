@@ -113,9 +113,8 @@ export default function PortfolioHome() {
           {/* ── Big centered "ESTELLE" ── */}
           <div style={{
             position:"absolute",
-            top:"42%",
+            top:"24%",
             left:0,right:0,
-            transform:"translateY(-50%)",
             display:"flex",flexDirection:"column",alignItems:"center",
             zIndex:10,pointerEvents:"none",textAlign:"center",
             padding:"0 20px",
