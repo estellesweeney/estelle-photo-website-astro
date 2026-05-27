@@ -187,10 +187,7 @@ export default function PortfolioHome() {
 
         {/* ── WORK GRID ── */}
         <section style={{ background: "#080808" }}>
-          <div className="work-header" style={{ padding: "80px 40px 40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-            <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 400, letterSpacing: "0.04em", color: "rgba(245,240,232,0.9)", margin: 0 }}>
-              Work
-            </h2>
+          <div className="work-header" style={{ padding: "80px 40px 40px", display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
             <span style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(245,240,232,0.22)" }}>
               New York — Milan — Paris
             </span>
