@@ -21,7 +21,7 @@ function HomeIconReact() {
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV = [
-  { label: "Portfolio",    href: "/runway" },
+  { label: "Runway",       href: "/runway" },
   { label: "Backstage",    href: "/backstage" },
   { label: "Contact",      href: "/about" },
 ];
@@ -97,15 +97,27 @@ export default function PortfolioHome() {
         {/* ── NAV ── */}
         <nav style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "28px 40px",
+          display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center",
+          padding: "24px 40px",
           background: scrolled ? "rgba(8,8,8,0.88)" : "transparent",
           backdropFilter: scrolled ? "blur(14px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
           transition: "background 0.4s ease",
         }}>
-          <HomeIconReact />
-          <div style={{ display: "flex", gap: "36px" }}>
+          {/* Left — icon */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <HomeIconReact />
+          </div>
+          {/* Center — name */}
+          <span style={{
+            fontFamily: "Arial, sans-serif", fontSize: "8px",
+            letterSpacing: "0.28em", textTransform: "uppercase",
+            color: "rgba(245,240,232,0.35)", whiteSpace: "nowrap",
+          }}>
+            Estelle Sweeney
+          </span>
+          {/* Right — nav links */}
+          <div style={{ display: "flex", gap: "36px", justifyContent: "flex-end" }}>
             {NAV.map(({ label, href }) => (
               <a key={label} href={href} style={{
                 fontFamily: "Arial, sans-serif", fontSize: "9px",
@@ -121,8 +133,8 @@ export default function PortfolioHome() {
           </div>
         </nav>
 
-        {/* ── HERO ── */}
-        <section ref={heroRef} style={{ height: "100dvh", minHeight: "-webkit-fill-available", position: "relative", overflow: "hidden" }}>
+        {/* ── HERO — mobile only on desktop, hidden ── */}
+        <section ref={heroRef} className="hero-section" style={{ height: "100dvh", minHeight: "-webkit-fill-available", position: "relative", overflow: "hidden" }}>
 
           {/* Full-bleed photo */}
           <img src="/slides/home/hero.jpg" alt="" fetchPriority="high" draggable={false}
@@ -175,7 +187,7 @@ export default function PortfolioHome() {
 
         {/* ── WORK GRID ── */}
         <section style={{ background: "#080808" }}>
-          <div style={{ padding: "80px 40px 40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div className="work-header" style={{ padding: "80px 40px 40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
             <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 400, letterSpacing: "0.04em", color: "rgba(245,240,232,0.9)", margin: 0 }}>
               Work
             </h2>
@@ -210,14 +222,21 @@ export default function PortfolioHome() {
       </div>
 
       <style>{`
+        /* Desktop: skip hero, go straight to work grid */
+        @media (min-width: 769px) {
+          .hero-section { display: none !important; }
+          .work-header { padding-top: 100px !important; }
+        }
+        /* Mobile: show hero, single-column grid */
         @media (max-width: 768px) {
           .work-grid { grid-template-columns: 1fr !important; }
-          nav { padding: 18px 20px !important; }
-          nav > div { gap: 18px !important; }
+          nav { padding: 18px 20px !important; grid-template-columns: auto 1fr !important; }
+          nav span { display: none !important; }
+          nav > div:last-child { gap: 18px !important; }
           .site-footer { flex-direction: column !important; gap: 18px !important; padding: 36px 20px !important; align-items: flex-start !important; }
         }
         @supports (-webkit-touch-callout: none) {
-          section { height: 100svh !important; }
+          .hero-section { height: 100svh !important; }
         }
       `}</style>
     </>
