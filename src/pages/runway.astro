@@ -43,10 +43,10 @@ const clients = [
       <h1 class="text-xs tracking-[0.15em] uppercase font-display" style="font-family: 'Bodoni Moda', serif; font-weight: normal;">35mm Runway Photography</h1>
     </header>
 
-    <main class="flex flex-col md:flex-row">
+    <main class="flex flex-row" style="height: calc(100svh - 120px);">
 
       {/* Show list — left column */}
-      <div class="w-full md:w-80 lg:w-96 shrink-0 px-6 py-10 md:border-r border-white/10">
+      <div class="w-1/2 md:w-80 lg:w-96 shrink-0 px-4 md:px-6 py-6 md:py-10 border-r border-white/10 overflow-y-auto">
         <ul class="divide-y divide-white/10">
           {clients.map((c) => {
             const slug = slugMap.get(c.name);
@@ -74,7 +74,7 @@ const clients = [
       </div>
 
       {/* Photo carousel — right column, display only, no links */}
-      <div class="order-1 md:order-2 flex-1 flex items-stretch overflow-hidden h-[70svh] md:h-auto" style="min-height: calc(100vh - 120px);">
+      <div class="flex-1 flex items-stretch overflow-hidden">
         <RunwayPhotoCarousel client:load />
       </div>
 
