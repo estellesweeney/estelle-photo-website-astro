@@ -23,11 +23,8 @@ const photos = [
 ];
 
 function Slide({ src }: { src: string }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <a
-      href="/runway/shows"
+    <div
       style={{
         flex: "0 0 auto",
         minWidth: 0,
@@ -35,11 +32,8 @@ function Slide({ src }: { src: string }) {
         height: "100%",
         position: "relative",
         overflow: "hidden",
-        cursor: "pointer",
-        textDecoration: "none",
+        cursor: "default",
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       <img
         src={src}
@@ -50,35 +44,11 @@ function Slide({ src }: { src: string }) {
           objectFit: "cover",
           display: "block",
           pointerEvents: "none",
-          transition: "transform 0.4s ease",
-          transform: hovered ? "scale(1.04)" : "scale(1)",
         }}
         loading="lazy"
         draggable={false}
       />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0,0,0,0.35)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          opacity: hovered ? 1 : 0,
-          transition: "opacity 0.3s ease",
-        }}
-      >
-        <span style={{
-          color: "rgba(245,240,232,0.9)",
-          fontSize: "10px",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          fontFamily: "serif",
-        }}>
-          View Gallery →
-        </span>
-      </div>
-    </a>
+    </div>
   );
 }
 

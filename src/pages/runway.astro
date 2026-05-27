@@ -1,6 +1,7 @@
 ---
 import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
+import RunwayPhotoCarousel from "@/components/RunwayPhotoCarousel";
 import { runwayShows } from "@/data/runway";
 
 // Build a slug lookup so we know which shows have gallery pages
@@ -72,15 +73,9 @@ const clients = [
         </p>
       </div>
 
-      {/* Right column — decorative editorial image, no click-through */}
-      <div class="hidden md:block flex-1 relative overflow-hidden" style="min-height: calc(100vh - 120px);">
-        <img
-          src="/slides/home/hero.jpg"
-          alt=""
-          draggable="false"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.45) grayscale(15%);pointer-events:none;"
-        />
-        <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.6) 0%,transparent 40%);pointer-events:none;"></div>
+      {/* Photo carousel — right column, display only, no links */}
+      <div class="order-1 md:order-2 flex-1 flex items-stretch overflow-hidden h-[70svh] md:h-auto" style="min-height: calc(100vh - 120px);">
+        <RunwayPhotoCarousel client:load />
       </div>
 
     </main>
