@@ -1,53 +1,44 @@
 ---
-import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
-import RunwayGalleryGrid from "@/components/RunwayGalleryGrid";
+import HorizontalGallery from "@/components/HorizontalGallery";
 import { runwayShows } from "@/data/runway";
 
 export function getStaticPaths() {
-  return runwayShows.map((show) => ({
+  return runwayShows.map((show, i) => ({
     params: { brand: show.slug },
+    props: {
+      show,
+      next: runwayShows[(i + 1) % runwayShows.length],
+    },
   }));
 }
 
-const { brand } = Astro.params;
-const show = runwayShows.find((s) => s.slug === brand);
-if (!show) return Astro.redirect("/runway/shows");
-
-// Total slots in the grid — fill with photos, rest are blank
-const TOTAL_SLOTS = 24;
-const slots = Array.from({ length: TOTAL_SLOTS }, (_, i) =>
-  i < show.images.length ? show.images[i] : null
-);
+const { show, next } = Astro.props;
 ---
 
 <Layout title={`${show.brand} — Runway — Estelle Sweeney`}>
-  <div class="min-h-screen bg-black text-cream">
-
-    <nav class="flex items-center justify-between px-8 py-6 border-b border-white/10">
-      <HomeIcon />
-      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">
-        Contact
-      </a>
-    </nav>
-
-    <main class="px-8 py-14 max-w-screen-xl mx-auto">
-
-      {/* Header */}
-      <div class="mb-14 pb-6 border-b border-white/10 flex items-baseline justify-between">
-        <div class="flex flex-col gap-2">
-          <a href="/runway/shows" class="text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white/60 transition-colors font-display">
-            ← Runway
-          </a>
-          <h1 class="text-base font-display tracking-wide">{show.brand}</h1>
+  <div class="min-h-screen bg-black text-white">
+    {show.images.length > 0 ? (
+      <HorizontalGallery
+        images={show.images}
+        alt={`${show.brand} runway`}
+        backHref="/runway"
+        backLabel="← Runway"
+        title={show.brand}
+        nextHref={`/runway/${next.slug}`}
+        nextLabel={next.brand}
+        nextCover={next.cover}
+        client:load
+      />
+    ) : (
+      <div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:#080808;">
+        {show.cover && <img src={show.cover} alt={show.brand} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.3);" />}
+        <div style="position:relative;z-index:2;text-align:center;padding:40px;">
+          <p style="font-family:monospace;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(245,240,232,0.35);margin-bottom:16px;">{show.brand} · {show.season}</p>
+          <p style="font-family:'Bodoni Moda',serif;font-size:clamp(24px,4vw,40px);color:rgba(245,240,232,0.85);margin-bottom:32px;">Gallery coming soon</p>
+          <a href="/runway" style="font-family:monospace;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,240,232,0.4);text-decoration:none;">← Runway</a>
         </div>
-        <span class="text-xs tracking-[0.2em] uppercase text-white/30" style="font-family: Arial, sans-serif;">
-          {show.season}
-        </span>
       </div>
-
-      <RunwayGalleryGrid images={slots} brand={show.brand} client:load />
-
-    </main>
+    )}
   </div>
 </Layout>
