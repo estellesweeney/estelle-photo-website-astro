@@ -46,7 +46,7 @@ const clients = [
     <main class="flex flex-row" style="height: calc(100svh - 120px);">
 
       {/* Show list — left column */}
-      <div class="w-1/4 md:w-80 lg:w-96 shrink-0 px-3 md:px-6 py-6 md:py-10 border-r border-white/10 overflow-y-auto">
+      <div class="w-1/4 md:w-80 lg:w-96 shrink-0 px-3 md:px-6 py-6 md:py-10 border-r border-white/10 overflow-y-auto" style="touch-action: pan-y; overscroll-behavior: none;">
         <ul class="divide-y divide-white/10">
           {clients.map((c) => {
             const slug = slugMap.get(c.name);
