@@ -54,9 +54,10 @@ const clients = [
                 {slug ? (
                   <a
                     href={`/runway/${slug}`}
-                    class="text-sm text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+                    class="runway-link text-sm text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
                   >
-                    {c.name}
+                    <span class="runway-link-text">{c.name}</span>
+                    <span class="runway-link-arrow">↗</span>
                   </a>
                 ) : (
                   <span class="text-sm text-white/30 tracking-wide">{c.name}</span>
@@ -85,4 +86,29 @@ const clients = [
     </main>
 
   </div>
+<style>
+  .runway-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .runway-link:hover {
+    border-bottom-color: rgba(245, 240, 232, 0.5);
+  }
+  .runway-link-arrow {
+    font-size: 11px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .runway-link:hover .runway-link-arrow {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+</style>
+
 </Layout>
