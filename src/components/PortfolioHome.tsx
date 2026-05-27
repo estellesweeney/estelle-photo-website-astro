@@ -173,30 +173,14 @@ export default function PortfolioHome() {
             <div style={{ width: "1px", height: "44px", background: "rgba(245,240,232,0.22)", margin: "30px auto 0" }} />
           </div>
 
-          {/* Bottom section preview — replaces scroll cue */}
+          {/* Scroll cue */}
           <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            padding: "48px 28px 28px",
-            background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 100%)",
+            position: "absolute", bottom: "28px", left: 0, right: 0,
+            display: "flex", justifyContent: "center",
             opacity: loaded ? 1 : 0, transition: "opacity 1.4s ease 0.7s",
+            pointerEvents: "none",
           }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-              <div>
-                <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(245,240,232,0.3)", margin: "0 0 6px" }}>
-                  Editorial &amp; Shows
-                </p>
-                <a href="/runway" style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(20px, 2.5vw, 28px)", fontWeight: 400, letterSpacing: "0.06em", color: "rgba(245,240,232,0.9)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "10px" }}>
-                  Runway <span style={{ opacity: 0.5, fontSize: "16px" }}>→</span>
-                </a>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
-                {[{ label: "Backstage", href: "/backstage" }, { label: "Graphic Design", href: "/graphic-design" }].map(({ label, href }) => (
-                  <a key={label} href={href} style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,232,0.3)", textDecoration: "none" }}>
-                    {label} →
-                  </a>
-                ))}
-              </div>
-            </div>
+            <span style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(245,240,232,0.28)" }}>Scroll</span>
           </div>
         </section>
 
