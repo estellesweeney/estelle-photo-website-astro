@@ -45,7 +45,7 @@ function WorkCard({ label, sub, href, src }: { label: string; sub: string; href:
         style={{
           position: "absolute", inset: 0, width: "100%", height: "100%",
           objectFit: "cover", objectPosition: "center 15%",
-          filter: hovered ? "grayscale(0%) brightness(0.75)" : "grayscale(30%) brightness(0.52)",
+          filter: hovered ? "grayscale(0%) brightness(0.95)" : "grayscale(0%) brightness(0.82)",
           transform: hovered ? "scale(1.04)" : "scale(1)",
           transition: "filter 0.6s ease, transform 0.9s ease",
         }}
