@@ -150,10 +150,10 @@ export default function PortfolioHome() {
           {/* Bottom fade to bg */}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 35%, rgba(8,8,8,0.9) 100%)", pointerEvents: "none" }} />
 
-          {/* Centered name */}
+          {/* Name — positioned above model's head */}
           <div style={{
-            position: "absolute", inset: 0,
-            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            position: "absolute", top: "18%", left: 0, right: 0,
+            display: "flex", flexDirection: "column", alignItems: "center",
             textAlign: "center", padding: "0 24px",
             opacity: loaded ? 1 : 0, transition: "opacity 1.4s ease 0.3s",
           }}>
