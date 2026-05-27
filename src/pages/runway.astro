@@ -1,7 +1,6 @@
 ---
 import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
-import RunwayPhotoCarousel from "@/components/RunwayPhotoCarousel";
 import { runwayShows } from "@/data/runway";
 
 // Build a slug lookup so we know which shows have gallery pages
@@ -43,10 +42,9 @@ const clients = [
       <h1 class="text-xs tracking-[0.15em] uppercase font-display" style="font-family: 'Bodoni Moda', serif; font-weight: normal;">35mm Runway Photography</h1>
     </header>
 
-    <main class="flex flex-row" style="height: calc(100svh - 120px);">
+    <main class="max-w-2xl mx-auto px-6 py-10">
 
-      {/* Show list — left column */}
-      <div class="w-1/4 md:w-80 lg:w-96 shrink-0 px-3 md:px-6 py-6 md:py-10 border-r border-white/10 overflow-y-auto" style="touch-action: pan-y; overscroll-behavior: none;">
+      <div>
         <ul class="divide-y divide-white/10">
           {clients.map((c) => {
             const slug = slugMap.get(c.name);
@@ -73,10 +71,7 @@ const clients = [
         </p>
       </div>
 
-      {/* Photo carousel — right column, display only, no links */}
-      <div class="flex-1 flex items-stretch overflow-hidden">
-        <RunwayPhotoCarousel client:load />
-      </div>
+
 
     </main>
 
