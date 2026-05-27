@@ -27,7 +27,7 @@ const NAV = [
 ];
 
 const SECTIONS = [
-  { label: "Runway",        sub: "Editorial & Shows",     href: "/runway",         src: "/slides/home/11.jpg" },
+  { label: "Campaigns",     sub: "Editorial & Shows",     href: "/runway",         src: "/slides/home/campaigns-cover.jpg" },
   { label: "Backstage",     sub: "Behind the Collection", href: "/backstage",       src: "/slides/home/01.jpg" },
   { label: "Graphic Design",sub: "Art Direction",         href: "/graphic-design",  src: "/art/bbc-illustrations.jpg" },
 ];
