@@ -1,68 +1,12 @@
 ---
 import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
+import GalleryLightbox from "@/components/GalleryLightbox";
 
-const images = [
-  { src: "/slides/campaigns/camp-01.jpg", alt: "Campaign 01" },
-  { src: "/slides/campaigns/camp-02.jpg", alt: "Campaign 02" },
-  { src: "/slides/campaigns/camp-03.jpg", alt: "Campaign 03" },
-  { src: "/slides/campaigns/camp-04.jpg", alt: "Campaign 04" },
-  { src: "/slides/campaigns/camp-05.jpg", alt: "Campaign 05" },
-  { src: "/slides/campaigns/camp-06.jpg", alt: "Campaign 06" },
-  { src: "/slides/campaigns/camp-07.jpg", alt: "Campaign 07" },
-  { src: "/slides/campaigns/camp-08.jpg", alt: "Campaign 08" },
-  { src: "/slides/campaigns/camp-09.jpg", alt: "Campaign 09" },
-  { src: "/slides/campaigns/camp-10.jpg", alt: "Campaign 10" },
-  { src: "/slides/campaigns/camp-11.jpg", alt: "Campaign 11" },
-  { src: "/slides/campaigns/camp-12.jpg", alt: "Campaign 12" },
-  { src: "/slides/campaigns/camp-13.jpg", alt: "Campaign 13" },
-  { src: "/slides/campaigns/camp-14.jpg", alt: "Campaign 14" },
-  { src: "/slides/campaigns/camp-15.jpg", alt: "Campaign 15" },
-  { src: "/slides/campaigns/camp-16.jpg", alt: "Campaign 16" },
-  { src: "/slides/campaigns/camp-17.jpg", alt: "Campaign 17" },
-  { src: "/slides/campaigns/camp-18.jpg", alt: "Campaign 18" },
-  { src: "/slides/campaigns/camp-19.jpg", alt: "Campaign 19" },
-  { src: "/slides/campaigns/camp-20.jpg", alt: "Campaign 20" },
-  { src: "/slides/campaigns/camp-21.jpg", alt: "Campaign 21" },
-  { src: "/slides/campaigns/camp-22.jpg", alt: "Campaign 22" },
-  { src: "/slides/campaigns/camp-23.jpg", alt: "Campaign 23" },
-  { src: "/slides/campaigns/camp-24.jpg", alt: "Campaign 24" },
-  { src: "/slides/campaigns/camp-25.jpg", alt: "Campaign 25" },
-  { src: "/slides/campaigns/camp-26.jpg", alt: "Campaign 26" },
-  { src: "/slides/campaigns/camp-27.jpg", alt: "Campaign 27" },
-  { src: "/slides/campaigns/camp-28.jpg", alt: "Campaign 28" },
-  { src: "/slides/campaigns/camp-29.jpg", alt: "Campaign 29" },
-  { src: "/slides/campaigns/camp-30.jpg", alt: "Campaign 30" },
-  { src: "/slides/campaigns/camp-31.jpg", alt: "Campaign 31" },
-  { src: "/slides/campaigns/camp-32.jpg", alt: "Campaign 32" },
-  { src: "/slides/campaigns/camp-33.jpg", alt: "Campaign 33" },
-  { src: "/slides/campaigns/camp-34.jpg", alt: "Campaign 34" },
-  { src: "/slides/campaigns/camp-35.jpg", alt: "Campaign 35" },
-  { src: "/slides/campaigns/camp-36.jpg", alt: "Campaign 36" },
-  { src: "/slides/campaigns/camp-37.jpg", alt: "Campaign 37" },
-  { src: "/slides/campaigns/camp-38.jpg", alt: "Campaign 38" },
-  { src: "/slides/campaigns/camp-39.jpg", alt: "Campaign 39" },
-  { src: "/slides/campaigns/camp-40.jpg", alt: "Campaign 40" },
-  { src: "/slides/campaigns/camp-41.jpg", alt: "Campaign 41" },
-  { src: "/slides/campaigns/camp-42.jpg", alt: "Campaign 42" },
-  { src: "/slides/campaigns/camp-43.jpg", alt: "Campaign 43" },
-  { src: "/slides/campaigns/camp-44.jpg", alt: "Campaign 44" },
-  { src: "/slides/campaigns/camp-45.jpg", alt: "Campaign 45" },
-  { src: "/slides/campaigns/camp-46.jpg", alt: "Campaign 46" },
-  { src: "/slides/campaigns/camp-47.jpg", alt: "Campaign 47" },
-  { src: "/slides/campaigns/camp-48.jpg", alt: "Campaign 48" },
-  { src: "/slides/campaigns/camp-49.jpg", alt: "Campaign 49" },
-  { src: "/slides/campaigns/camp-50.jpg", alt: "Campaign 50" },
-  { src: "/slides/campaigns/camp-51.jpg", alt: "Campaign 51" },
-  { src: "/slides/campaigns/camp-52.jpg", alt: "Campaign 52" },
-  { src: "/slides/campaigns/camp-53.jpg", alt: "Campaign 53" },
-  { src: "/slides/campaigns/camp-54.jpg", alt: "Campaign 54" },
-  { src: "/slides/campaigns/camp-55.jpg", alt: "Campaign 55" },
-  { src: "/slides/campaigns/camp-56.jpg", alt: "Campaign 56" },
-  { src: "/slides/campaigns/camp-57.jpg", alt: "Campaign 57" },
-  { src: "/slides/campaigns/camp-58.jpg", alt: "Campaign 58" },
-  { src: "/slides/campaigns/camp-59.jpg", alt: "Campaign 59" },
-];
+const images = Array.from({ length: 82 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `/slides/campaigns/camp-${n}.jpg`;
+});
 ---
 
 <Layout title="Campaigns — Estelle Sweeney">
@@ -76,58 +20,8 @@ const images = [
     <main class="px-4 py-10 max-w-6xl mx-auto">
       <h1 class="text-xs tracking-[0.25em] uppercase font-display pb-6 border-b border-white/10 mb-8">Campaigns</h1>
 
-      <div class="campaign-grid">
-        {images.map((img, i) => (
-          <div class="campaign-item">
-            <img
-              src={img.src}
-              alt={img.alt}
-              loading={i < 4 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
-      </div>
+      <GalleryLightbox images={images} alt="Campaign" client:load />
     </main>
 
   </div>
 </Layout>
-
-<style>
-  .campaign-grid {
-    columns: 3;
-    column-gap: 6px;
-  }
-
-  .campaign-item {
-    break-inside: avoid;
-    margin-bottom: 6px;
-    overflow: hidden;
-  }
-
-  .campaign-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: opacity 0.4s ease;
-  }
-
-  .campaign-item:hover img {
-    opacity: 0.85;
-  }
-
-  @media (max-width: 768px) {
-    .campaign-grid {
-      columns: 2;
-      column-gap: 4px;
-    }
-    .campaign-item {
-      margin-bottom: 4px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .campaign-grid {
-      columns: 1;
-    }
-  }
-</style>

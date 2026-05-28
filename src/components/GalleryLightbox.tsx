@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface Props {
   images: string[];
@@ -7,11 +7,23 @@ interface Props {
 
 export default function GalleryLightbox({ images, alt = "" }: Props) {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const close = () => setLightbox(null);
   const go = useCallback((dir: number) => {
     setLightbox((prev) => prev === null ? null : (prev + dir + images.length) % images.length);
   }, [images.length]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) go(diff > 0 ? 1 : -1);
+    touchStartX.current = null;
+  };
 
   useEffect(() => {
     if (lightbox === null) return;
@@ -53,6 +65,8 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
           onClick={close}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           {/* Image */}
           <img
