@@ -31,7 +31,7 @@ const RUNWAY_SLIDES = Array.from({ length: 26 }, (_, i) => `/slides/home/runway/
 const CARDS = [
   { num: "02", label: "Editorial & Shows",     title: "Campaigns",      href: "/campaigns",      src: "/slides/home/campaigns-cover.jpg" },
   { num: "03", label: "Behind the Collection", title: "Backstage",      href: "/backstage",      src: "/slides/home/01.jpg" },
-  { num: "04", label: "Art Direction",         title: "Graphic Design", href: "/graphic-design", src: "/art/bbc-illustrations.jpg" },
+  { num: "04", label: "Art Direction",         title: "Graphic Design", href: "/graphic-design", src: "/art/graphic-design-cover.jpg" },
 ];
 
 // ── Runway hero slideshow ─────────────────────────────────────────────────────
