@@ -34,6 +34,8 @@ const CARDS = [
   { num: "04", label: "Art Direction",         title: "Graphic Design", href: "/graphic-design", src: "/art/graphic-design-cover2.jpg" },
 ];
 
+const RUNWAY_CARD = { num: "01", label: "Runway Shows", title: "Runway", href: "/runway", src: "/slides/home/runway/r-01.jpg" };
+
 // ── Runway hero slideshow ─────────────────────────────────────────────────────
 function RunwayHero() {
   const [cur, setCur] = useState(0);
@@ -220,9 +222,14 @@ export default function PortfolioHome() {
           {/* Centered content wrapper */}
           <div className="home-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
 
-            {/* ── RUNWAY HERO BANNER ── */}
-            <div style={{ marginBottom: "12px" }}>
+            {/* ── RUNWAY HERO BANNER — desktop only ── */}
+            <div className="runway-hero-wrap" style={{ marginBottom: "12px" }}>
               <RunwayHero />
+            </div>
+
+            {/* ── MOBILE RUNWAY CARD — iOS/mobile only ── */}
+            <div className="runway-mobile-card" style={{ marginBottom: "12px" }}>
+              <WorkCard {...RUNWAY_CARD} />
             </div>
 
             {/* ── 3-COL GRID ── */}
@@ -252,7 +259,14 @@ export default function PortfolioHome() {
       </div>
 
       <style>{`
+        /* Desktop: show runway banner, hide mobile card */
+        .runway-hero-wrap { display: block; }
+        .runway-mobile-card { display: none; }
+
+        /* Mobile/iOS: hide banner, show runway card, single-col grid */
         @media (max-width: 768px) {
+          .runway-hero-wrap { display: none !important; }
+          .runway-mobile-card { display: block !important; }
           .home-grid { grid-template-columns: 1fr !important; }
           nav { padding: 18px 20px !important; grid-template-columns: auto 1fr !important; }
           nav span { display: none !important; }
