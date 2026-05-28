@@ -27,7 +27,7 @@ export const galleryPieces: GalleryPiece[] = [
     title: "Billionaire Boys Club Illustrations",
     year: "2025",
     medium: "Illustration",
-    cover: "/art/bbc-illustrations.jpg",
+    cover: "/art/bbc-cover-new.jpg",
     images: [
       "/art/graphic-design-cover.jpg",
       "/art/bbc/07.jpg",
