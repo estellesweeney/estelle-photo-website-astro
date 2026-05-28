@@ -26,7 +26,7 @@ const NAV = [
   { label: "Contact",       href: "/about" },
 ];
 
-const RUNWAY_SLIDES = Array.from({ length: 17 }, (_, i) => `/slides/home/${String(i + 1).padStart(2, "0")}.jpg`);
+const RUNWAY_SLIDES = Array.from({ length: 10 }, (_, i) => `/slides/home/runway/r-${String(i + 1).padStart(2, "0")}.jpg`);
 
 const CARDS = [
   { num: "02", label: "Editorial & Shows",     title: "Campaigns",      href: "/campaigns",      src: "/slides/home/campaigns-cover.jpg" },
@@ -50,7 +50,7 @@ function RunwayHero() {
   };
 
   useEffect(() => {
-    timer.current = setTimeout(() => goTo((cur + 1) % RUNWAY_SLIDES.length), 3800);
+    timer.current = setTimeout(() => goTo((cur + 1) % RUNWAY_SLIDES.length), 3500);
     return () => { if (timer.current) clearTimeout(timer.current); };
   }, [cur]);
 
