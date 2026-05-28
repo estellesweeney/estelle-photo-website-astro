@@ -89,10 +89,12 @@ export default function HorizontalGallery({ images, alt = "", backHref = "/", ba
               loading={i === 0 ? "eager" : "lazy"}
               draggable={false}
               style={{
-                position: "absolute", inset: 0,
-                width: "100%", height: "100%",
-                objectFit: "cover",
-                objectPosition: "center top",
+                position: "absolute",
+                inset: "60px 80px 72px",
+                width: "calc(100% - 160px)",
+                height: "calc(100% - 132px)",
+                objectFit: "contain",
+                objectPosition: "center center",
               }}
             />
           </div>
