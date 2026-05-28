@@ -39,15 +39,20 @@ function RunwayHero() {
   const [cur, setCur] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [fading, setFading] = useState(false);
+  const [hovSide, setHovSide] = useState<"left" | "right" | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const goTo = (idx: number) => {
     if (fading) return;
+    if (timer.current) clearTimeout(timer.current);
     setPrev(cur);
     setCur(idx);
     setFading(true);
     setTimeout(() => { setPrev(null); setFading(false); }, 700);
   };
+
+  const goPrev = (e: React.MouseEvent) => { e.preventDefault(); goTo((cur - 1 + RUNWAY_SLIDES.length) % RUNWAY_SLIDES.length); };
+  const goNext = (e: React.MouseEvent) => { e.preventDefault(); goTo((cur + 1) % RUNWAY_SLIDES.length); };
 
   useEffect(() => {
     timer.current = setTimeout(() => goTo((cur + 1) % RUNWAY_SLIDES.length), 3500);
@@ -55,7 +60,7 @@ function RunwayHero() {
   }, [cur]);
 
   return (
-    <a href="/runway" style={{ display: "block", position: "relative", width: "100%", aspectRatio: "16/7", overflow: "hidden", background: "#111", textDecoration: "none", flexShrink: 0 }}>
+    <div style={{ display: "block", position: "relative", width: "100%", aspectRatio: "16/7", overflow: "hidden", background: "#111", flexShrink: 0 }}>
       {/* prev image (fading out) */}
       {prev !== null && (
         <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
@@ -68,26 +73,51 @@ function RunwayHero() {
       {/* bottom gradient */}
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 55%)", pointerEvents: "none" }} />
 
+      {/* left click zone */}
+      <div onClick={goPrev}
+        onMouseEnter={() => setHovSide("left")} onMouseLeave={() => setHovSide(null)}
+        style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "25%", zIndex: 10, cursor: cur > 0 ? "w-resize" : "default",
+          background: hovSide === "left" ? "linear-gradient(to right, rgba(0,0,0,0.18), transparent)" : "transparent",
+          display: "flex", alignItems: "center", paddingLeft: "20px", transition: "background 0.2s" }}>
+        {hovSide === "left" && cur > 0 && (
+          <span style={{ color: "rgba(245,240,232,0.6)", fontSize: "20px", fontFamily: "Arial, sans-serif" }}>←</span>
+        )}
+      </div>
+
+      {/* right click zone */}
+      <div onClick={goNext}
+        onMouseEnter={() => setHovSide("right")} onMouseLeave={() => setHovSide(null)}
+        style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "25%", zIndex: 10, cursor: "e-resize",
+          background: hovSide === "right" ? "linear-gradient(to left, rgba(0,0,0,0.18), transparent)" : "transparent",
+          display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: "20px", transition: "background 0.2s" }}>
+        {hovSide === "right" && (
+          <span style={{ color: "rgba(245,240,232,0.6)", fontSize: "20px", fontFamily: "Arial, sans-serif" }}>→</span>
+        )}
+      </div>
+
+      {/* center — links to /runway */}
+      <a href="/runway" style={{ position: "absolute", left: "25%", right: "25%", top: 0, bottom: "60px", zIndex: 9, display: "block" }} />
+
       {/* text overlay */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "clamp(20px,4vw,48px)" }}>
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "clamp(20px,4vw,48px)", zIndex: 11, pointerEvents: "none" }}>
         <p style={{ fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(245,240,232,0.35)", margin: "0 0 10px" }}>01</p>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
           <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(28px, 4vw, 58px)", fontWeight: 400, letterSpacing: "0.06em", color: "rgba(245,240,232,0.95)", margin: 0, lineHeight: 1 }}>
             Runway
           </h2>
-          <span style={{ fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.5)" }}>
+          <a href="/runway" style={{ fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.5)", textDecoration: "none", pointerEvents: "all" }}>
             View Collection &rarr;
-          </span>
+          </a>
         </div>
       </div>
 
       {/* dot indicators */}
-      <div style={{ position: "absolute", bottom: "clamp(20px,4vw,48px)", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "6px", pointerEvents: "none" }}>
+      <div style={{ position: "absolute", bottom: "clamp(20px,4vw,48px)", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "6px", zIndex: 11, pointerEvents: "none" }}>
         {RUNWAY_SLIDES.map((_, i) => (
           <div key={i} style={{ width: i === cur ? "16px" : "4px", height: "2px", background: i === cur ? "rgba(245,240,232,0.8)" : "rgba(245,240,232,0.25)", borderRadius: "2px", transition: "all 0.4s ease" }} />
         ))}
       </div>
-    </a>
+    </div>
   );
 }
 
