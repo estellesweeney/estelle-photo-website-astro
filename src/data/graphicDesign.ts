@@ -29,6 +29,7 @@ export const galleryPieces: GalleryPiece[] = [
     medium: "Illustration",
     cover: "/art/bbc-illustrations.jpg",
     images: [
+      "/art/graphic-design-cover.jpg",
       "/art/bbc/07.jpg",
       "/art/bbc/08.jpg",
       "/art/bbc/09.jpg",
