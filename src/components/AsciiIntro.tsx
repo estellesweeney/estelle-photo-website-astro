@@ -92,15 +92,14 @@ export default function AsciiIntro({ onDone }: Props) {
     }
 
     // Assign lock delays: stagger left-to-right across letters (0–2800ms) + small jitter
-    if (isTouch) {
-      for (let li = 0; li < WORD.length; li++) {
-        const lc0 = originC + li * (LW + GAP);
-        const baseDelay = (li / (WORD.length - 1)) * 1200; // 0 to 1200ms (~2s total)
-        for (let r = 0; r < ROWS; r++) {
-          for (let c = lc0; c < lc0 + LW; c++) {
-            if (c >= 0 && c < COLS && litCell[r][c] === 1) {
-              lockDelay[r][c] = baseDelay + Math.random() * 200;
-            }
+    // Lock delays for all devices — stagger left-to-right across letters (0–2000ms)
+    for (let li = 0; li < WORD.length; li++) {
+      const lc0 = originC + li * (LW + GAP);
+      const baseDelay = (li / (WORD.length - 1)) * 2000;
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = lc0; c < lc0 + LW; c++) {
+          if (c >= 0 && c < COLS && litCell[r][c] === 1) {
+            lockDelay[r][c] = baseDelay + Math.random() * 200;
           }
         }
       }
@@ -171,7 +170,7 @@ export default function AsciiIntro({ onDone }: Props) {
             ch = chars[r][c];
             if (isLit) {
               const elapsed = Date.now() - spellStartMs.current;
-              const locked  = !isTouch || elapsed >= lockDelay[r][c];
+              const locked  = elapsed >= lockDelay[r][c];
               if (locked) {
                 // Snapped in — flash bright on lock, then steady
                 const justLocked = (Date.now() - spellStartMs.current) - lockDelay[r][c];
@@ -278,7 +277,7 @@ export default function AsciiIntro({ onDone }: Props) {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
-      if (!isTouch) setTimeout(() => exit(), 9000);
+      setTimeout(() => exit(), 3000);
     } else if (phaseRef.current === "spelling") {
       // Allow tap once animation completes (~1.5s after spelling starts)
       if (Date.now() - spellStartMs.current < 1500) return;

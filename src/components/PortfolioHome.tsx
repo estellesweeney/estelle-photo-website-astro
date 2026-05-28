@@ -192,8 +192,10 @@ export default function PortfolioHome() {
             </span>
           </div>
 
-          <div className="work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "rgba(245,240,232,0.05)" }}>
+          <div style={{ display: "flex", justifyContent: "center", padding: "0 40px" }}>
+          <div className="work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", width: "100%", maxWidth: "820px" }}>
             {SECTIONS.map(s => <WorkCard key={s.label} {...s} />)}
+          </div>
           </div>
 
           {/* Footer */}
