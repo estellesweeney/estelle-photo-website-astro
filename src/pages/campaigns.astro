@@ -2,12 +2,16 @@
 import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
 
-const clients = [
-  {
-    name: "Billionaire Boys Club Holiday",
-    href: "/gallery/billionaire-boys-club/holiday",
-    cover: "/slides/bbc/holiday1-01.jpg",
-  },
+const images = [
+  { src: "/slides/campaigns/camp-01.jpg", alt: "Campaign 01" },
+  { src: "/slides/campaigns/camp-02.jpg", alt: "Campaign 02" },
+  { src: "/slides/campaigns/camp-03.jpg", alt: "Campaign 03" },
+  { src: "/slides/campaigns/camp-04.jpg", alt: "Campaign 04" },
+  { src: "/slides/campaigns/camp-05.jpg", alt: "Campaign 05" },
+  { src: "/slides/campaigns/camp-06.jpg", alt: "Campaign 06" },
+  { src: "/slides/campaigns/camp-07.jpg", alt: "Campaign 07" },
+  { src: "/slides/campaigns/camp-08.jpg", alt: "Campaign 08" },
+  { src: "/slides/campaigns/camp-09.jpg", alt: "Campaign 09" },
 ];
 ---
 
@@ -19,24 +23,61 @@ const clients = [
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="px-6 py-10 max-w-6xl mx-auto">
+    <main class="px-4 py-10 max-w-6xl mx-auto">
       <h1 class="text-xs tracking-[0.25em] uppercase font-display pb-6 border-b border-white/10 mb-8">Campaigns</h1>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {clients.map((c) => (
-          <a href={c.href} class="group flex flex-col gap-2">
-            <div class="overflow-hidden w-full bg-white/5">
-              <img
-                src={c.cover}
-                alt={c.name}
-                class="w-full object-contain transition-opacity duration-700 group-hover:opacity-80"
-              />
-            </div>
-            <span class="text-xs tracking-[0.15em] uppercase font-display font-semibold pt-1">{c.name}</span>
-          </a>
+      <div class="campaign-grid">
+        {images.map((img, i) => (
+          <div class="campaign-item">
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={i < 4 ? "eager" : "lazy"}
+            />
+          </div>
         ))}
       </div>
     </main>
 
   </div>
 </Layout>
+
+<style>
+  .campaign-grid {
+    columns: 3;
+    column-gap: 6px;
+  }
+
+  .campaign-item {
+    break-inside: avoid;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .campaign-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.4s ease;
+  }
+
+  .campaign-item:hover img {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 768px) {
+    .campaign-grid {
+      columns: 2;
+      column-gap: 4px;
+    }
+    .campaign-item {
+      margin-bottom: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .campaign-grid {
+      columns: 1;
+    }
+  }
+</style>
