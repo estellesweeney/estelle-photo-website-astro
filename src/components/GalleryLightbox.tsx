@@ -77,28 +77,31 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
             onClick={(e) => e.stopPropagation()}
           />
 
-          {/* Close */}
+          {/* Close — highest z so it's never covered */}
           <button
-            onClick={close}
+            onClick={(e) => { e.stopPropagation(); close(); }}
+            style={{ zIndex: 60 }}
             className="absolute top-5 right-6 text-white/70 hover:text-white text-3xl leading-none transition-colors"
             aria-label="Close"
           >
             ×
           </button>
 
-          {/* Prev — full height left zone */}
+          {/* Prev — full height left zone, stops below top 60px to avoid X */}
           <button
             onClick={(e) => { e.stopPropagation(); go(-1); }}
-            className="absolute left-0 top-0 h-full w-1/4 flex items-center justify-start pl-5 text-white/60 hover:text-white transition-colors text-sm"
+            className="absolute left-0 bottom-0 flex items-center justify-start pl-5 text-white/60 hover:text-white transition-colors text-sm"
+            style={{ top: "60px", width: "25%" }}
             aria-label="Previous"
           >
             &#8592;
           </button>
 
-          {/* Next — full height right zone */}
+          {/* Next — full height right zone, stops below top 60px to avoid X */}
           <button
             onClick={(e) => { e.stopPropagation(); go(1); }}
-            className="absolute right-0 top-0 h-full w-1/4 flex items-center justify-end pr-5 text-white/60 hover:text-white transition-colors text-sm"
+            className="absolute bottom-0 flex items-center justify-end pr-5 text-white/60 hover:text-white transition-colors text-sm"
+            style={{ top: "60px", right: 0, width: "25%" }}
             aria-label="Next"
           >
             &#8594;
