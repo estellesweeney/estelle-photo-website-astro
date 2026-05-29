@@ -69,9 +69,8 @@ function RunwayHero() {
   return (
     <div style={{
       display: "flex",
-      height: "calc(100vh - 80px)",
-      minHeight: "560px",
-      maxHeight: "900px",
+      height: "clamp(520px, 80vh, 880px)",
+      alignItems: "stretch",
       overflow: "hidden",
       background: "#080808",
     }}>
@@ -91,7 +90,7 @@ function RunwayHero() {
       </div>
 
       {/* ── Main image ── */}
-      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}
+      <div style={{ flexShrink: 0, flexGrow: 0, height: "100%", aspectRatio: "4/5", position: "relative", overflow: "hidden" }}
         onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
         onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
       >
@@ -132,8 +131,8 @@ function RunwayHero() {
 
       {/* ── Text panel ── */}
       <div style={{
-        width: "36%",
-        flexShrink: 0,
+        flex: 1,
+        minWidth: "280px",
         background: "#080808",
         padding: "clamp(40px, 5vw, 80px) clamp(36px, 4vw, 64px)",
         display: "flex",
