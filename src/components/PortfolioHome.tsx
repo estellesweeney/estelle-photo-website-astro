@@ -88,16 +88,13 @@ function RunwayHero() {
             filter: `brightness(${hovLeft ? 0.35 : 0.2})`, transition: "filter 0.3s ease" }} />
         {/* gradient edge blend */}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 0%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
-        {/* arrow button */}
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", opacity: hovLeft ? 1 : 0, transition: "opacity 0.25s" }}>
-          <div style={{ width: "34px", height: "34px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "rgba(245,240,232,0.8)", fontSize: "13px", lineHeight: 1 }}>←</span>
-          </div>
-        </div>
       </div>
 
       {/* ── Main image ── */}
-      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}
+        onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
+        onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
+      >
         {/* prev fading out */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
@@ -111,6 +108,26 @@ function RunwayHero() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 65%, rgba(8,8,8,0.55) 100%)", pointerEvents: "none" }} />
         {/* clickable link overlay (center) */}
         <a href="/runway" style={{ position: "absolute", inset: 0, zIndex: 2, display: "block" }} aria-label="View Runway collection" />
+        {/* Left arrow — overlaid on left edge of image */}
+        <div onClick={e => { e.preventDefault(); goPrev(e); }}
+          style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", zIndex: 10,
+            opacity: hovLeft ? 1 : 0, transition: "opacity 0.25s", cursor: "pointer" }}>
+          <div style={{ width: "36px", height: "36px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)",
+            display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "rgba(245,240,232,0.9)", fontSize: "13px", lineHeight: 1 }}>←</span>
+          </div>
+        </div>
+        {/* Right arrow — overlaid on right edge of image */}
+        <div onClick={e => { e.preventDefault(); goNext(e); }}
+          style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", zIndex: 10,
+            opacity: hovRight ? 1 : 0, transition: "opacity 0.25s", cursor: "pointer" }}>
+          <div style={{ width: "36px", height: "36px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)",
+            display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "rgba(245,240,232,0.9)", fontSize: "13px", lineHeight: 1 }}>→</span>
+          </div>
+        </div>
       </div>
 
       {/* ── Text panel ── */}
@@ -189,12 +206,6 @@ function RunwayHero() {
             filter: `brightness(${hovRight ? 0.35 : 0.2})`, transition: "filter 0.3s ease" }} />
         {/* gradient edge blend */}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, transparent 0%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
-        {/* arrow button */}
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", opacity: hovRight ? 1 : 0, transition: "opacity 0.25s" }}>
-          <div style={{ width: "34px", height: "34px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "rgba(245,240,232,0.8)", fontSize: "13px", lineHeight: 1 }}>→</span>
-          </div>
-        </div>
       </div>
     </div>
   );
