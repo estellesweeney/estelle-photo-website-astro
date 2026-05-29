@@ -14,6 +14,7 @@ interface Props {
 export default function HorizontalGallery({ images, alt = "", backHref = "/", backLabel = "← Back", title, nextHref, nextLabel, nextCover }: Props) {
   const [current, setCurrent] = useState(0);
   const [showHint, setShowHint] = useState(true);
+  const [lightbox, setLightbox] = useState<string | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const haptic = (ms = 8) => { if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate(ms); };
@@ -43,15 +44,17 @@ export default function HorizontalGallery({ images, alt = "", backHref = "/", ba
     setShowHint(false);
   }, []);
 
-  // Keyboard nav
+  // Keyboard nav + lightbox close
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setLightbox(null); return; }
+      if (lightbox) return;
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev]);
+  }, [next, prev, lightbox]);
 
   return (
     <div style={{ position: "fixed", inset: 0, background: "#080808", zIndex: 0 }}>
@@ -81,7 +84,9 @@ export default function HorizontalGallery({ images, alt = "", backHref = "/", ba
               scrollSnapAlign: "start",
               scrollSnapStop: "always",
               position: "relative",
+              cursor: "zoom-in",
             }}
+            onClick={() => setLightbox(src)}
           >
             <img
               src={src}
@@ -221,6 +226,46 @@ export default function HorizontalGallery({ images, alt = "", backHref = "/", ba
         </div>
       </div>
 
+      {/* ── Lightbox ── */}
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 100,
+            background: "rgba(0,0,0,0.97)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "zoom-out",
+          }}
+        >
+          <img
+            src={lightbox}
+            alt={alt}
+            draggable={false}
+            onClick={e => e.stopPropagation()}
+            style={{
+              height: "95vh",
+              width: "auto",
+              maxWidth: "95vw",
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
+          {/* Close button */}
+          <button
+            onClick={e => { e.stopPropagation(); setLightbox(null); }}
+            style={{
+              position: "absolute", top: "20px", right: "24px",
+              background: "none", border: "none",
+              color: "rgba(245,240,232,0.6)", fontSize: "28px",
+              cursor: "pointer", lineHeight: 1, padding: "4px",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,240,232,1)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,240,232,0.6)")}
+            aria-label="Close"
+          >×</button>
+        </div>
+      )}
     </div>
   );
 }
