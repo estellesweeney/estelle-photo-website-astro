@@ -69,7 +69,6 @@ function RunwayHero() {
   return (
     <div style={{
       display: "flex",
-      height: "clamp(520px, 80vh, 880px)",
       alignItems: "stretch",
       overflow: "hidden",
       background: "#080808",
@@ -90,21 +89,22 @@ function RunwayHero() {
       </div>
 
       {/* ── Main image ── */}
-      <div style={{ flexShrink: 0, flexGrow: 0, height: "100%", aspectRatio: "4/5", position: "relative", overflow: "hidden" }}
+      <div
+        style={{ flexShrink: 0, position: "relative" }}
         onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
         onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
       >
         {/* prev fading out */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "center center",
+            style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "auto", display: "block",
               opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }} />
         )}
-        {/* current */}
+        {/* current — natural size, drives container dimensions */}
         <img src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "center center", opacity: 1 }} />
-        {/* subtle right-side gradient → blends into text panel */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 65%, rgba(8,8,8,0.55) 100%)", pointerEvents: "none" }} />
+          style={{ display: "block", height: "clamp(500px, 80vh, 860px)", width: "auto" }} />
+        {/* subtle right-side gradient */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 70%, rgba(8,8,8,0.5) 100%)", pointerEvents: "none" }} />
         {/* clickable link overlay (center) */}
         <a href="/runway" style={{ position: "absolute", inset: 0, zIndex: 2, display: "block" }} aria-label="View Runway collection" />
         {/* Left arrow — overlaid on left edge of image */}
