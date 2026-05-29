@@ -57,4 +57,21 @@ export const backstageBrands: BackstageBrand[] = [
     cover: "/slides/backstage/walter-van-bierendonck/cover.jpg",
     images: [],
   },
+  {
+    slug: "yuima-nakazato",
+    name: "Yuima Nakazato Haute Couture",
+    cover: "/slides/backstage/yuima-nakazato/cover.jpg",
+    images: [
+      "/slides/backstage/yuima-nakazato/bs-01.jpg",
+      "/slides/backstage/yuima-nakazato/bs-02.jpg",
+      "/slides/backstage/yuima-nakazato/bs-03.jpg",
+      "/slides/backstage/yuima-nakazato/bs-04.jpg",
+      "/slides/backstage/yuima-nakazato/bs-05.jpg",
+      "/slides/backstage/yuima-nakazato/bs-06.jpg",
+      "/slides/backstage/yuima-nakazato/bs-07.jpg",
+      "/slides/backstage/yuima-nakazato/bs-08.jpg",
+      "/slides/backstage/yuima-nakazato/bs-09.jpg",
+      "/slides/backstage/yuima-nakazato/bs-10.jpg",
+    ],
+  },
 ];
