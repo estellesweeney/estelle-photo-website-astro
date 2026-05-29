@@ -97,12 +97,12 @@ function RunwayHero() {
         {/* prev fading out */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "center center",
               opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }} />
         )}
         {/* current */}
         <img src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", opacity: 1 }} />
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "center center", opacity: 1 }} />
         {/* subtle right-side gradient → blends into text panel */}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 65%, rgba(8,8,8,0.55) 100%)", pointerEvents: "none" }} />
         {/* clickable link overlay (center) */}
