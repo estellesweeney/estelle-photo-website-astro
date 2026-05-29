@@ -28,12 +28,7 @@ function Frame({
       <div
         style={{
           width: frameW,
-          maxHeight: variant === "main" ? "clamp(220px, 48vh, 520px)" : "clamp(120px, 24vh, 260px)",
           background: "#111",
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
         }}
       >
         {piece.cover ? (
@@ -41,7 +36,13 @@ function Frame({
             src={piece.cover}
             alt={piece.title}
             draggable={false}
-            style={{ width: "100%", height: "auto", objectFit: "contain", display: "block", maxHeight: variant === "main" ? "clamp(220px, 48vh, 520px)" : "clamp(120px, 24vh, 260px)" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              maxHeight: variant === "main" ? "clamp(280px, 55vh, 600px)" : "clamp(140px, 28vh, 300px)",
+              objectFit: "contain",
+            }}
           />
         ) : (
           <div
