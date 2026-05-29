@@ -41,21 +41,21 @@ function RunwayHero() {
   const n = RUNWAY_SLIDES.length;
   const [cur, setCur] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
-  const [fading, setFading] = useState(false);
   const [hovLeft, setHovLeft] = useState(false);
   const [hovRight, setHovRight] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadingRef = useRef(false); // use ref to avoid stale closure
 
   const prevIdx = (cur - 1 + n) % n;
   const nextIdx = (cur + 1) % n;
 
   const goTo = (idx: number) => {
-    if (fading) return;
+    if (fadingRef.current) return;
+    fadingRef.current = true;
     if (timerRef.current) clearTimeout(timerRef.current);
     setPrev(cur);
     setCur(idx);
-    setFading(true);
-    setTimeout(() => { setPrev(null); setFading(false); }, 700);
+    setTimeout(() => { setPrev(null); fadingRef.current = false; }, 750);
   };
 
   const goPrev = (e: React.MouseEvent) => { e.preventDefault(); goTo(prevIdx); };
@@ -103,15 +103,14 @@ function RunwayHero() {
         onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
         onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
       >
-        {/* prev fading out */}
+        {/* prev — stays fully visible underneath while new one fades in */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
-              opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }} />
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 1 }} />
         )}
-        {/* current — 4:5 container + 4:5 photo = full image, no crop */}
-        <img src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 1 }} />
+        {/* current — fades in on top via CSS animation; key forces remount on each change */}
+        <img key={cur} src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", animation: "heroFadeIn 0.75s ease forwards" }} />
         {/* subtle right-side gradient */}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 70%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
         {/* clickable link overlay (center) */}
@@ -272,6 +271,7 @@ export default function PortfolioHome() {
     const img = new Image();
     img.src = RUNWAY_SLIDES[0];
     img.onload = () => setLoaded(true);
+    img.onerror = () => setLoaded(true); // don't block on 404
   }, []);
 
   useEffect(() => {
@@ -362,6 +362,7 @@ export default function PortfolioHome() {
       </div>
 
       <style>{`
+        @keyframes heroFadeIn { from { opacity: 0; } to { opacity: 1; } }
         /* Desktop: show split hero, hide mobile card */
         .runway-hero-wrap { display: block; }
         .runway-mobile-card { display: none; }

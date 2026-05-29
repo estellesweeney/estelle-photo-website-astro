@@ -41,12 +41,12 @@ function ProjectSection({ piece, index }: { piece: (typeof galleryPieces)[0]; in
 
       {/* ── Cover / hero ── */}
       {hasCover && (
-        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", maxHeight: "90vh" }} className="project-cover">
+        <div style={{ position: "relative", width: "100%", maxHeight: "90vh", overflow: "hidden", background: "#0d0d0d" }} className="project-cover">
           <img
             src={piece.cover}
             alt={piece.title}
             draggable={false}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+            style={{ width: "100%", height: "auto", maxHeight: "90vh", objectFit: "contain", display: "block" }}
           />
           {/* Overlay */}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(13,13,13,0.88) 100%)" }} />
@@ -109,7 +109,7 @@ function ImageTile({ src, alt }: { src: string; alt: string }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#111", cursor: "zoom-in" }}
+      style={{ position: "relative", overflow: "hidden", background: "#111", cursor: "zoom-in" }}
       className="image-tile"
     >
       <img
@@ -118,11 +118,11 @@ function ImageTile({ src, alt }: { src: string; alt: string }) {
         loading="lazy"
         draggable={false}
         style={{
-          width: "100%", height: "100%",
-          objectFit: "cover", objectPosition: "center",
+          width: "100%",
+          height: "auto",
+          display: "block",
           transform: hovered ? "scale(1.03)" : "scale(1)",
           transition: "transform 0.7s ease",
-          display: "block",
         }}
       />
     </div>
