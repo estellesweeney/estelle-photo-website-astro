@@ -69,9 +69,7 @@ function RunwayHero() {
   return (
     <div style={{
       display: "flex",
-      height: "calc(100vh - 80px)",
-      minHeight: "560px",
-      maxHeight: "900px",
+      alignItems: "stretch",
       overflow: "hidden",
       background: "#080808",
     }}>
@@ -81,7 +79,7 @@ function RunwayHero() {
         onClick={goPrev}
         onMouseEnter={() => setHovLeft(true)}
         onMouseLeave={() => setHovLeft(false)}
-        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer" }}
+        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer", alignSelf: "stretch" }}
       >
         <img src={RUNWAY_SLIDES[prevIdx]} alt="" draggable={false}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
@@ -90,22 +88,29 @@ function RunwayHero() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 0%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
       </div>
 
-      {/* ── Main image ── */}
-      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}
+      {/* ── Main image — 4:5 container, height drives layout ── */}
+      <div
+        style={{
+          flexShrink: 0,
+          height: "clamp(480px, 82vh, 880px)",
+          aspectRatio: "4/5",
+          position: "relative",
+          overflow: "hidden",
+        }}
         onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
         onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
       >
         {/* prev fading out */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
               opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }} />
         )}
-        {/* current */}
+        {/* current — 4:5 container + 4:5 photo = full image, no crop */}
         <img src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", opacity: 1 }} />
-        {/* subtle right-side gradient → blends into text panel */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 65%, rgba(8,8,8,0.55) 100%)", pointerEvents: "none" }} />
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 1 }} />
+        {/* subtle right-side gradient */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 70%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
         {/* clickable link overlay (center) */}
         <a href="/runway" style={{ position: "absolute", inset: 0, zIndex: 2, display: "block" }} aria-label="View Runway collection" />
         {/* Left arrow — overlaid on left edge of image */}
@@ -201,7 +206,7 @@ function RunwayHero() {
         onClick={goNext}
         onMouseEnter={() => setHovRight(true)}
         onMouseLeave={() => setHovRight(false)}
-        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer" }}
+        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer", alignSelf: "stretch" }}
       >
         <img src={RUNWAY_SLIDES[nextIdx]} alt="" draggable={false}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
