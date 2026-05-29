@@ -36,13 +36,14 @@ const CARDS = [
 
 const RUNWAY_CARD = { num: "01", label: "Runway Shows", title: "Runway", href: "/runway", src: "/slides/home/runway/r-01.jpg" };
 
-// ── Desktop Runway Hero — image-first, peeks both sides ──────────────────────
+// ── Desktop Runway Hero — split layout ────────────────────────────────────────
 function RunwayHero() {
   const n = RUNWAY_SLIDES.length;
   const [cur, setCur] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [fading, setFading] = useState(false);
-  const [hovering, setHovering] = useState(false);
+  const [hovLeft, setHovLeft] = useState(false);
+  const [hovRight, setHovRight] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const prevIdx = (cur - 1 + n) % n;
@@ -57,110 +58,154 @@ function RunwayHero() {
     setTimeout(() => { setPrev(null); setFading(false); }, 700);
   };
 
-  const goPrev = (e: React.MouseEvent) => { e.stopPropagation(); goTo(prevIdx); };
-  const goNext = (e: React.MouseEvent) => { e.stopPropagation(); goTo(nextIdx); };
+  const goPrev = (e: React.MouseEvent) => { e.preventDefault(); goTo(prevIdx); };
+  const goNext = (e: React.MouseEvent) => { e.preventDefault(); goTo(nextIdx); };
 
   useEffect(() => {
     timerRef.current = setTimeout(() => goTo(nextIdx), 4500);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [cur]);
 
-  const imgH = "clamp(480px, 82vh, 880px)";
-
   return (
-    <div
-      style={{ display: "flex", alignItems: "stretch", overflow: "hidden", background: "#080808" }}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      {/* ── Left peek (prev slide) ── */}
+    <div style={{
+      display: "flex",
+      height: "calc(100vh - 80px)",
+      minHeight: "560px",
+      maxHeight: "900px",
+      overflow: "hidden",
+      background: "#080808",
+    }}>
+
+      {/* ── Left peek ── */}
       <div
         onClick={goPrev}
-        style={{ flex: 1, position: "relative", overflow: "hidden", cursor: "pointer", minWidth: 0 }}
+        onMouseEnter={() => setHovLeft(true)}
+        onMouseLeave={() => setHovLeft(false)}
+        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer" }}
       >
         <img src={RUNWAY_SLIDES[prevIdx]} alt="" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center top",
-            filter: `brightness(${hovering ? 0.32 : 0.18})`, transition: "filter 0.4s ease" }} />
-        {/* blend toward center */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(8,8,8,0.5) 0%, transparent 100%)", pointerEvents: "none" }} />
-        {/* arrow */}
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          opacity: hovering ? 1 : 0, transition: "opacity 0.25s" }}>
-          <div style={{ width: "34px", height: "34px", border: "1px solid rgba(245,240,232,0.4)", borderRadius: "50%",
-            background: "rgba(0,0,0,0.35)", backdropFilter: "blur(4px)",
-            display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "rgba(245,240,232,0.85)", fontSize: "13px" }}>←</span>
-          </div>
-        </div>
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
+            filter: `brightness(${hovLeft ? 0.35 : 0.2})`, transition: "filter 0.3s ease" }} />
+        {/* gradient edge blend */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 0%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
       </div>
 
-      {/* ── Main image — 4:5, height-driven ── */}
-      <div style={{ flexShrink: 0, position: "relative" }}>
-        {/* fading prev */}
+      {/* ── Main image ── */}
+      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}
+        onMouseEnter={() => { setHovLeft(true); setHovRight(true); }}
+        onMouseLeave={() => { setHovLeft(false); setHovRight(false); }}
+      >
+        {/* prev fading out */}
         {prev !== null && (
           <img src={RUNWAY_SLIDES[prev]} alt="" draggable={false}
-            style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "auto", display: "block",
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
               opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }} />
         )}
-        {/* current — drives container size */}
+        {/* current */}
         <img src={RUNWAY_SLIDES[cur]} alt="Runway" draggable={false}
-          style={{ display: "block", height: imgH, width: "auto" }} />
-
-        {/* bottom overlay + text */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0,
-          background: "linear-gradient(to top, rgba(8,8,8,0.78) 0%, rgba(8,8,8,0.2) 45%, transparent 100%)",
-          padding: "28px 24px 20px", pointerEvents: "none" }}>
-          <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.28em",
-            textTransform: "uppercase", color: "rgba(245,240,232,0.3)", margin: "0 0 6px" }}>01</p>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
-            <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(16px, 2vw, 26px)",
-              fontWeight: 400, letterSpacing: "0.06em", color: "rgba(245,240,232,0.92)", margin: 0, lineHeight: 1 }}>
-              Runway
-            </h2>
-            <a href="/runway" style={{ pointerEvents: "all", fontFamily: "Arial, sans-serif", fontSize: "8px",
-              letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(245,240,232,0.5)",
-              textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,240,232,0.95)")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,240,232,0.5)")}
-            >View Collection →</a>
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", opacity: 1 }} />
+        {/* subtle right-side gradient → blends into text panel */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 65%, rgba(8,8,8,0.55) 100%)", pointerEvents: "none" }} />
+        {/* clickable link overlay (center) */}
+        <a href="/runway" style={{ position: "absolute", inset: 0, zIndex: 2, display: "block" }} aria-label="View Runway collection" />
+        {/* Left arrow — overlaid on left edge of image */}
+        <div onClick={e => { e.preventDefault(); goPrev(e); }}
+          style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", zIndex: 10,
+            opacity: hovLeft ? 1 : 0, transition: "opacity 0.25s", cursor: "pointer" }}>
+          <div style={{ width: "36px", height: "36px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)",
+            display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "rgba(245,240,232,0.9)", fontSize: "13px", lineHeight: 1 }}>←</span>
           </div>
         </div>
-
-        {/* slide indicators */}
-        <div style={{ position: "absolute", bottom: "8px", left: "50%", transform: "translateX(-50%)",
-          display: "flex", gap: "4px", pointerEvents: "none" }}>
-          {RUNWAY_SLIDES.map((_, i) => (
-            <div key={i} style={{ width: i === cur ? "14px" : "3px", height: "2px",
-              background: i === cur ? "rgba(245,240,232,0.7)" : "rgba(245,240,232,0.2)",
-              borderRadius: "2px", transition: "all 0.4s ease" }} />
-          ))}
+        {/* Right arrow — overlaid on right edge of image */}
+        <div onClick={e => { e.preventDefault(); goNext(e); }}
+          style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", zIndex: 10,
+            opacity: hovRight ? 1 : 0, transition: "opacity 0.25s", cursor: "pointer" }}>
+          <div style={{ width: "36px", height: "36px", border: "1px solid rgba(245,240,232,0.45)", borderRadius: "50%",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)",
+            display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "rgba(245,240,232,0.9)", fontSize: "13px", lineHeight: 1 }}>→</span>
+          </div>
         </div>
-
-        {/* clickable overlay */}
-        <a href="/runway" style={{ position: "absolute", inset: 0, zIndex: 2, display: "block" }} aria-label="View Runway collection" />
       </div>
 
-      {/* ── Right peek (next slide) ── */}
-      <div
-        onClick={goNext}
-        style={{ flex: 1, position: "relative", overflow: "hidden", cursor: "pointer", minWidth: 0 }}
-      >
-        <img src={RUNWAY_SLIDES[nextIdx]} alt="" draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center top",
-            filter: `brightness(${hovering ? 0.32 : 0.18})`, transition: "filter 0.4s ease" }} />
-        {/* blend toward center */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(8,8,8,0.5) 0%, transparent 100%)", pointerEvents: "none" }} />
-        {/* arrow */}
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          opacity: hovering ? 1 : 0, transition: "opacity 0.25s" }}>
-          <div style={{ width: "34px", height: "34px", border: "1px solid rgba(245,240,232,0.4)", borderRadius: "50%",
-            background: "rgba(0,0,0,0.35)", backdropFilter: "blur(4px)",
-            display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "rgba(245,240,232,0.85)", fontSize: "13px" }}>→</span>
+      {/* ── Text panel ── */}
+      <div style={{
+        width: "36%",
+        flexShrink: 0,
+        background: "#080808",
+        padding: "clamp(40px, 5vw, 80px) clamp(36px, 4vw, 64px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}>
+
+        {/* Number */}
+        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "10px", letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(245,240,232,0.22)", margin: "0 0 18px" }}>
+          01
+        </p>
+
+        {/* Title */}
+        <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(52px, 5.5vw, 82px)", fontWeight: 400, letterSpacing: "0.04em", color: "rgba(245,240,232,0.95)", margin: "0 0 26px", lineHeight: 1 }}>
+          Runway
+        </h2>
+
+        {/* Divider */}
+        <div style={{ width: "44px", height: "1px", background: "rgba(245,240,232,0.18)", margin: "0 0 28px" }} />
+
+        {/* Description */}
+        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "12px", lineHeight: 1.75, letterSpacing: "0.03em", color: "rgba(245,240,232,0.42)", margin: "0 0 38px", maxWidth: "290px" }}>
+          Fashion in motion. Captured in real time. A study of form, texture, and presence on the runway.
+        </p>
+
+        {/* CTA */}
+        <a href="/runway"
+          style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(245,240,232,0.65)", textDecoration: "none", marginBottom: "52px", transition: "color 0.2s, gap 0.2s" }}
+          onMouseEnter={e => { e.currentTarget.style.color = "rgba(245,240,232,0.95)"; e.currentTarget.style.gap = "16px"; }}
+          onMouseLeave={e => { e.currentTarget.style.color = "rgba(245,240,232,0.65)"; e.currentTarget.style.gap = "10px"; }}
+        >
+          View Collection <span style={{ fontSize: "11px" }}>→</span>
+        </a>
+
+        {/* Metadata */}
+        <div style={{ display: "flex", gap: "40px", borderTop: "1px solid rgba(245,240,232,0.07)", paddingTop: "26px", marginBottom: "36px" }}>
+          <div>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 6px" }}>Images</p>
+            <p style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "22px", fontWeight: 400, color: "rgba(245,240,232,0.55)", margin: 0, lineHeight: 1 }}>184</p>
+          </div>
+          <div>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 6px" }}>Locations</p>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,240,232,0.45)", margin: 0, lineHeight: 1.4 }}>
+              Paris / Milan<br />New York
+            </p>
           </div>
         </div>
+
+        {/* Slide indicators */}
+        <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", maxWidth: "200px" }}>
+          {RUNWAY_SLIDES.map((_, i) => (
+            <div
+              key={i}
+              onClick={() => goTo(i)}
+              style={{ width: i === cur ? "18px" : "4px", height: "2px", background: i === cur ? "rgba(245,240,232,0.7)" : "rgba(245,240,232,0.15)", borderRadius: "2px", transition: "all 0.4s ease", cursor: "pointer" }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Right peek ── */}
+      <div
+        onClick={goNext}
+        onMouseEnter={() => setHovRight(true)}
+        onMouseLeave={() => setHovRight(false)}
+        style={{ width: "7%", flexShrink: 0, position: "relative", overflow: "hidden", cursor: "pointer" }}
+      >
+        <img src={RUNWAY_SLIDES[nextIdx]} alt="" draggable={false}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
+            filter: `brightness(${hovRight ? 0.35 : 0.2})`, transition: "filter 0.3s ease" }} />
+        {/* gradient edge blend */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, transparent 0%, rgba(8,8,8,0.4) 100%)", pointerEvents: "none" }} />
       </div>
     </div>
   );
