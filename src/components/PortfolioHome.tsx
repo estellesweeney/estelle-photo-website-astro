@@ -135,55 +135,57 @@ function RunwayHero() {
         width: "36%",
         flexShrink: 0,
         background: "#080808",
-        padding: "clamp(40px, 5vw, 80px) clamp(36px, 4vw, 64px)",
+        padding: "clamp(32px, 4vw, 64px) clamp(28px, 3vw, 52px)",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         justifyContent: "center",
+        textAlign: "center",
       }}>
 
         {/* Number */}
-        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "10px", letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(245,240,232,0.22)", margin: "0 0 18px" }}>
+        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(245,240,232,0.22)", margin: "0 0 14px" }}>
           01
         </p>
 
         {/* Title */}
-        <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(52px, 5.5vw, 82px)", fontWeight: 400, letterSpacing: "0.04em", color: "rgba(245,240,232,0.95)", margin: "0 0 26px", lineHeight: 1 }}>
+        <h2 style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "clamp(42px, 4.4vw, 66px)", fontWeight: 400, letterSpacing: "0.04em", color: "rgba(245,240,232,0.95)", margin: "0 0 20px", lineHeight: 1 }}>
           Runway
         </h2>
 
         {/* Divider */}
-        <div style={{ width: "44px", height: "1px", background: "rgba(245,240,232,0.18)", margin: "0 0 28px" }} />
+        <div style={{ width: "36px", height: "1px", background: "rgba(245,240,232,0.18)", margin: "0 0 22px" }} />
 
         {/* Description */}
-        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "12px", lineHeight: 1.75, letterSpacing: "0.03em", color: "rgba(245,240,232,0.42)", margin: "0 0 38px", maxWidth: "290px" }}>
+        <p style={{ fontFamily: "Arial, sans-serif", fontSize: "9.6px", lineHeight: 1.75, letterSpacing: "0.03em", color: "rgba(245,240,232,0.42)", margin: "0 0 30px", maxWidth: "240px" }}>
           Fashion in motion. Captured in real time. A study of form, texture, and presence on the runway.
         </p>
 
         {/* CTA */}
         <a href="/runway"
-          style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(245,240,232,0.65)", textDecoration: "none", marginBottom: "52px", transition: "color 0.2s, gap 0.2s" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "Arial, sans-serif", fontSize: "7.2px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(245,240,232,0.65)", textDecoration: "none", marginBottom: "42px", transition: "color 0.2s, gap 0.2s" }}
           onMouseEnter={e => { e.currentTarget.style.color = "rgba(245,240,232,0.95)"; e.currentTarget.style.gap = "16px"; }}
           onMouseLeave={e => { e.currentTarget.style.color = "rgba(245,240,232,0.65)"; e.currentTarget.style.gap = "10px"; }}
         >
-          View Collection <span style={{ fontSize: "11px" }}>→</span>
+          View Collection <span style={{ fontSize: "9px" }}>→</span>
         </a>
 
         {/* Metadata */}
-        <div style={{ display: "flex", gap: "40px", borderTop: "1px solid rgba(245,240,232,0.07)", paddingTop: "26px", marginBottom: "36px" }}>
+        <div style={{ display: "flex", gap: "32px", borderTop: "1px solid rgba(245,240,232,0.07)", paddingTop: "20px", marginBottom: "28px", justifyContent: "center" }}>
           <div>
-            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 6px" }}>Images</p>
-            <p style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "22px", fontWeight: 400, color: "rgba(245,240,232,0.55)", margin: 0, lineHeight: 1 }}>184</p>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "6.4px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 5px" }}>Images</p>
+            <p style={{ fontFamily: "'Bodoni Moda', serif", fontSize: "17.6px", fontWeight: 400, color: "rgba(245,240,232,0.55)", margin: 0, lineHeight: 1 }}>184</p>
           </div>
           <div>
-            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "8px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 6px" }}>Locations</p>
-            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,240,232,0.45)", margin: 0, lineHeight: 1.4 }}>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "6.4px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,240,232,0.18)", margin: "0 0 5px" }}>Locations</p>
+            <p style={{ fontFamily: "Arial, sans-serif", fontSize: "7.2px", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,240,232,0.45)", margin: 0, lineHeight: 1.4 }}>
               Paris / Milan<br />New York
             </p>
           </div>
         </div>
 
         {/* Slide indicators */}
-        <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", maxWidth: "200px" }}>
+        <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", justifyContent: "center", maxWidth: "200px" }}>
           {RUNWAY_SLIDES.map((_, i) => (
             <div
               key={i}
