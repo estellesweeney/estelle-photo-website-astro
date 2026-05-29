@@ -91,11 +91,12 @@ export default function AsciiIntro({ onDone }: Props) {
         }
     }
 
-    // Assign lock delays: stagger left-to-right across letters (0–2800ms) + small jitter
-    // Lock delays for all devices — stagger left-to-right across letters (0–2000ms)
+    // Assign lock delays: stagger left-to-right across letters
+    // Desktop: compress to 0–1200ms so ESTELLE is fully assembled by ~1.5s
+    const maxLockMs = isTouch ? 2000 : 1200;
     for (let li = 0; li < WORD.length; li++) {
       const lc0 = originC + li * (LW + GAP);
-      const baseDelay = (li / (WORD.length - 1)) * 2000;
+      const baseDelay = (li / (WORD.length - 1)) * maxLockMs;
       for (let r = 0; r < ROWS; r++) {
         for (let c = lc0; c < lc0 + LW; c++) {
           if (c >= 0 && c < COLS && litCell[r][c] === 1) {
@@ -258,6 +259,14 @@ export default function AsciiIntro({ onDone }: Props) {
 
     draw();
 
+    // Desktop: skip vortex, start spelling immediately, auto-exit at 1.8s
+    if (!isTouch) {
+      phaseRef.current = "spelling";
+      setUiPhase("spelling");
+      spellStartMs.current = Date.now();
+      setTimeout(() => exit(), 1800);
+    }
+
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
@@ -273,13 +282,13 @@ export default function AsciiIntro({ onDone }: Props) {
 
   const handleClick = () => {
     if (phaseRef.current === "vortex") {
-      // Vortex tap works immediately
+      // Mobile: vortex tap starts spelling
       phaseRef.current = "spelling";
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
       setTimeout(() => exit(), 3000);
     } else if (phaseRef.current === "spelling") {
-      // Allow tap once animation completes (~1.5s after spelling starts)
+      // Allow click-through once animation is assembled (~1.5s)
       if (Date.now() - spellStartMs.current < 1500) return;
       exit();
     }
