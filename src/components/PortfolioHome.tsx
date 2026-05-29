@@ -26,7 +26,7 @@ const NAV = [
   { label: "Contact",   href: "/about" },
 ];
 
-const RUNWAY_SLIDES = Array.from({ length: 26 }, (_, i) => `/slides/home/runway/r-${String(i + 1).padStart(2, "0")}.jpg`);
+const RUNWAY_SLIDES = Array.from({ length: 11 }, (_, i) => `/slides/home/runway/r-${String(i + 1).padStart(2, "0")}.jpg`);
 
 const CARDS = [
   { num: "02", label: "Editorial & Shows",     title: "Campaigns",      href: "/campaigns",      src: "/slides/home/campaigns-cover.jpg" },
@@ -34,7 +34,7 @@ const CARDS = [
   { num: "04", label: "Art Direction",         title: "Graphic Design", href: "/graphic-design", src: "/art/graphic-design-cover2.jpg" },
 ];
 
-const RUNWAY_CARD = { num: "01", label: "Runway Shows", title: "Runway", href: "/runway", src: "/slides/home/runway/r-01.jpg" };
+const RUNWAY_CARD = { num: "01", label: "Runway Shows", title: "Runway", href: "/runway", src: "/slides/home/runway/r-01.jpg" }; // mobile cover
 
 // ── Desktop Runway Hero — split layout ────────────────────────────────────────
 function RunwayHero() {
