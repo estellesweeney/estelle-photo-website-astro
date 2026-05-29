@@ -62,6 +62,9 @@ function RunwayHero() {
   const goNext = (e: React.MouseEvent) => { e.preventDefault(); goTo(nextIdx); };
 
   useEffect(() => {
+    // Auto-advance on mobile only
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    if (!isMobile) return;
     timerRef.current = setTimeout(() => goTo(nextIdx), 4500);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [cur]);
