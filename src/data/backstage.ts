@@ -18,6 +18,8 @@ export const backstageBrands: BackstageBrand[] = [
     season: "FW26",
     cover: "/slides/backstage/kidsuper/cover.jpg",
     images: [
+      "/slides/backstage/kidsuper/bs-52.jpg",
+      "/slides/backstage/kidsuper/bs-53.jpg",
       "/slides/backstage/kidsuper/bs-42.jpg",
       "/slides/backstage/kidsuper/bs-43.jpg",
       "/slides/backstage/kidsuper/bs-44.jpg",
