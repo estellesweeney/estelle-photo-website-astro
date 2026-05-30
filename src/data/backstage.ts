@@ -141,6 +141,20 @@ export const backstageBrands: BackstageBrand[] = [
     images: [],
   },
   {
+    slug: "grace-ling",
+    name: "Grace Ling",
+    season: "AW26",
+    images: [
+      "/slides/backstage/grace-ling/bs-01.jpg",
+      "/slides/backstage/grace-ling/bs-02.jpg",
+      "/slides/backstage/grace-ling/bs-03.jpg",
+      "/slides/backstage/grace-ling/bs-04.jpg",
+      "/slides/backstage/grace-ling/bs-05.jpg",
+      "/slides/backstage/grace-ling/bs-06.jpg",
+      "/slides/backstage/grace-ling/bs-07.jpg",
+    ],
+  },
+  {
     slug: "yuima-nakazato",
     name: "Yuima Nakazato Haute Couture",
     cover: "/slides/backstage/yuima-nakazato/cover.jpg",
