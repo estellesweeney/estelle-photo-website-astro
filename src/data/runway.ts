@@ -131,6 +131,15 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/campillo/23.jpg",
     ],
   },
+  {
+    slug: "yuima-nakazato",
+    brand: "Yuima Nakazato",
+    season: "PFW 2026",
+    cover: "/slides/runway/yuima-nakazato/01.jpg",
+    images: [
+      "/slides/runway/yuima-nakazato/01.jpg",
+    ],
+  },
   // ── Add more shows below as you upload photos ──────────────────
   // {
   //   slug: "mugler-aw25",
