@@ -74,9 +74,9 @@ export const runwayShows: RunwayShow[] = [
     ],
   },
   {
-    slug: "comme-des-garcons",
-    brand: "Comme des Garçons",
-    season: "SS25",
+    slug: "comme-des-garcons-ss24",
+    brand: "Comme des Garçons SS24",
+    season: "SS24",
     cover: "/slides/runway/comme-des-garcons/01.jpg",
     images: [
       "/slides/runway/comme-des-garcons/01.jpg",
