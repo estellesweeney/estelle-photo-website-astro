@@ -20,6 +20,16 @@ export const backstageBrands: BackstageBrand[] = [
     images: [
       "/slides/backstage/kidsuper/bs-01.jpg",
       "/slides/backstage/kidsuper/bs-02.jpg",
+      "/slides/backstage/kidsuper/bs-03.jpg",
+      "/slides/backstage/kidsuper/bs-04.jpg",
+      "/slides/backstage/kidsuper/bs-05.jpg",
+      "/slides/backstage/kidsuper/bs-06.jpg",
+      "/slides/backstage/kidsuper/bs-07.jpg",
+      "/slides/backstage/kidsuper/bs-08.jpg",
+      "/slides/backstage/kidsuper/bs-09.jpg",
+      "/slides/backstage/kidsuper/bs-10.jpg",
+      "/slides/backstage/kidsuper/bs-11.jpg",
+      "/slides/backstage/kidsuper/bs-12.jpg",
     ],
   },
   {
