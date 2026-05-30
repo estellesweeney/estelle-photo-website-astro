@@ -128,6 +128,7 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/campillo/20.jpg",
       "/slides/runway/campillo/21.jpg",
       "/slides/runway/campillo/22.jpg",
+      "/slides/runway/campillo/23.jpg",
     ],
   },
   // ── Add more shows below as you upload photos ──────────────────
