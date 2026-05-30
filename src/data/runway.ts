@@ -149,6 +149,24 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/yuima-nakazato/10.jpg",
     ],
   },
+  {
+    slug: "grace-ling-aw26",
+    brand: "Grace Ling AW26",
+    season: "PFW 2026",
+    cover: "/slides/runway/grace-ling/01.jpg",
+    images: [
+      "/slides/runway/grace-ling/01.jpg",
+      "/slides/runway/grace-ling/02.jpg",
+      "/slides/runway/grace-ling/03.jpg",
+      "/slides/runway/grace-ling/04.jpg",
+      "/slides/runway/grace-ling/05.jpg",
+      "/slides/runway/grace-ling/06.jpg",
+      "/slides/runway/grace-ling/07.jpg",
+      "/slides/runway/grace-ling/08.jpg",
+      "/slides/runway/grace-ling/09.jpg",
+      "/slides/runway/grace-ling/10.jpg",
+    ],
+  },
   // ── Add more shows below as you upload photos ──────────────────
   // {
   //   slug: "mugler-aw25",
