@@ -100,6 +100,24 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/comme-des-garcons/20.jpg",
     ],
   },
+  {
+    slug: "campillo-aw2627",
+    brand: "Campillo AW26/27",
+    season: "PFW 2026",
+    cover: "/slides/runway/campillo/01.jpg",
+    images: [
+      "/slides/runway/campillo/01.jpg",
+      "/slides/runway/campillo/02.jpg",
+      "/slides/runway/campillo/03.jpg",
+      "/slides/runway/campillo/04.jpg",
+      "/slides/runway/campillo/05.jpg",
+      "/slides/runway/campillo/06.jpg",
+      "/slides/runway/campillo/07.jpg",
+      "/slides/runway/campillo/08.jpg",
+      "/slides/runway/campillo/09.jpg",
+      "/slides/runway/campillo/10.jpg",
+    ],
+  },
   // ── Add more shows below as you upload photos ──────────────────
   // {
   //   slug: "mugler-aw25",
