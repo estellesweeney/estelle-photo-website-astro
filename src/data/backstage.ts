@@ -175,6 +175,8 @@ export const backstageBrands: BackstageBrand[] = [
       "/slides/backstage/yuima-nakazato/bs-28.jpg",
       "/slides/backstage/yuima-nakazato/bs-29.jpg",
       "/slides/backstage/yuima-nakazato/bs-30.jpg",
+      "/slides/backstage/yuima-nakazato/bs-31.jpg",
+      "/slides/backstage/yuima-nakazato/bs-32.jpg",
     ],
   },
 ];
