@@ -83,7 +83,6 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/comme-des-garcons/02.jpg",
       "/slides/runway/comme-des-garcons/03.jpg",
       "/slides/runway/comme-des-garcons/04.jpg",
-      "/slides/runway/comme-des-garcons/05.jpg",
       "/slides/runway/comme-des-garcons/06.jpg",
       "/slides/runway/comme-des-garcons/07.jpg",
       "/slides/runway/comme-des-garcons/08.jpg",

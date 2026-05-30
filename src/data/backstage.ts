@@ -105,7 +105,6 @@ export const backstageBrands: BackstageBrand[] = [
       "/slides/backstage/comme-des-garcons/bs-13.jpg",
       "/slides/backstage/comme-des-garcons/bs-14.jpg",
       "/slides/backstage/comme-des-garcons/bs-15.jpg",
-      "/slides/backstage/comme-des-garcons/bs-16.jpg",
       "/slides/backstage/comme-des-garcons/bs-17.jpg",
       "/slides/backstage/comme-des-garcons/bs-18.jpg",
       "/slides/backstage/comme-des-garcons/bs-19.jpg",
