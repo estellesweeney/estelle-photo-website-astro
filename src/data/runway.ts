@@ -73,6 +73,24 @@ export const runwayShows: RunwayShow[] = [
       "/slides/kidsuper/moon-10.jpg",
     ],
   },
+  {
+    slug: "comme-des-garcons",
+    brand: "Comme des Garçons",
+    season: "SS25",
+    cover: "/slides/runway/comme-des-garcons/01.jpg",
+    images: [
+      "/slides/runway/comme-des-garcons/01.jpg",
+      "/slides/runway/comme-des-garcons/02.jpg",
+      "/slides/runway/comme-des-garcons/03.jpg",
+      "/slides/runway/comme-des-garcons/04.jpg",
+      "/slides/runway/comme-des-garcons/05.jpg",
+      "/slides/runway/comme-des-garcons/06.jpg",
+      "/slides/runway/comme-des-garcons/07.jpg",
+      "/slides/runway/comme-des-garcons/08.jpg",
+      "/slides/runway/comme-des-garcons/09.jpg",
+      "/slides/runway/comme-des-garcons/10.jpg",
+    ],
+  },
   // ── Add more shows below as you upload photos ──────────────────
   // {
   //   slug: "mugler-aw25",
