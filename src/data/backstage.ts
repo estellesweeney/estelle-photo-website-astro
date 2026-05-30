@@ -89,6 +89,7 @@ export const backstageBrands: BackstageBrand[] = [
     season: "SS25",
     cover: "/slides/backstage/comme-des-garcons/cover.jpg",
     images: [
+      "/slides/backstage/comme-des-garcons/bs-22.jpg",
       "/slides/backstage/comme-des-garcons/bs-01.jpg",
       "/slides/backstage/comme-des-garcons/bs-02.jpg",
       "/slides/backstage/comme-des-garcons/bs-03.jpg",
