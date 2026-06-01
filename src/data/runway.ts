@@ -187,14 +187,25 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/grace-ling/30.jpg",
     ],
   },
+  {
+    slug: "mugler-aw25",
+    brand: "Mugler AW25",
+    season: "PFW 2025",
+    cover: "/slides/runway/mugler/01.jpg",
+    images: [
+      "/slides/runway/mugler/01.jpg",
+      "/slides/runway/mugler/02.jpg",
+      "/slides/runway/mugler/03.jpg",
+      "/slides/runway/mugler/04.jpg",
+      "/slides/runway/mugler/05.jpg",
+      "/slides/runway/mugler/06.jpg",
+      "/slides/runway/mugler/07.jpg",
+      "/slides/runway/mugler/08.jpg",
+      "/slides/runway/mugler/09.jpg",
+      "/slides/runway/mugler/10.jpg",
+    ],
+  },
   // ── Add more shows below as you upload photos ──────────────────
-  // {
-  //   slug: "mugler-aw25",
-  //   brand: "Mugler AW25",
-  //   season: "PFW 2025",
-  //   cover: "/slides/mugler/cover.jpg",
-  //   images: ["/slides/mugler/01.jpg", "/slides/mugler/02.jpg"],
-  // },
 ];
 
 // Flat list for the editorial grid
