@@ -233,6 +233,8 @@ export const runwayShows: RunwayShow[] = [
       "/slides/runway/mugler/38.jpg",
       "/slides/runway/mugler/39.jpg",
       "/slides/runway/mugler/40.jpg",
+      "/slides/runway/mugler/41.jpg",
+      "/slides/runway/mugler/42.jpg",
     ],
   },
   // ── Add more shows below as you upload photos ──────────────────
