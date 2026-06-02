@@ -95,7 +95,9 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
     name: "BAPE",
     short: "BAPE",
     cover: "/slides/campaigns/covers/bape.jpg",
-    images: [],
+    images: Array.from({ length: 22 }, (_, i) =>
+      `/slides/campaigns/bape/bape-${String(i + 1).padStart(2, "0")}.jpg`
+    ),
     year: "2023",
   },
   {
