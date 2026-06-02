@@ -13,17 +13,20 @@ import { CAMPAIGN_PROJECTS } from "@/data/campaigns";
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="px-4 py-10 max-w-[960px] mx-auto">
+    <main class="px-4 pt-8 pb-16 max-w-[1100px] mx-auto">
 
-      <!-- Page header -->
-      <div class="flex items-end justify-between pb-6 border-b border-white/10 mb-10">
+      <!-- Header row -->
+      <div class="flex items-end justify-between mb-10">
         <div>
-          <h1 class="text-xs tracking-[0.25em] uppercase font-display mb-1">Campaigns</h1>
-          <p class="text-[10px] tracking-[0.12em] text-white/30 font-display">A selection of campaign projects and collaborations</p>
+          <h1 class="text-xs tracking-[0.28em] uppercase font-display mb-2">Campaigns</h1>
+          <p class="text-[10px] tracking-[0.1em] text-white/30 font-display">A selection of campaign projects and collaborations.</p>
         </div>
-        <span class="text-[9px] tracking-[0.22em] uppercase text-white/20 font-display hidden sm:block">
-          Select a project to replay ↓
-        </span>
+        <a
+          href="/campaigns"
+          class="text-[10px] tracking-[0.18em] uppercase font-display text-white/35 hover:text-white transition-colors hidden sm:flex items-center gap-1.5"
+        >
+          View all projects <span class="text-sm leading-none">→</span>
+        </a>
       </div>
 
       <!-- Dreamcast house -->
