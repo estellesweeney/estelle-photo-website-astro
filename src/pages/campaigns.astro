@@ -1,26 +1,34 @@
 ---
 import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
-import GalleryLightbox from "@/components/GalleryLightbox";
-
-const images = Array.from({ length: 82 }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return `/slides/campaigns/camp-${n}.jpg`;
-});
+import CampaignHouse from "@/components/CampaignHouse";
+import { CAMPAIGN_PROJECTS } from "@/data/campaigns";
 ---
 
 <Layout title="Campaigns — Estelle Sweeney">
-  <div class="min-h-screen bg-black text-cream font-sans">
+  <div class="min-h-screen bg-black text-white font-sans">
 
     <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
       <HomeIcon />
       <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
     </nav>
 
-    <main class="px-4 py-10 max-w-6xl mx-auto">
-      <h1 class="text-xs tracking-[0.25em] uppercase font-display pb-6 border-b border-white/10 mb-8">Campaigns</h1>
+    <main class="px-4 py-10 max-w-[960px] mx-auto">
 
-      <GalleryLightbox images={images} alt="Campaign" client:load />
+      <!-- Page header -->
+      <div class="flex items-end justify-between pb-6 border-b border-white/10 mb-10">
+        <div>
+          <h1 class="text-xs tracking-[0.25em] uppercase font-display mb-1">Campaigns</h1>
+          <p class="text-[10px] tracking-[0.12em] text-white/30 font-display">A selection of campaign projects and collaborations</p>
+        </div>
+        <span class="text-[9px] tracking-[0.22em] uppercase text-white/20 font-display hidden sm:block">
+          Select a project to replay ↓
+        </span>
+      </div>
+
+      <!-- Dreamcast house -->
+      <CampaignHouse projects={CAMPAIGN_PROJECTS} client:load />
+
     </main>
 
   </div>
