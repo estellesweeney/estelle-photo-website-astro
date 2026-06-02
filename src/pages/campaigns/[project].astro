@@ -1,6 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import HomeIcon from "@/components/HomeIcon.astro";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import SubCampaignGrid from "@/components/SubCampaignGrid";
 import { CAMPAIGN_PROJECTS } from "@/data/campaigns";
 
 export function getStaticPaths() {
@@ -14,29 +16,64 @@ export function getStaticPaths() {
 }
 
 const { project, next } = Astro.props;
+const hasSubs = project.subcampaigns && project.subcampaigns.length > 0;
 ---
 
 <Layout title={`${project.name} — Campaigns — Estelle Sweeney`}>
   <div class="min-h-screen bg-black text-white font-sans">
 
-    {project.images.length > 0 ? (
-      /* ── Gallery view ─────────────────────────────────────────── */
+    {hasSubs ? (
+      /* ── Sub-campaign grid view ─────────────────────────────── */
+      <div class="min-h-screen">
+        <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <HomeIcon />
+          <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
+        </nav>
+
+        <main class="px-4 pt-8 pb-16 max-w-[960px] mx-auto">
+          <div class="flex items-end justify-between mb-10">
+            <div>
+              <a href="/campaigns" class="text-[10px] tracking-[0.2em] uppercase font-display text-white/30 hover:text-white transition-colors">
+                &larr; Campaigns
+              </a>
+              <h1 class="text-xs tracking-[0.28em] uppercase font-display mt-2 mb-1">{project.name}</h1>
+              <p class="text-[10px] tracking-[0.1em] text-white/30 font-display">Campaign projects</p>
+            </div>
+            <a
+              href={`/campaigns/${next.slug}`}
+              class="text-[10px] tracking-[0.18em] uppercase font-display text-white/30 hover:text-white transition-colors hidden sm:flex items-center gap-1.5"
+            >
+              {next.short} <span class="text-sm leading-none">&rarr;</span>
+            </a>
+          </div>
+
+          <SubCampaignGrid
+            parentSlug={project.slug}
+            subcampaigns={project.subcampaigns!}
+            client:load
+          />
+        </main>
+      </div>
+
+    ) : project.images.length > 0 ? (
+      /* ── Direct gallery view ────────────────────────────────── */
       <div class="min-h-screen">
         <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <a href="/campaigns" class="text-xs tracking-[0.18em] uppercase font-display text-white/50 hover:text-white transition-colors">
-            ← Campaigns
+            &larr; Campaigns
           </a>
           <span class="text-xs tracking-[0.18em] uppercase font-display text-white/40">{project.name}</span>
           <a href={`/campaigns/${next.slug}`} class="text-xs tracking-[0.18em] uppercase font-display text-white/50 hover:text-white transition-colors">
-            {next.short} →
+            {next.short} &rarr;
           </a>
         </nav>
         <main class="px-4 py-8 max-w-6xl mx-auto">
           <GalleryLightbox images={project.images} alt={project.name} client:load />
         </main>
       </div>
+
     ) : (
-      /* ── Coming soon ──────────────────────────────────────────── */
+      /* ── Coming soon ────────────────────────────────────────── */
       <div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:#060606;">
         {project.cover && (
           <img
@@ -57,11 +94,11 @@ const { project, next } = Astro.props;
             Gallery coming soon
           </p>
           <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;">
-            <a href="/campaigns" style="font-family:monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,106,26,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">
-              ← Back to Campaigns
+            <a href="/campaigns" style="font-family:monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;">
+              &larr; Back to Campaigns
             </a>
-            <a href={`/campaigns/${next.slug}`} style="font-family:monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,106,26,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">
-              {next.short} →
+            <a href={`/campaigns/${next.slug}`} style="font-family:monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;">
+              {next.short} &rarr;
             </a>
           </div>
         </div>
