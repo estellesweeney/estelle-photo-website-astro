@@ -65,8 +65,10 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
       {
         slug: "spring",
         name: "Spring Campaign",
-        cover: "/slides/campaigns/bbc/spring/cover.jpg",
-        images: [],
+        cover: "/slides/campaigns/bbc/spring/bbc-spr-01.jpg",
+        images: Array.from({ length: 9 }, (_, i) =>
+          `/slides/campaigns/bbc/spring/bbc-spr-${String(i + 1).padStart(2, "0")}.jpg`
+        ),
         year: "2025",
       },
       {
