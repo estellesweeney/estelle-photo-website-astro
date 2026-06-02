@@ -117,7 +117,9 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
     name: "Science Project",
     short: "Sci. Project",
     cover: "/slides/campaigns/covers/science-project.jpg",
-    images: [],
+    images: Array.from({ length: 9 }, (_, i) =>
+      `/slides/campaigns/science-project/sci-${String(i + 1).padStart(2, "0")}.jpg`
+    ),
     year: "2022",
   },
 ];
