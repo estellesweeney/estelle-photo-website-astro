@@ -87,7 +87,7 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
     name: "KidSuper",
     short: "KidSuper",
     cover: "/slides/campaigns/covers/kidsuper.jpg",
-    images: Array.from({ length: 10 }, (_, i) =>
+    images: Array.from({ length: 14 }, (_, i) =>
       `/slides/campaigns/kidsuper/ks-${String(i + 1).padStart(2, "0")}.jpg`
     ),
     year: "2024",
