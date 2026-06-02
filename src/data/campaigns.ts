@@ -75,8 +75,8 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
         slug: "holiday",
         name: "Holiday Campaign",
         cover: "/slides/campaigns/bbc/holiday/bbc-hol-01.jpg",
-        images: Array.from({ length: 10 }, (_, i) =>
-          `/slides/campaigns/bbc/holiday/bbc-hol-${String(i + 1).padStart(2, "00")}.jpg`
+        images: Array.from({ length: 16 }, (_, i) =>
+          `/slides/campaigns/bbc/holiday/bbc-hol-${String(i + 1).padStart(2, "0")}.jpg`
         ),
         year: "2024",
       },
