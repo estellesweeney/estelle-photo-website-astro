@@ -74,7 +74,7 @@ export default function GalleryLightbox({ images, alt = "" }: Props) {
           <button
             key={src}
             className="block w-full overflow-hidden bg-[#111] focus:outline-none group"
-            style={{ aspectRatio: "3 / 2" }}
+            style={{ aspectRatio: "4 / 5" }}
             onClick={() => open(i)}
             aria-label={`${alt} ${i + 1}`}
           >
