@@ -103,7 +103,9 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
     name: "Puma",
     short: "Puma",
     cover: "/slides/campaigns/covers/puma.jpg",
-    images: [],
+    images: Array.from({ length: 10 }, (_, i) =>
+      `/slides/campaigns/puma/puma-${String(i + 1).padStart(2, "0")}.jpg`
+    ),
     year: "2023",
   },
   {
