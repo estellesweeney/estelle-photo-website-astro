@@ -34,9 +34,32 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
         slug: "summer-26",
         name: "Summer 26",
         cover: "/slides/campaigns/bbc/summer-26/bbc-s26-01.jpg",
-        images: Array.from({ length: 10 }, (_, i) =>
-          `/slides/campaigns/bbc/summer-26/bbc-s26-${String(i + 1).padStart(2, "0")}.jpg`
-        ),
+        images: [
+          "/slides/campaigns/bbc/summer-26/bbc-s26-01.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-02.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-03.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-04.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-05.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-06.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-07.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-08.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-09.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-10.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-12.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-13.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-14.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-15.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-16.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-17.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-19.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-20.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-21.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-22.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-23.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-24.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-25.jpg",
+          "/slides/campaigns/bbc/summer-26/bbc-s26-26.jpg",
+        ],
         year: "2026",
       },
       {
@@ -49,8 +72,10 @@ export const CAMPAIGN_PROJECTS: CampaignProject[] = [
       {
         slug: "holiday",
         name: "Holiday Campaign",
-        cover: "/slides/campaigns/bbc/holiday/cover.jpg",
-        images: [],
+        cover: "/slides/campaigns/bbc/holiday/bbc-hol-01.jpg",
+        images: Array.from({ length: 10 }, (_, i) =>
+          `/slides/campaigns/bbc/holiday/bbc-hol-${String(i + 1).padStart(2, "00")}.jpg`
+        ),
         year: "2024",
       },
     ],
