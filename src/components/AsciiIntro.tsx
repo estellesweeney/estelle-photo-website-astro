@@ -92,8 +92,8 @@ export default function AsciiIntro({ onDone }: Props) {
     }
 
     // Assign lock delays: stagger left-to-right across letters
-    // Desktop: compress to 0–1200ms so ESTELLE is fully assembled by ~1.5s
-    const maxLockMs = isTouch ? 2000 : 1200;
+    // Desktop: compress to 0–700ms so ESTELLE is fully assembled by ~1s
+    const maxLockMs = isTouch ? 2000 : 700;
     for (let li = 0; li < WORD.length; li++) {
       const lc0 = originC + li * (LW + GAP);
       const baseDelay = (li / (WORD.length - 1)) * maxLockMs;
@@ -259,12 +259,12 @@ export default function AsciiIntro({ onDone }: Props) {
 
     draw();
 
-    // Desktop: skip vortex, start spelling immediately, auto-exit at 1.8s
+    // Desktop: skip vortex, start spelling immediately, auto-exit at 1.1s
     if (!isTouch) {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
-      setTimeout(() => exit(), 1800);
+      setTimeout(() => exit(), 1100);
     }
 
     return () => {
