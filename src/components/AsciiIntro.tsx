@@ -277,7 +277,7 @@ export default function AsciiIntro({ onDone }: Props) {
     if (phaseRef.current === "out") return;
     phaseRef.current = "out";
     setUiPhase("out");
-    setTimeout(() => onDoneRef.current(), 500);
+    setTimeout(() => onDoneRef.current(), 300);
   };
 
   const handleClick = () => {
@@ -310,7 +310,7 @@ export default function AsciiIntro({ onDone }: Props) {
           inset: 0,
           zIndex: 999,
           opacity: uiPhase === "out" ? 0 : 1,
-          transition: "opacity 0.7s ease",
+          transition: "opacity 0.5s ease",
         }}
       >
         <canvas
