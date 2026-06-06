@@ -93,7 +93,7 @@ export default function AsciiIntro({ onDone }: Props) {
 
     // Assign lock delays: stagger left-to-right across letters
     // Desktop: compress to 0–250ms so ESTELLE is fully assembled fast
-    const maxLockMs = isTouch ? 2000 : 250;
+    const maxLockMs = isTouch ? 2000 : 850;
     for (let li = 0; li < WORD.length; li++) {
       const lc0 = originC + li * (LW + GAP);
       const baseDelay = (li / (WORD.length - 1)) * maxLockMs;
@@ -264,7 +264,7 @@ export default function AsciiIntro({ onDone }: Props) {
       phaseRef.current = "spelling";
       setUiPhase("spelling");
       spellStartMs.current = Date.now();
-      setTimeout(() => exit(), 300);
+      setTimeout(() => exit(), 1100);
     }
 
     return () => {
