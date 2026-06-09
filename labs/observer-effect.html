@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observer Effect — Observatory</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #060402;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  cursor: none;
+}
+
+canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+/* ── UI overlay ───────────────────────────────────── */
+.ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Title */
+.title-block {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.title-block h1 {
+  color: #c9a96e;
+  font-size: 10px;
+  font-weight: normal;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.title-block .sub {
+  color: #7a6040;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  margin-top: 7px;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Bottom state display */
+.psi-block {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.psi-label {
+  color: #7a6040;
+  font-size: 7.5px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+}
+.psi-val {
+  color: #c9a96e;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+/* Floating equations — parchment note style */
+.eq {
+  position: absolute;
+  color: rgba(160, 120, 65, 0.28);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  font-style: italic;
+  white-space: nowrap;
+  line-height: 1.8;
+}
+
+/* Corner crosshairs */
+.xhair {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  opacity: 0.18;
+}
+.xhair svg { display: block; width: 100%; height: 100%; }
+.xh-tl { top: 18px; left: 18px; }
+.xh-tr { top: 18px; right: 18px; transform: scaleX(-1); }
+.xh-bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
+.xh-br { bottom: 18px; right: 18px; transform: scale(-1, -1); }
+
+/* Observation radius hint */
+.obs-hint {
+  position: absolute;
+  bottom: 36px;
+  right: 28px;
+  text-align: right;
+  color: rgba(160, 120, 65, 0.25);
+  font-size: 7.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 2;
+}
+
+/* ── Custom cursor ────────────────────────────────── */
+#cur, #cur-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+}
+#cur {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(201, 169, 110, 0.7);
+  background: rgba(201, 169, 110, 0.08);
+}
+#cur-ring {
+  width: 260px;
+  height: 260px;
+  border: 0.5px solid rgba(201, 169, 110, 0.06);
+  transition: width 0.15s, height 0.15s, opacity 0.15s;
+}
+#cur-label {
+  position: fixed;
+  font-size: 6.5px;
+  letter-spacing: 0.35em;
+  color: rgba(201, 169, 110, 0.35);
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<!-- ── UI ──────────────────────────────────────────── -->
+<div class="ui">
+
+  <div class="title-block">
+    <h1>Observer Effect</h1>
+    <div class="sub">ψ collapses upon observation &nbsp;·&nbsp; move through the field &nbsp;·&nbsp; hold to intensify</div>
+  </div>
+
+  <!-- Floating quantum equations like drafting notes -->
+  <div class="eq" style="top:13%;left:6%">iℏ ∂ψ/∂t = Ĥψ<br>Schrödinger, 1926</div>
+  <div class="eq" style="top:20%;right:5%">Δx · Δp ≥ ℏ/2<br>Heisenberg uncertainty</div>
+  <div class="eq" style="top:58%;left:4%">⟨x⟩ = ∫ψ* x ψ dx<br>expectation value</div>
+  <div class="eq" style="top:64%;right:4%">P(x) = |ψ(x,t)|²<br>Born rule</div>
+  <div class="eq" style="top:38%;left:2.5%">∇²ψ + k²ψ = 0</div>
+  <div class="eq" style="top:42%;right:3%">ψ = A e^(ikx − iωt)</div>
+  <div class="eq" style="top:8%;left:38%">— wave function —</div>
+  <div class="eq" style="bottom:12%;left:36%">ρ(x) = |ψ(x,t)|²</div>
+
+  <!-- Corner crosshairs -->
+  <div class="xhair xh-tl">
+    <svg viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="0.8">
+      <line x1="0" y1="18" x2="12" y2="18"/>
+      <line x1="18" y1="0" x2="18" y2="12"/>
+      <line x1="24" y1="18" x2="36" y2="18"/>
+      <line x1="18" y1="24" x2="18" y2="36"/>
+      <circle cx="18" cy="18" r="2.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="xhair xh-tr">
+    <svg viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="0.8">
+      <line x1="0" y1="18" x2="12" y2="18"/>
+      <line x1="18" y1="0" x2="18" y2="12"/>
+      <line x1="24" y1="18" x2="36" y2="18"/>
+      <line x1="18" y1="24" x2="18" y2="36"/>
+      <circle cx="18" cy="18" r="2.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="xhair xh-bl">
+    <svg viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="0.8">
+      <line x1="0" y1="18" x2="12" y2="18"/>
+      <line x1="18" y1="0" x2="18" y2="12"/>
+      <line x1="24" y1="18" x2="36" y2="18"/>
+      <line x1="18" y1="24" x2="18" y2="36"/>
+      <circle cx="18" cy="18" r="2.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="xhair xh-br">
+    <svg viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="0.8">
+      <line x1="0" y1="18" x2="12" y2="18"/>
+      <line x1="18" y1="0" x2="18" y2="12"/>
+      <line x1="24" y1="18" x2="36" y2="18"/>
+      <line x1="18" y1="24" x2="18" y2="36"/>
+      <circle cx="18" cy="18" r="2.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="obs-hint">
+    hold — expand field<br>
+    release — contract
+  </div>
+
+  <div class="psi-block">
+    <div class="psi-label">Wave Function State</div>
+    <div class="psi-val" id="psiVal">ψ &mdash; superposition</div>
+  </div>
+
+</div>
+
+<!-- Custom cursor -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="cur-label">observer</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// CANVAS + DIMENSIONS
+// ─────────────────────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+
+const curEl      = document.getElementById('cur');
+const curRingEl  = document.getElementById('cur-ring');
+const curLabelEl = document.getElementById('cur-label');
+const psiValEl   = document.getElementById('psiVal');
+
+let W, H;
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INPUT
+// ─────────────────────────────────────────────────────────────────────────────
+let mx = -999, my = -999, pressed = false;
+
+function moveCursor(x, y) {
+  mx = x; my = y;
+  curEl.style.left      = x + 'px';
+  curEl.style.top       = y + 'px';
+  curRingEl.style.left  = x + 'px';
+  curRingEl.style.top   = y + 'px';
+  curLabelEl.style.left = (x + 14) + 'px';
+  curLabelEl.style.top  = (y + 12) + 'px';
+}
+
+window.addEventListener('mousemove', e => moveCursor(e.clientX, e.clientY));
+window.addEventListener('mousedown', () => pressed = true);
+window.addEventListener('mouseup',   () => pressed = false);
+
+window.addEventListener('touchstart', e => { pressed = true;  moveCursor(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+window.addEventListener('touchmove',  e => { moveCursor(e.touches[0].clientX, e.touches[0].clientY); },                 { passive: true });
+window.addEventListener('touchend',   () => pressed = false);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STAR FIELD
+// ─────────────────────────────────────────────────────────────────────────────
+const stars = Array.from({ length: 200 }, () => ({
+  x:       Math.random(),
+  y:       Math.random(),
+  r:       0.15 + Math.random() * 0.7,
+  a:       0.04 + Math.random() * 0.22,
+  twinkle: Math.random() * Math.PI * 2,
+  speed:   0.0003 + Math.random() * 0.0006,
+}));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CONSTELLATIONS (normalized 0-1 coords)
+// ─────────────────────────────────────────────────────────────────────────────
+const constellations = [
+  [ [.18,.28],[.20,.36],[.23,.44],[.20,.52],[.26,.52],[.23,.44],[.26,.36],[.29,.28] ],
+  [ [.62,.12],[.67,.16],[.72,.13],[.77,.18],[.77,.25],[.72,.28],[.67,.25] ],
+  [ [.82,.58],[.87,.48],[.92,.58],[.82,.58] ],
+  [ [.45,.72],[.50,.65],[.55,.72],[.53,.79],[.47,.79],[.45,.72] ],
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// QUANTUM ENTITIES
+// ─────────────────────────────────────────────────────────────────────────────
+const BASE_R  = 130; // base observation radius
+const N       = 72;
+
+function makeEntity() {
+  return {
+    x:          Math.random() * (window.innerWidth  || 1200),
+    y:          Math.random() * (window.innerHeight || 800),
+    vx:         (Math.random() - 0.5) * 0.22,
+    vy:         (Math.random() - 0.5) * 0.22,
+    phase:      Math.random() * Math.PI * 2,
+    phaseSpeed: 0.014 + Math.random() * 0.018,
+    waveR:      16  + Math.random() * 30,
+    rings:      2   + Math.floor(Math.random() * 3),
+    hue:        32  + Math.random() * 20,
+    size:       1.1 + Math.random() * 1.3,
+    collapse:   0,
+    flash:      0,
+  };
+}
+
+const entities = Array.from({ length: N }, makeEntity);
+
+function updateEntity(e, obsR) {
+  e.x += e.vx;
+  e.y += e.vy;
+  e.phase += e.phaseSpeed;
+
+  // Soft boundary wrap
+  const pad = 100;
+  if (e.x < -pad) e.x = W + pad;
+  if (e.x > W + pad) e.x = -pad;
+  if (e.y < -pad) e.y = H + pad;
+  if (e.y > H + pad) e.y = -pad;
+
+  const dx = e.x - mx, dy = e.y - my;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const prev = e.collapse;
+
+  if (dist < obsR) {
+    e.collapse = Math.min(1, e.collapse + 0.045);
+  } else {
+    e.collapse = Math.max(0, e.collapse - 0.018);
+  }
+
+  if (prev < 0.5 && e.collapse >= 0.5) e.flash = 1.0; // collapse moment
+  if (e.flash > 0) e.flash = Math.max(0, e.flash - 0.035);
+}
+
+function drawEntity(e) {
+  const wa = 1 - e.collapse; // wave alpha factor
+  const pa = e.collapse;     // particle alpha factor
+
+  ctx.save();
+
+  // ── WAVE STATE ────────────────────────────────────
+  if (wa > 0.01) {
+    // Probability rings
+    for (let r = 1; r <= e.rings; r++) {
+      const rr = e.waveR * (r / e.rings) * (0.82 + 0.18 * Math.sin(e.phase + r * 1.4));
+      const ra = wa * (1 - r / (e.rings + 1)) * 0.55;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, rr, 0, Math.PI * 2);
+      ctx.strokeStyle = `hsla(${e.hue}, 60%, 62%, ${ra})`;
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+    }
+
+    // Probability cloud gradient
+    const g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.waveR * 1.3);
+    g.addColorStop(0,   `hsla(${e.hue}, 68%, 70%, ${wa * 0.16})`);
+    g.addColorStop(0.5, `hsla(${e.hue}, 55%, 55%, ${wa * 0.07})`);
+    g.addColorStop(1,   `hsla(${e.hue}, 45%, 40%, 0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, e.waveR * 1.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Dim center ghost
+    ctx.fillStyle = `hsla(${e.hue}, 65%, 72%, ${wa * 0.25})`;
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, 1.1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // ── PARTICLE STATE ────────────────────────────────
+  if (pa > 0.01) {
+
+    // Collapse flash burst
+    if (e.flash > 0.01) {
+      const fr = 55 * e.flash;
+      const fg = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, fr);
+      fg.addColorStop(0,   `hsla(${e.hue + 18}, 100%, 95%, ${e.flash * 0.65})`);
+      fg.addColorStop(0.4, `hsla(${e.hue +  5}, 88%,  72%, ${e.flash * 0.25})`);
+      fg.addColorStop(1,   `hsla(${e.hue},       70%,  50%, 0)`);
+      ctx.fillStyle = fg;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, fr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Diffraction spikes (4 + 4 diagonal)
+    ctx.lineWidth = 0.45;
+    for (let k = 0; k < 4; k++) {
+      const ang = k * Math.PI / 4;
+      const len = 9 + e.size * 3.5;
+      ctx.strokeStyle = `hsla(${e.hue + 12}, 90%, 88%, ${pa * 0.4})`;
+      ctx.beginPath();
+      ctx.moveTo(e.x, e.y);
+      ctx.lineTo(e.x + Math.cos(ang) * len, e.y + Math.sin(ang) * len);
+      ctx.stroke();
+    }
+
+    // Core point glow
+    const pg = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.size * 5.5);
+    pg.addColorStop(0,    `hsla(${e.hue + 12}, 98%, 98%, ${pa})`);
+    pg.addColorStop(0.22, `hsla(${e.hue +  6}, 92%, 82%, ${pa * 0.85})`);
+    pg.addColorStop(0.6,  `hsla(${e.hue},       78%, 62%, ${pa * 0.3})`);
+    pg.addColorStop(1,    `hsla(${e.hue},       65%, 45%, 0)`);
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, e.size * 5.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+// Draw faint connecting lines between nearby collapsed particles (cataloguing effect)
+function drawCatalogLines() {
+  const collapsed = entities.filter(e => e.collapse > 0.6);
+  ctx.strokeStyle = 'rgba(180, 135, 65, 0.04)';
+  ctx.lineWidth = 0.4;
+  for (let i = 0; i < collapsed.length; i++) {
+    for (let j = i + 1; j < collapsed.length; j++) {
+      const dx = collapsed[i].x - collapsed[j].x;
+      const dy = collapsed[i].y - collapsed[j].y;
+      if (dx * dx + dy * dy < 160 * 160) {
+        ctx.beginPath();
+        ctx.moveTo(collapsed[i].x, collapsed[i].y);
+        ctx.lineTo(collapsed[j].x, collapsed[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BACKGROUND LAYERS
+// ─────────────────────────────────────────────────────────────────────────────
+function drawBg(t) {
+  // Deep space
+  ctx.fillStyle = '#060402';
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle amber breathing pulse
+  const breath = 0.012 + 0.004 * Math.sin(t * 0.0007);
+  const pulse  = ctx.createRadialGradient(W * 0.5, H * 0.48, 0, W * 0.5, H * 0.48, W * 0.55);
+  pulse.addColorStop(0,   `rgba(60, 38, 8, ${breath})`);
+  pulse.addColorStop(1,   'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = pulse;
+  ctx.fillRect(0, 0, W, H);
+
+  // Drafting grid
+  ctx.strokeStyle = 'rgba(150, 108, 45, 0.038)';
+  ctx.lineWidth   = 0.5;
+  const gs = 58;
+  for (let x = 0; x < W + gs; x += gs) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H + gs; y += gs) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // Stars
+  for (const s of stars) {
+    const tw  = 0.55 + 0.45 * Math.sin(t * s.speed * 1000 + s.twinkle);
+    ctx.fillStyle = `rgba(215, 188, 140, ${s.a * tw})`;
+    ctx.beginPath();
+    ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Constellation lines
+  ctx.strokeStyle = 'rgba(170, 130, 70, 0.07)';
+  ctx.lineWidth   = 0.45;
+  for (const con of constellations) {
+    ctx.beginPath();
+    for (let i = 0; i < con.length; i++) {
+      const [px, py] = con[i];
+      i === 0 ? ctx.moveTo(px * W, py * H) : ctx.lineTo(px * W, py * H);
+    }
+    ctx.stroke();
+    for (const [px, py] of con) {
+      ctx.fillStyle = 'rgba(195, 150, 80, 0.14)';
+      ctx.beginPath();
+      ctx.arc(px * W, py * H, 1, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Observation field glow (around cursor)
+  if (mx > -900) {
+    const obsR = currentObsR;
+    const og   = ctx.createRadialGradient(mx, my, 0, mx, my, obsR * 1.15);
+    og.addColorStop(0,   'rgba(201, 169, 110, 0.025)');
+    og.addColorStop(0.7, 'rgba(201, 169, 110, 0.01)');
+    og.addColorStop(1,   'rgba(201, 169, 110, 0)');
+    ctx.fillStyle = og;
+    ctx.beginPath();
+    ctx.arc(mx, my, obsR * 1.15, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Thin perimeter ring of the observation radius
+    ctx.strokeStyle = `rgba(201, 169, 110, ${pressed ? 0.08 : 0.04})`;
+    ctx.lineWidth   = 0.5;
+    ctx.beginPath();
+    ctx.arc(mx, my, obsR, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+}
+
+function drawVignette() {
+  const v = ctx.createRadialGradient(W * 0.5, H * 0.5, H * 0.22, W * 0.5, H * 0.5, H * 0.92);
+  v.addColorStop(0, 'rgba(0,0,0,0)');
+  v.addColorStop(1, 'rgba(0,0,0,0.75)');
+  ctx.fillStyle = v;
+  ctx.fillRect(0, 0, W, H);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// UI TEXT
+// ─────────────────────────────────────────────────────────────────────────────
+const PSI_STATES = [
+  [0.0,  'ψ \u2014 superposition'],
+  [0.05, 'ψ \u2014 peripheral observation'],
+  [0.15, 'ψ \u2014 collapsing'],
+  [0.35, 'ψ \u2014 observation active'],
+  [0.65, 'ψ \u2014 near full collapse'],
+  [0.90, 'ψ \u2014 fully collapsed'],
+];
+
+function updateUI() {
+  const ratio = entities.filter(e => e.collapse > 0.5).length / entities.length;
+  let label = PSI_STATES[0][1];
+  for (const [threshold, text] of PSI_STATES) {
+    if (ratio >= threshold) label = text;
+  }
+  if (psiValEl.textContent !== label) psiValEl.textContent = label;
+
+  // Cursor ring size reacts to press
+  const ringSize = pressed ? 420 : 260;
+  curRingEl.style.width  = ringSize + 'px';
+  curRingEl.style.height = ringSize + 'px';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN LOOP
+// ─────────────────────────────────────────────────────────────────────────────
+let t = 0;
+let currentObsR = BASE_R;
+
+function frame() {
+  t++;
+
+  // Observation radius expands smoothly when held
+  const targetR   = pressed ? BASE_R * 1.75 : BASE_R;
+  currentObsR += (targetR - currentObsR) * 0.06;
+
+  drawBg(t);
+
+  // Catalog lines (behind entities)
+  drawCatalogLines();
+
+  // Entities
+  for (const e of entities) {
+    updateEntity(e, currentObsR);
+    drawEntity(e);
+  }
+
+  drawVignette();
+
+  if (t % 18 === 0) updateUI();
+
+  requestAnimationFrame(frame);
+}
+
+frame();
+</script>
+
+</body>
+</html>
