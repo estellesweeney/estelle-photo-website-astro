@@ -21,16 +21,15 @@ function HomeIconReact() {
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV = [
-  { label: "Runway",    href: "/runway" },
-  { label: "Backstage", href: "/backstage" },
-  { label: "Contact",   href: "/about" },
+  { label: "Runway",  href: "/runway" },
+  { label: "Contact", href: "/about" },
 ];
 
 const RUNWAY_SLIDES = Array.from({ length: 11 }, (_, i) => `/slides/home/runway/r-${String(i + 1).padStart(2, "0")}.jpg`);
 
 const CARDS = [
   { num: "02", label: "Editorial & Shows",     title: "Campaigns",      href: "/campaigns",      src: "/slides/home/campaigns-cover.jpg" },
-  { num: "03", label: "Behind the Collection", title: "Backstage",      href: "/backstage",      src: "/slides/home/01.jpg" },
+
   { num: "04", label: "Art Direction",         title: "Graphic Design", href: "/graphic-design", src: "/art/graphic-design-cover2.jpg" },
 ];
 
