@@ -22,7 +22,7 @@ function HomeIconReact() {
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV = [
   { label: "Runway",  href: "/runway" },
-  { label: "Contact", href: "/about" },
+  { label: "About", href: "/about" },
 ];
 
 const RUNWAY_SLIDES = Array.from({ length: 11 }, (_, i) => `/slides/home/runway/r-${String(i + 1).padStart(2, "0")}.jpg`);
