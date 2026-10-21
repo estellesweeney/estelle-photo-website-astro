@@ -1,0 +1,7 @@
+{
+  "name": "estelle-content-studio",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "sanity dev --host 0.0.0.0", "build": "sanity build", "deploy": "sanity deploy" },
+  "dependencies": { "sanity": "^4.0.0", "react": "^19.2.5", "react-dom": "^19.2.5", "styled-components": "^6.1.0" }
+}

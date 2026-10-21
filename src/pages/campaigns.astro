@@ -1,11 +1,22 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { CAMPAIGN_PROJECTS } from "@/data/campaigns";
+import { getCampaigns, optimizedImage, type ContentCampaign } from "@/lib/sanity";
 
 const bbc = CAMPAIGN_PROJECTS.find((project) => project.slug === "bbc")!;
 const photographs = (bbc.subcampaigns ?? []).flatMap((campaign) =>
   campaign.images.map((src, index) => ({ src, alt: `Billionaire Boys Club — ${campaign.name}, photograph ${index + 1}` }))
 );
+const published = await getCampaigns();
+const uploadedBBC = published.filter((campaign) => campaign.slug === "bbc").flatMap((campaign) => campaign.media ?? []);
+const collections: ContentCampaign[] = [
+  { title: bbc.name, slug: "bbc", media: [
+    ...photographs.map((photo) => ({ ...photo, _type: "photograph", url: photo.src })),
+    ...uploadedBBC,
+  ] },
+  ...published.filter((campaign) => campaign.slug !== "bbc"),
+];
+const photoUrl = (url: string, width = 1000) => url.startsWith("/") ? url : optimizedImage(url, width);
 ---
 
 <Layout title="Billionaire Boys Club — Campaigns — Estelle Sweeney" description="Billionaire Boys Club campaign photography by Estelle Sweeney.">
@@ -20,14 +31,29 @@ const photographs = (bbc.subcampaigns ?? []).flatMap((campaign) =>
       </nav>
     </header>
     <main>
-      <h1 class="campaign-title">Billionaire Boys Club</h1>
-      <div class="campaign-grid">
-        {photographs.map(({ src, alt }, index) => (
-          <button class:list={["campaign-photo", { "campaign-photo-wide": src.endsWith("bbc-spr-01.jpg") || src.endsWith("bbc-hol-03.jpg") }]} type="button" data-image={src} data-description={alt} aria-label={`Enlarge ${alt}`}>
-            <img src={src} alt={alt} loading={index < 5 ? "eager" : "lazy"} decoding="async" />
-          </button>
-        ))}
-      </div>
+      {collections.length > 1 && <nav class="campaign-collections" aria-label="Campaign collections">
+        {collections.map((collection) => <a href={`#collection-${collection.slug}`}>{collection.title}</a>)}
+      </nav>}
+      {collections.map((collection, collectionIndex) => (
+        <section id={`collection-${collection.slug}`} class="campaign-collection" aria-label={collection.title}>
+          {collectionIndex === 0 ? <h1 class="campaign-title">{collection.title}</h1> : <h2 class="campaign-title">{collection.title}</h2>}
+          <div class="campaign-grid">
+            {(collection.media ?? []).filter((media) => media.url).map((media, index) => media._type === "video" ? (
+              <figure class="campaign-video">
+                <video controls playsinline preload="none" poster={media.poster ? photoUrl(media.poster) : undefined} aria-label={media.title || collection.title}>
+                  <source src={media.url} />
+                  <a href={media.url}>Download video</a>
+                </video>
+                <figcaption>{media.title}</figcaption>
+              </figure>
+            ) : (
+              <button class:list={["campaign-photo", { "campaign-photo-wide": (media.width && media.height && media.width > media.height) || media.url!.endsWith("bbc-spr-01.jpg") || media.url!.endsWith("bbc-hol-03.jpg") }]} type="button" data-image={photoUrl(media.url!, 2400)} data-description={media.alt || collection.title} aria-label={`Enlarge ${media.alt || collection.title}`}>
+                <img src={photoUrl(media.url!)} alt={media.alt || collection.title} loading={collectionIndex === 0 && index < 5 ? "eager" : "lazy"} decoding="async" />
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
     </main>
     <footer class="campaign-footer"><span>Billionaire Boys Club · Campaigns</span><a href="mailto:estellescreative@gmail.com">Contact ↗</a></footer>
     <dialog class="campaign-lightbox" aria-label="Campaign photograph">
@@ -47,6 +73,12 @@ const photographs = (bbc.subcampaigns ?? []).flatMap((campaign) =>
   .campaign-index a { color: inherit; text-decoration: none; }
   .campaign-index a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .campaign-index a:focus-visible, .campaign-index button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  .campaign-collections { display: flex; flex-wrap: wrap; gap: 14px 26px; margin: 0 6.7vw 36px; }
+  .campaign-collection { scroll-margin-top: 24px; }
+  .campaign-collection + .campaign-collection { margin-top: 70px; }
+  .campaign-video { margin: 0; grid-column: span 2; }
+  .campaign-video video { display: block; width: 100%; max-height: 420px; }
+  .campaign-video figcaption { margin-top: 8px; font-size: 12px; }
   .campaign-title { margin: 0 6.7vw 24px; font: inherit; color: #666; }
   .campaign-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(24px, 3.5vw, 70px); margin: 0 6.7vw; align-items: center; }
   .campaign-photo { display: block; border: 0; padding: 0; width: 100%; background: transparent; }
