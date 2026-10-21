@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run build --prefix studio && node scripts/copy-studio.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

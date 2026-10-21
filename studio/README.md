@@ -1,14 +1,14 @@
 # Campaign content editor
 
-The website stays on Vercel. This separate Sanity Studio provides an authenticated editor for campaign uploads. Existing BBC photos remain in place when Sanity is not configured.
+The shared `sanity.project.json` connects the website and editor to project `ni7uagsf`, dataset `production`. These are public identifiers, not credentials. The dataset must be publicly readable for published campaign content; drafts still require an authenticated Sanity editor. Optional environment overrides are listed in `.env.example` in both directories.
 
-## Connect your project
+## Open the editor on Vercel
 
-1. Create a Sanity project at https://www.sanity.io/manage with a **public** dataset named `production`. Published content is publicly readable; do not publish confidential material. Drafts remain accessible only to authenticated editors.
-2. In this directory, copy `.env.example` to `.env.local`. Set `SANITY_STUDIO_PROJECT_ID` to your real Project ID. Project IDs and dataset names are not secrets. No read or write token belongs in frontend code.
-3. Run `npm ci` in this directory, then `npm run dev`. Sign in to Sanity when prompted. Allow the Studio origin in your project's API/CORS settings if requested. Use exact origins rather than wildcards.
-4. Run `npm run build` to check the editor, then `npm run deploy` and choose an available Studio hostname. This requires your Sanity login and deploys the editor to Sanity's hosting. Save that editor URL for future uploads. No Studio hostname has been selected or deployed by this repository.
-5. In Vercel → project → Settings → Environment Variables, add `SANITY_PROJECT_ID` and `SANITY_DATASET=production` for Preview and Production as needed. Redeploy the website. No token is needed for the public published dataset. The build fails clearly if a configured dataset cannot be read.
+The repository's Vercel configuration installs both applications. `npm run build` builds Astro, builds Sanity Studio, and copies the editor into the website output at `/studio`. Vercel rewrites support Studio's internal routes. Once the latest branch is deployed, open **your Vercel site URL + `/studio`** and sign in with the Sanity account that owns or has editor access to this project.
+
+In https://www.sanity.io/manage → project → API → CORS origins, add the exact Vercel website origin (scheme and hostname, no `/studio` path) and enable **Allow credentials**. Add the production origin separately when publishing the site there. Do not use wildcard credential origins. A new deployment-specific preview URL needs its own origin; a stable Vercel branch alias avoids repeating this step.
+
+Sign-in, CORS changes, and uploads require the user's Sanity account. No password, API token, or Sanity authentication is stored in this repository. If the dataset is private, change its visibility to public in Sanity settings before deploying this implementation. Only publish media intended for public viewing.
 
 ## Upload campaigns
 
@@ -18,10 +18,12 @@ Use `bbc` as the address name to append uploads to the existing BBC gallery. Oth
 
 Videos accept browser-ready MP4 or WebM files and an optional cover image. Sanity file storage does not transcode videos; encode suitably sized playback copies before uploading. Large video libraries are better served by a dedicated video host. Videos only load when a visitor starts playback.
 
-Click Publish when ready. Because this is a static Astro site, publishing content requires a Vercel rebuild before visitors see it. Initially use Vercel → Deployments → Redeploy. For automatic updates, create a Vercel Deploy Hook for the desired branch, then add that URL as a Sanity webhook for create/update/delete events with the filter `_type == "campaign" && !(_id in path("drafts.**"))`. Treat the hook URL as a secret; never commit it. Production and preview hooks should target their respective branches.
+Click Publish when ready. Because this is a static Astro site, publishing content requires a Vercel rebuild before visitors see it. Initially use Vercel → Deployments → Redeploy, with build cache disabled to fetch fresh content. For automatic updates, create a Vercel Deploy Hook for the desired branch, then add that URL as a Sanity webhook for create/update/delete events with the filter `_type == "campaign" && !(_id in path("drafts.**"))`. Treat the hook URL as a secret; never commit it. Production and preview hooks should target their respective branches. The webhook has not been configured automatically.
 
-## Local website
+## Local development
 
-In the repository root, copy `.env.example` to `.env` and set the same project/dataset. Run `ASTRO_TELEMETRY_DISABLED=1 npm run dev`, then open Campaigns. Restart or rebuild after publishing new content. Without a Project ID, the website uses the existing BBC photos.
+Run `npm ci` at the repository root and `npm ci --prefix studio`. Start the website with `ASTRO_TELEMETRY_DISABLED=1 npm run dev` from the root. Start the editor with `npm run dev --prefix studio` and open its printed address at `/studio`. Add the editor's exact local origin to Sanity CORS with credentials allowed. Restart the website after publishing content. For the combined production output, run `npm run build`.
+
+The website build deliberately fails if the configured Sanity API cannot be read, rather than silently publishing a gallery without uploaded campaigns. This cloud environment needs network access to `ni7uagsf.api.sanity.io`, `api.sanity.io`, and `cdn.sanity.io`; these domains have been saved in its environment configuration draft. Network settings for the cloud workspace do not change Vercel or Sanity settings.
 
 Use the existing isolated checkout; do not create worktrees for setup unless explicitly requested.

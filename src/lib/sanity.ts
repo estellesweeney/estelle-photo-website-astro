@@ -1,3 +1,5 @@
+import projectConfig from "../../sanity.project.json";
+
 export interface CampaignMedia {
   _type: 'photograph' | 'video';
   alt?: string;
@@ -24,8 +26,8 @@ export function optimizedImage(url: string, width = 1000): string {
 }
 
 export async function getCampaigns(): Promise<ContentCampaign[]> {
-  const project = import.meta.env.SANITY_PROJECT_ID;
-  const dataset = import.meta.env.SANITY_DATASET || 'production';
+  const project = import.meta.env.SANITY_PROJECT_ID || projectConfig.projectId;
+  const dataset = import.meta.env.SANITY_DATASET || projectConfig.dataset;
   if (!project) return [];
   if (!/^[a-z0-9]+$/.test(project) || !/^[a-z0-9_-]+$/.test(dataset)) {
     throw new Error('Invalid Sanity project or dataset name. Check the environment settings.');
