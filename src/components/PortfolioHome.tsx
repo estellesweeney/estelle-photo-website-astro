@@ -4,7 +4,7 @@ import "./PortfolioHome.css";
 const projects = [
   { title: "Runway", category: "Fashion photography", href: "/runway", image: "/slides/home/runway/r-01.jpg" },
   { title: "Campaigns", category: "Editorial & campaigns", href: "/campaigns", image: "/slides/home/campaigns-cover.jpg" },
-  { title: "Billionaire Boys Club", category: "Campaign photography", href: "/gallery/billionaire-boys-club", image: "/art/bbc-cover-new.jpg" },
+  { title: "Exclusives Reebok", category: "Direction & graphics", href: "/campaigns/exclusives-reebok", image: "/slides/campaigns/exclusives-reebok/reebok-01.webp" },
   { title: "KidSuper", category: "Fashion photography", href: "/gallery/kidsuper", image: "/art/kidsuper/cover.jpg" },
   { title: "Walter Van Beirendonck", category: "Runway photography", href: "/gallery/walter-van-bierendonck", image: "/slides/home/runway/r-02.jpg" },
   { title: "Graphic Design", category: "Art direction & design", href: "/graphic-design", image: "/art/graphic-design-cover2.jpg" },

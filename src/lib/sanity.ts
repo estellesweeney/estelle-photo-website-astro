@@ -5,6 +5,7 @@ export interface CampaignMedia {
   alt?: string;
   title?: string;
   url?: string;
+  fullUrl?: string;
   poster?: string;
   width?: number;
   height?: number;
