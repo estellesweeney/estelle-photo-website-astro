@@ -1,0 +1,128 @@
+---
+import { optimizedImage, type ContentCampaign } from "@/lib/sanity";
+interface Props {
+  collections: ContentCampaign[];
+  credits?: string;
+  footerTitle?: string;
+}
+const { collections, credits, footerTitle = collections[0]?.title || "Selected work" } = Astro.props;
+const photoUrl = (url: string, width = 1000) => url.startsWith("/") ? url : optimizedImage(url, width);
+---
+  <div class="campaign-index">
+    <header class="campaign-header">
+      <a href="/" class="campaign-name">Estelle Sweeney</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Index</a>
+        <a href="/campaigns" aria-current="page">Campaigns</a>
+        <a href="/runway">Runway</a>
+        <a href="/about">Info</a>
+      </nav>
+    </header>
+    <main>
+      {collections.length > 1 && <nav class="campaign-collections" aria-label="Campaign collections">
+        {collections.map((collection) => <a href={`#collection-${collection.slug}`}>{collection.title}</a>)}
+      </nav>}
+      {collections.map((collection, collectionIndex) => (
+        <section id={`collection-${collection.slug}`} class="campaign-collection" aria-label={collection.title}>
+          {collectionIndex === 0 ? <h1 class="campaign-title">{collection.title}</h1> : <h2 class="campaign-title">{collection.title}</h2>}
+          {credits && <p class="campaign-credits">{credits}</p>}
+          <div class="campaign-grid">
+            {(collection.media ?? []).filter((media) => media.url).map((media, index) => media._type === "video" ? (
+              <figure class="campaign-video">
+                <video controls playsinline preload="none" poster={media.poster ? photoUrl(media.poster) : undefined} aria-label={media.title || collection.title}>
+                  <source src={media.url} />
+                  <a href={media.url}>Download video</a>
+                </video>
+                <figcaption>{media.title}</figcaption>
+              </figure>
+            ) : (
+              <button class:list={["campaign-photo", { "campaign-photo-wide": (media.width && media.height && media.width > media.height) || media.url!.endsWith("bbc-spr-01.jpg") || media.url!.endsWith("bbc-hol-03.jpg") }]} type="button" data-image={photoUrl(media.fullUrl || media.url!, 2400)} data-description={media.alt || collection.title} aria-label={`Enlarge ${media.alt || collection.title}`}>
+                <img src={photoUrl(media.url!)} alt={media.alt || collection.title} loading={collectionIndex === 0 && index < 5 ? "eager" : "lazy"} decoding="async" />
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+    <footer class="campaign-footer"><span>{footerTitle} · Campaigns</span><a href="mailto:estellescreative@gmail.com">Contact ↗</a></footer>
+    <dialog class="campaign-lightbox" aria-label="Campaign photograph">
+      <button class="lightbox-close" type="button" aria-label="Close photograph">Close ×</button>
+      <button class="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
+      <img class="lightbox-image" alt="" />
+      <button class="lightbox-next" type="button" aria-label="Next photograph">→</button>
+      <span class="lightbox-count" aria-live="polite"></span>
+    </dialog>
+  </div>
+
+<style>
+  .campaign-index { min-height: 100svh; background: #fff; color: #222; font: 14px/1.4 'Courier New', monospace; }
+  .campaign-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 25px 2.5vw 22px; }
+  .campaign-header nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .campaign-index a { color: inherit; text-decoration: none; }
+  .campaign-index a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .campaign-index a:focus-visible, .campaign-index button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  .campaign-collections { display: flex; flex-wrap: wrap; gap: 14px 26px; margin: 0 6.7vw 36px; }
+  .campaign-collection { scroll-margin-top: 24px; }
+  .campaign-collection + .campaign-collection { margin-top: 70px; }
+  .campaign-video { margin: 0; grid-column: span 2; }
+  .campaign-video video { display: block; width: 100%; max-height: 420px; }
+  .campaign-video figcaption { margin-top: 8px; font-size: 12px; }
+  .campaign-credits { margin: -12px 6.7vw 30px; color: #666; font: inherit; }
+  .campaign-title { margin: 0 6.7vw 24px; font: inherit; color: #666; }
+  .campaign-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(24px, 3.5vw, 70px); margin: 0 6.7vw; align-items: center; }
+  .campaign-photo { display: block; border: 0; padding: 0; width: 100%; background: transparent; }
+  .campaign-photo-wide { grid-column: span 2; }
+  .campaign-photo img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: contain; transition: opacity 180ms ease; }
+  .campaign-photo:hover img { opacity: .85; }
+  .campaign-footer { display: flex; justify-content: space-between; gap: 20px; margin: 70px 6.7vw 0; padding-bottom: 30px; color: #666; font-size: 12px; }
+  .campaign-lightbox { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; padding: 55px 65px; border: 0; background: #fff; color: #222; }
+  .campaign-lightbox::backdrop { background: #fff; }
+  .campaign-lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  .lightbox-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+  .campaign-lightbox button { position: absolute; background: #fff; border: 0; padding: 12px; font: inherit; }
+  .lightbox-close { top: 12px; right: 16px; }
+  .lightbox-prev { left: 10px; top: 50%; }
+  .lightbox-next { right: 10px; top: 50%; }
+  .lightbox-count { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 12px; }
+  @media (max-width: 1000px) { .campaign-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 600px) {
+    .campaign-header { padding: 20px; flex-direction: column; gap: 16px; font-size: 13px; }
+    .campaign-header nav { gap: 20px; }
+    .campaign-title { margin: 10px 20px 24px; font-size: 12px; }
+    .campaign-grid { margin: 0 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
+    .campaign-footer { margin: 50px 20px 0; font-size: 11px; }
+    .campaign-lightbox { padding: 60px 40px; }
+    .campaign-lightbox button { padding: 8px; }
+    .lightbox-prev { left: 0; } .lightbox-next { right: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .campaign-photo img { transition: none; } }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.campaign-lightbox')!;
+  const image = dialog.querySelector<HTMLImageElement>('.lightbox-image')!;
+  const count = dialog.querySelector<HTMLElement>('.lightbox-count')!;
+  const photos = Array.from(document.querySelectorAll<HTMLButtonElement>('.campaign-photo'));
+  let current = 0;
+  const show = (index: number) => {
+    current = (index + photos.length) % photos.length;
+    image.src = photos[current].dataset.image!;
+    image.alt = photos[current].dataset.description!;
+    count.textContent = `${current + 1} / ${photos.length}`;
+  };
+  photos.forEach((photo, index) => photo.addEventListener('click', () => {
+    show(index);
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  }));
+  dialog.querySelector('.lightbox-close')!.addEventListener('click', () => dialog.close());
+  dialog.querySelector('.lightbox-prev')!.addEventListener('click', () => show(current - 1));
+  dialog.querySelector('.lightbox-next')!.addEventListener('click', () => show(current + 1));
+  dialog.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      show(current + (event.key === 'ArrowLeft' ? -1 : 1));
+    }
+  });
+  dialog.addEventListener('close', () => { document.body.style.overflow = ''; });
+</script>
