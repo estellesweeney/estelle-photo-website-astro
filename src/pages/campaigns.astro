@@ -1,38 +1,107 @@
 ---
-import HomeIcon from '@/components/HomeIcon.astro';
 import Layout from "@/layouts/Layout.astro";
-import CampaignHouse from "@/components/CampaignHouse";
 import { CAMPAIGN_PROJECTS } from "@/data/campaigns";
+
+const bbc = CAMPAIGN_PROJECTS.find((project) => project.slug === "bbc")!;
+const photographs = (bbc.subcampaigns ?? []).flatMap((campaign) =>
+  campaign.images.map((src, index) => ({ src, alt: `Billionaire Boys Club — ${campaign.name}, photograph ${index + 1}` }))
+);
 ---
 
-<Layout title="Campaigns — Estelle Sweeney">
-  <div class="min-h-screen bg-black text-white font-sans">
-
-    <nav class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-      <HomeIcon />
-      <a href="mailto:estellescreative@gmail.com" class="text-xs tracking-[0.15em] uppercase font-display hover:opacity-50 transition-opacity">Contact</a>
-    </nav>
-
-    <main class="px-4 pt-8 pb-16 max-w-[1100px] mx-auto">
-
-      <!-- Header row -->
-      <div class="flex items-end justify-between mb-10">
-        <div>
-          <h1 class="text-xs tracking-[0.28em] uppercase font-display mb-2">Campaigns</h1>
-          <p class="text-[10px] tracking-[0.1em] text-white/30 font-display">A selection of campaign projects and collaborations.</p>
-        </div>
-        <a
-          href="/campaigns"
-          class="text-[10px] tracking-[0.18em] uppercase font-display text-white/35 hover:text-white transition-colors hidden sm:flex items-center gap-1.5"
-        >
-          View all projects <span class="text-sm leading-none">→</span>
-        </a>
+<Layout title="Billionaire Boys Club — Campaigns — Estelle Sweeney" description="Billionaire Boys Club campaign photography by Estelle Sweeney.">
+  <div class="campaign-index">
+    <header class="campaign-header">
+      <a href="/" class="campaign-name">Estelle Sweeney</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Index</a>
+        <a href="/campaigns" aria-current="page">Campaigns</a>
+        <a href="/runway">Runway</a>
+        <a href="/about">Info</a>
+      </nav>
+    </header>
+    <main>
+      <h1 class="campaign-title">Billionaire Boys Club</h1>
+      <div class="campaign-grid">
+        {photographs.map(({ src, alt }, index) => (
+          <button class:list={["campaign-photo", { "campaign-photo-wide": src.endsWith("bbc-spr-01.jpg") || src.endsWith("bbc-hol-03.jpg") }]} type="button" data-image={src} data-description={alt} aria-label={`Enlarge ${alt}`}>
+            <img src={src} alt={alt} loading={index < 5 ? "eager" : "lazy"} decoding="async" />
+          </button>
+        ))}
       </div>
-
-      <!-- Dreamcast house -->
-      <CampaignHouse projects={CAMPAIGN_PROJECTS} client:load />
-
     </main>
-
+    <footer class="campaign-footer"><span>Billionaire Boys Club · Campaigns</span><a href="mailto:estellescreative@gmail.com">Contact ↗</a></footer>
+    <dialog class="campaign-lightbox" aria-label="Campaign photograph">
+      <button class="lightbox-close" type="button" aria-label="Close photograph">Close ×</button>
+      <button class="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
+      <img class="lightbox-image" alt="" />
+      <button class="lightbox-next" type="button" aria-label="Next photograph">→</button>
+      <span class="lightbox-count" aria-live="polite"></span>
+    </dialog>
   </div>
 </Layout>
+
+<style>
+  .campaign-index { min-height: 100svh; background: #fff; color: #222; font: 14px/1.4 'Courier New', monospace; }
+  .campaign-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 25px 2.5vw 22px; }
+  .campaign-header nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .campaign-index a { color: inherit; text-decoration: none; }
+  .campaign-index a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .campaign-index a:focus-visible, .campaign-index button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  .campaign-title { margin: 0 6.7vw 24px; font: inherit; color: #666; }
+  .campaign-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(24px, 3.5vw, 70px); margin: 0 6.7vw; align-items: center; }
+  .campaign-photo { display: block; border: 0; padding: 0; width: 100%; background: transparent; }
+  .campaign-photo-wide { grid-column: span 2; }
+  .campaign-photo img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: contain; transition: opacity 180ms ease; }
+  .campaign-photo:hover img { opacity: .85; }
+  .campaign-footer { display: flex; justify-content: space-between; gap: 20px; margin: 70px 6.7vw 0; padding-bottom: 30px; color: #666; font-size: 12px; }
+  .campaign-lightbox { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; padding: 55px 65px; border: 0; background: #fff; color: #222; }
+  .campaign-lightbox::backdrop { background: #fff; }
+  .campaign-lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  .lightbox-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+  .campaign-lightbox button { position: absolute; background: #fff; border: 0; padding: 12px; font: inherit; }
+  .lightbox-close { top: 12px; right: 16px; }
+  .lightbox-prev { left: 10px; top: 50%; }
+  .lightbox-next { right: 10px; top: 50%; }
+  .lightbox-count { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 12px; }
+  @media (max-width: 1000px) { .campaign-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 600px) {
+    .campaign-header { padding: 20px; flex-direction: column; gap: 16px; font-size: 13px; }
+    .campaign-header nav { gap: 20px; }
+    .campaign-title { margin: 10px 20px 24px; font-size: 12px; }
+    .campaign-grid { margin: 0 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
+    .campaign-footer { margin: 50px 20px 0; font-size: 11px; }
+    .campaign-lightbox { padding: 60px 40px; }
+    .campaign-lightbox button { padding: 8px; }
+    .lightbox-prev { left: 0; } .lightbox-next { right: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .campaign-photo img { transition: none; } }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.campaign-lightbox')!;
+  const image = dialog.querySelector<HTMLImageElement>('.lightbox-image')!;
+  const count = dialog.querySelector<HTMLElement>('.lightbox-count')!;
+  const photos = Array.from(document.querySelectorAll<HTMLButtonElement>('.campaign-photo'));
+  let current = 0;
+  const show = (index: number) => {
+    current = (index + photos.length) % photos.length;
+    image.src = photos[current].dataset.image!;
+    image.alt = photos[current].dataset.description!;
+    count.textContent = `${current + 1} / ${photos.length}`;
+  };
+  photos.forEach((photo, index) => photo.addEventListener('click', () => {
+    show(index);
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  }));
+  dialog.querySelector('.lightbox-close')!.addEventListener('click', () => dialog.close());
+  dialog.querySelector('.lightbox-prev')!.addEventListener('click', () => show(current - 1));
+  dialog.querySelector('.lightbox-next')!.addEventListener('click', () => show(current + 1));
+  dialog.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      show(current + (event.key === 'ArrowLeft' ? -1 : 1));
+    }
+  });
+  dialog.addEventListener('close', () => { document.body.style.overflow = ''; });
+</script>
